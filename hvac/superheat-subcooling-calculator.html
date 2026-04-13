@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Superheat Subcooling Calculator — Free Online Tool | EngineerCalc</title>
+  <meta name="description" content="Free superheat and subcooling calculator. Enter refrigerant type, pressure, and temperature to get superheat and subcooling values instantly. No login required.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="canonical" href="https://xjtoo11.github.io/hvac/superheat-subcooling-calculator.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Superheat Subcooling Calculator",
+    "url": "https://xjtoo11.github.io/hvac/superheat-subcooling-calculator.html",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": 0,
+      "priceCurrency": "USD"
+    },
+    "description": "Free online superheat and subcooling calculator for HVAC technicians with refrigerant P-T lookup tables."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "How to Calculate Superheat and Subcooling",
+    "author": {
+      "@type": "Organization",
+      "name": "EngineerCalc"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "EngineerCalc"
+    },
+    "datePublished": "2026-04-15",
+    "dateModified": "2026-04-15",
+    "mainEntityOfPage": "https://xjtoo11.github.io/hvac/superheat-subcooling-calculator.html",
+    "description": "Step-by-step guidance for calculating superheat and subcooling from field pressure and temperature readings."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is superheat in HVAC?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Superheat is the temperature of refrigerant vapor above its saturation temperature at the evaporator outlet or suction line. It confirms the refrigerant has fully boiled off before returning to the compressor and helps technicians judge evaporator feeding and compressor protection."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is subcooling in HVAC?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Subcooling is the amount the liquid refrigerant temperature is below the saturation temperature at the condenser outlet or liquid line. It indicates whether the condenser has stacked enough liquid refrigerant for the metering device to receive a solid column of liquid."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is a normal superheat value?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Normal superheat depends on equipment type, load conditions, and metering device. Fixed-orifice systems often target a calculated superheat, while TXV systems commonly show evaporator outlet superheat around 8 to 12 degrees F. Always compare readings to the manufacturer charging and commissioning data."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What tools do I need to measure superheat and subcooling?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You need accurate pressure gauges or digital manifolds, a clamp thermocouple or pipe temperature probe, and the correct refrigerant pressure-temperature chart. Good contact at clean copper tubing matters. Poor probe placement or a wrong refrigerant selection will distort the result."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What causes high superheat?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "High superheat usually means the evaporator is being starved. Common causes include low refrigerant charge, liquid line restriction, plugged filter-drier, underfeeding metering device, low evaporator load, or poor airflow across the indoor coil. Pressure and temperature readings should be evaluated together."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a href="/" class="logo">EngineerCalc</a>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/hvac/superheat-subcooling-calculator.html" class="active">HVAC</a>
+        <a href="#">Welding</a>
+        <a href="#">Marine</a>
+        <a href="#">Oil &amp; Gas</a>
+        <a href="#">Data Center</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>Superheat &amp; Subcooling Calculator</h1>
+    <p class="subtitle">Free online superheat and subcooling calculator for HVAC technicians. Select your refrigerant, enter pressure and temperature readings, get results instantly. No login required.</p>
+
+    <section class="calculator" aria-labelledby="calculator-heading">
+      <div class="calc-section-title" id="calculator-heading">INPUTS</div>
+
+      <div class="calc-row">
+        <label for="refrigerant">Refrigerant Type</label>
+        <select id="refrigerant" name="refrigerant">
+          <option selected>R-410A</option>
+          <option>R-22</option>
+          <option>R-32</option>
+          <option>R-134a</option>
+          <option>R-407C</option>
+          <option>R-404A</option>
+        </select>
+        <span class="unit"></span>
+      </div>
+
+      <div class="calc-row">
+        <label for="suction-pressure">Suction Pressure</label>
+        <input id="suction-pressure" name="suction-pressure" type="number" inputmode="decimal" step="0.1" value="118">
+        <span class="unit pressure-unit">psig</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="suction-temperature">Suction Temperature</label>
+        <input id="suction-temperature" name="suction-temperature" type="number" inputmode="decimal" step="0.1" value="55">
+        <span class="unit temperature-unit">&deg;F</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="liquid-pressure">Liquid Line Pressure</label>
+        <input id="liquid-pressure" name="liquid-pressure" type="number" inputmode="decimal" step="0.1" value="418">
+        <span class="unit pressure-unit">psig</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="liquid-temperature">Liquid Line Temperature</label>
+        <input id="liquid-temperature" name="liquid-temperature" type="number" inputmode="decimal" step="0.1" value="100">
+        <span class="unit temperature-unit">&deg;F</span>
+      </div>
+
+      <div class="unit-toggle">
+        <span id="imperial-label" class="active">Imperial</span>
+        <label class="toggle-switch" for="unit-system">
+          <input id="unit-system" type="checkbox" aria-label="Toggle between Imperial and Metric units">
+          <span class="toggle-slider"></span>
+        </label>
+        <span id="metric-label">Metric</span>
+      </div>
+
+      <div class="calc-section-title">RESULTS</div>
+      <div class="calc-results" aria-live="polite">
+        <div class="result-row">
+          <span class="result-label">Saturated Suction Temperature</span>
+          <span class="result-value small" id="sat-suction-result">34.6<span class="result-unit">&deg;F</span></span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Saturated Liquid Temperature</span>
+          <span class="result-value small" id="sat-liquid-result">105.2<span class="result-unit">&deg;F</span></span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Superheat</span>
+          <span class="result-value" id="superheat-result">20.4<span class="result-unit">&deg;F</span></span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Subcooling</span>
+          <span class="result-value" id="subcooling-result">5.2<span class="result-unit">&deg;F</span></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="app-cta" aria-label="Mobile app promotion">
+      <p>📱 Get 13 HVAC calculators + refrigerant PT tables offline on your iPhone.</p>
+      <a href="https://apps.apple.com/app/id0000000000?utm_source=web&amp;utm_medium=calculator&amp;utm_campaign=superheat-subcooling">
+        <img src="../assets/app-store-badge.svg" alt="Download HVAC Toolkit on the App Store" width="120" height="40">
+      </a>
+    </section>
+
+    <article>
+      <h2>What is Superheat and Subcooling?</h2>
+      <p>Superheat and subcooling are two of the most useful field measurements for diagnosing refrigerant-side performance in air conditioning and refrigeration systems. Superheat is the amount of sensible temperature added to refrigerant vapor above its saturation temperature after the refrigerant has fully boiled in the evaporator. Technicians usually verify it at the suction line near the evaporator outlet or condensing unit service valve, depending on the equipment layout. If superheat is too high, the evaporator may be starved. If it is too low, liquid refrigerant may still be present and compressor protection becomes a concern.</p>
+      <p>Subcooling is the opposite condition on the high side. It is the number of degrees that liquid refrigerant is cooled below its saturation temperature after condensing in the condenser. This reading is normally taken on the liquid line leaving the condenser. Subcooling shows whether the condenser is delivering a solid column of liquid refrigerant to the metering device. Low subcooling can point to undercharge or flashing in the liquid line, while excessive subcooling can indicate overcharge, backed-up condenser volume, or a restriction. Read together, superheat evaluates evaporator feeding and subcooling evaluates condenser liquid management. On modern service calls, those two numbers are often the fastest way to separate airflow problems from charge problems before deeper troubleshooting begins.</p>
+
+      <h2>How to Calculate Superheat and Subcooling</h2>
+      <p>To calculate superheat, start with the low side. Measure suction pressure at the service port using a gauge manifold or digital probes. Convert that pressure to a saturated evaporating temperature with the correct refrigerant P-T chart. Next, clamp a thermocouple securely to the suction line and insulate it if wind or ambient conditions could skew the reading. Subtract saturated suction temperature from the measured suction line temperature. The result is superheat. This tells you how far the refrigerant vapor has been heated after the last liquid droplet boiled off in the evaporator.</p>
+      <p>To calculate subcooling, move to the high side. Measure liquid line pressure and convert it to the saturated condensing temperature using the same refrigerant P-T data. Then measure actual liquid line temperature with a pipe clamp or surface probe on clean copper. Subtract measured liquid line temperature from saturated liquid temperature. The result is subcooling. This shows how much the condensed liquid has been cooled below its condensing temperature before it reaches the metering device. In the field, accuracy depends on refrigerant selection, probe placement, and stable system conditions. Let the system run long enough to settle, and always compare your numbers to manufacturer charging data instead of using a single rule-of-thumb for every system.</p>
+
+      <div class="formula-block">
+        <span class="formula-label">Formulas</span>
+        <div>Superheat (&deg;F) = Suction Line Temperature − Saturated Suction Temperature</div>
+        <div>Subcooling (&deg;F) = Saturated Liquid Temperature − Liquid Line Temperature</div>
+      </div>
+
+      <h3>Field Tips for Accurate Readings</h3>
+      <p>Accuracy matters more than speed. A superheat reading that is off by 5 degrees can lead to the wrong diagnosis, so pay attention to the details. Use insulated pipe clamps rather than bare thermocouples taped to the line. Make sure the suction line is clean copper with no paint, corrosion, or insulation residue at the measurement point. On the high side, measure liquid line temperature before any filter-drier or sight glass if possible, because pressure drop across those components changes the effective saturation point. Always verify that your gauge or digital probe is set to the correct refrigerant. R-410A and R-22 have very different pressure-temperature curves, and selecting the wrong one will produce a meaningless superheat or subcooling number. Finally, let the system run for at least 10 to 15 minutes under stable load before taking readings. Transient conditions during startup or defrost will produce numbers that do not represent steady-state operation.</p>
+
+      <p>Worked example using the default values in this calculator: refrigerant is R-410A, suction pressure is 118 psig, suction line temperature is 55&deg;F, liquid line pressure is 418 psig, and liquid line temperature is 100&deg;F. From the R-410A P-T table, 118 psig corresponds to a saturated suction temperature of 34.6&deg;F. Superheat is therefore 55.0 - 34.6 = 20.4&deg;F. On the liquid side, 418 psig corresponds to a saturated liquid temperature of 105.2&deg;F. Subcooling is 105.2 - 100.0 = 5.2&deg;F. Those values suggest a system with moderate superheat and relatively light subcooling, which may be acceptable or may need deeper review depending on metering device type, indoor load, outdoor ambient, and the equipment charging chart. Field tip: if the numbers look unstable, verify airflow and probe contact before adjusting charge.</p>
+
+      <h2>Refrigerant P-T Reference Table</h2>
+      <p>This quick reference table covers common pressure points for three refrigerants frequently seen in comfort cooling and heat pump work. It is not a substitute for manufacturer charging data, but it is useful for a fast check when you are validating gauge readings in the field. When readings fall between listed pressures, interpolate rather than rounding to the nearest row if you want a closer saturation estimate.</p>
+      <div class="table-wrapper">
+        <table class="reference-table">
+          <thead>
+            <tr>
+              <th>Pressure (psig)</th>
+              <th>R-410A Sat Temp (&deg;F)</th>
+              <th>R-22 Sat Temp (&deg;F)</th>
+              <th>R-32 Sat Temp (&deg;F)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>40</td><td>-6.8</td><td>17.1</td><td>-8.4</td></tr>
+            <tr><td>60</td><td>7.1</td><td>33.3</td><td>5.4</td></tr>
+            <tr><td>80</td><td>18.0</td><td>46.3</td><td>16.3</td></tr>
+            <tr><td>100</td><td>27.2</td><td>57.3</td><td>25.5</td></tr>
+            <tr><td>120</td><td>35.2</td><td>66.9</td><td>33.6</td></tr>
+            <tr><td>140</td><td>42.4</td><td>75.6</td><td>40.8</td></tr>
+            <tr><td>160</td><td>48.9</td><td>83.4</td><td>47.4</td></tr>
+            <tr><td>180</td><td>54.9</td><td>90.7</td><td>53.4</td></tr>
+            <tr><td>200</td><td>60.4</td><td>97.3</td><td>59.0</td></tr>
+            <tr><td>220</td><td>65.6</td><td>103.5</td><td>64.2</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-section">
+        <details>
+          <summary>What is superheat in HVAC?</summary>
+          <div class="faq-answer">
+            <p>Superheat is the number of degrees refrigerant vapor is above its saturation temperature after all liquid has evaporated. In practice, technicians use it to confirm evaporator feeding and compressor safety. A stable superheat reading tells you whether the coil is being fed correctly, but it only means something when airflow, load, and refrigerant selection are also correct.</p>
+          </div>
+        </details>
+        <details>
+          <summary>What is subcooling in HVAC?</summary>
+          <div class="faq-answer">
+            <p>Subcooling is the amount liquid refrigerant is cooled below its saturation temperature on the high side. It helps verify that the condenser is supplying a solid column of liquid to the metering device. Technicians use subcooling heavily on TXV systems because it is one of the clearest indicators of condenser-side refrigerant quantity and liquid line stability.</p>
+          </div>
+        </details>
+        <details>
+          <summary>What is a normal superheat value?</summary>
+          <div class="faq-answer">
+            <p>There is no single normal value for every system. Fixed-orifice equipment often uses target superheat based on indoor wet-bulb and outdoor dry-bulb conditions, while TXV systems may run around 8 to 12&deg;F at the evaporator outlet. Use the equipment charging chart whenever possible, because ambient, load, and metering device type change the acceptable range.</p>
+          </div>
+        </details>
+        <details>
+          <summary>What tools do I need to measure superheat and subcooling?</summary>
+          <div class="faq-answer">
+            <p>You need accurate pressure gauges or digital probes, a reliable clamp thermocouple or pipe temperature sensor, and the correct refrigerant P-T chart. Clean tubing matters, and probe placement matters just as much. A loose clamp, oxidized copper surface, or wrong refrigerant setting will produce misleading numbers even if the gauges themselves are working correctly.</p>
+          </div>
+        </details>
+        <details>
+          <summary>What causes high superheat?</summary>
+          <div class="faq-answer">
+            <p>High superheat usually means the evaporator is short on refrigerant feed. Common causes include undercharge, restricted liquid line components, a plugged filter-drier, low airflow that changes coil loading, or a metering device that is underfeeding. Before adding charge, confirm indoor airflow, filter condition, coil cleanliness, and that your pressure-temperature conversion matches the actual refrigerant in the system.</p>
+          </div>
+        </details>
+      </div>
+    </article>
+
+    <section class="related-calculators">
+      <h3>More HVAC Calculators</h3>
+      <ul>
+        <li><a href="manual-j-calculator.html">Manual J Load Calculator</a></li>
+        <li><a href="btu-calculator.html">BTU Calculator</a></li>
+        <li><a href="refrigerant-charge-calculator.html">Refrigerant Charge Calculator</a></li>
+        <li><a href="glycol-freeze-point-calculator.html">Glycol Freeze Point Calculator</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <p>&copy; 2026 EngineerCalc. Free tools for working engineers.</p>
+      <div class="footer-apps">
+        <a href="#">HVAC Toolkit</a>
+        <a href="#">Welding Toolkit</a>
+        <a href="#">Marine Toolkit</a>
+        <a href="#">Oil &amp; Gas Toolkit</a>
+        <a href="#">DC Engineer Toolkit</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const refrigerantData = {
+      "R-410A": [
+        [0, -60.6], [10, -40.3], [20, -26.1], [30, -15.5], [40, -6.8],
+        [50, 0.6], [60, 7.1], [70, 12.8], [80, 18.0], [90, 22.8],
+        [100, 27.2], [110, 31.3], [118, 34.6], [120, 35.2], [130, 38.9],
+        [140, 42.4], [150, 45.7], [160, 48.9], [180, 54.9], [200, 60.4],
+        [220, 65.6], [240, 70.5], [260, 75.1], [280, 79.5], [300, 83.7],
+        [320, 87.7], [340, 91.5], [360, 95.2], [380, 98.8], [400, 102.2],
+        [418, 105.2], [420, 105.5], [440, 108.7], [460, 111.8], [480, 114.7],
+        [500, 117.6], [550, 124.6], [600, 131.1]
+      ],
+      "R-22": [
+        [0, -41.4], [10, -20.4], [15, -12.0], [20, -4.8], [25, 1.5],
+        [30, 7.2], [35, 12.4], [40, 17.1], [45, 21.5], [50, 25.7],
+        [55, 29.6], [60, 33.3], [65, 36.8], [70, 40.1], [75, 43.3],
+        [80, 46.3], [85, 49.2], [90, 52.0], [100, 57.3], [110, 62.3],
+        [120, 66.9], [130, 71.4], [140, 75.6], [150, 79.6], [160, 83.4],
+        [170, 87.1], [180, 90.7], [200, 97.3], [220, 103.5], [240, 109.3],
+        [260, 114.9], [280, 120.1], [300, 125.1]
+      ],
+      "R-32": [
+        [0, -61.1], [10, -41.5], [20, -27.6], [30, -17.0], [40, -8.4],
+        [50, -1.0], [60, 5.4], [70, 11.1], [80, 16.3], [90, 21.1],
+        [100, 25.5], [110, 29.7], [120, 33.6], [130, 37.3], [140, 40.8],
+        [150, 44.2], [160, 47.4], [180, 53.4], [200, 59.0], [220, 64.2],
+        [240, 69.1], [260, 73.7], [280, 78.1], [300, 82.3],
+        [320, 86.3], [340, 90.1], [360, 93.8], [380, 97.3], [400, 100.7],
+        [420, 103.9], [440, 107.0], [460, 110.0], [480, 112.9], [500, 115.7]
+      ],
+      "R-134a": [
+        [0, -15.4], [5, -4.2], [10, 5.5], [15, 14.0], [20, 21.7],
+        [25, 28.6], [30, 34.9], [35, 40.8], [40, 46.3], [45, 51.5],
+        [50, 56.3], [60, 65.4], [70, 73.7], [80, 81.5], [90, 88.7],
+        [100, 95.5], [110, 101.9], [120, 107.9], [130, 113.6], [140, 119.1],
+        [150, 124.3], [160, 129.3], [180, 138.6], [200, 147.1]
+      ],
+      "R-407C": [
+        [0, -43.6], [10, -22.8], [20, -8.3], [30, 2.6], [40, 11.5],
+        [50, 19.2], [60, 26.0], [70, 32.1], [80, 37.7], [90, 42.9],
+        [100, 47.8], [110, 52.3], [120, 56.6], [130, 60.7], [140, 64.6],
+        [150, 68.3], [160, 71.9], [180, 78.6], [200, 84.8], [220, 90.7],
+        [240, 96.2], [260, 101.3], [280, 106.2], [300, 110.8],
+        [350, 121.8], [400, 131.5]
+      ],
+      "R-404A": [
+        [0, -49.3], [10, -29.0], [20, -14.9], [30, -4.1], [40, 4.9],
+        [50, 12.7], [60, 19.6], [70, 25.8], [80, 31.5], [90, 36.7],
+        [100, 41.5], [110, 46.1], [120, 50.3], [130, 54.3], [140, 58.1],
+        [150, 61.7], [160, 65.2], [180, 71.6], [200, 77.5], [220, 82.9],
+        [240, 88.0], [260, 92.7], [280, 97.1], [300, 101.3]
+      ]
+    };
+
+    const pressureFields = ["suction-pressure", "liquid-pressure"];
+    const temperatureFields = ["suction-temperature", "liquid-temperature"];
+    const fieldIds = [...pressureFields, ...temperatureFields];
+
+    const refrigerantSelect = document.getElementById("refrigerant");
+    const unitToggle = document.getElementById("unit-system");
+    const imperialLabel = document.getElementById("imperial-label");
+    const metricLabel = document.getElementById("metric-label");
+    const satSuctionResult = document.getElementById("sat-suction-result");
+    const satLiquidResult = document.getElementById("sat-liquid-result");
+    const superheatResult = document.getElementById("superheat-result");
+    const subcoolingResult = document.getElementById("subcooling-result");
+
+    function fToC(value) {
+      return (value - 32) * 5 / 9;
+    }
+
+    function cToF(value) {
+      return (value * 9 / 5) + 32;
+    }
+
+    function psigToKpa(value) {
+      return value * 6.89476;
+    }
+
+    function kpaToPsig(value) {
+      return value / 6.89476;
+    }
+
+    function formatValue(value) {
+      return Number(value).toFixed(1);
+    }
+
+    function interpolate(data, pressure) {
+      if (!Array.isArray(data) || !data.length || Number.isNaN(pressure)) {
+        return NaN;
+      }
+
+      if (pressure < data[0][0] || pressure > data[data.length - 1][0]) {
+        return NaN;
+      }
+
+      for (let i = 0; i < data.length; i += 1) {
+        if (pressure === data[i][0]) {
+          return data[i][1];
+        }
+      }
+
+      for (let i = 0; i < data.length - 1; i += 1) {
+        const [p1, t1] = data[i];
+        const [p2, t2] = data[i + 1];
+        if (pressure >= p1 && pressure <= p2) {
+          const ratio = (pressure - p1) / (p2 - p1);
+          return t1 + (t2 - t1) * ratio;
+        }
+      }
+
+      return NaN;
+    }
+
+    function getImperialValue(fieldId) {
+      const input = document.getElementById(fieldId);
+      return parseFloat(input.dataset.imperialValue);
+    }
+
+    function updateInputUnits() {
+      const isMetric = unitToggle.checked;
+      const pressureUnit = isMetric ? "kPa" : "psig";
+      const temperatureUnit = isMetric ? "°C" : "°F";
+
+      document.querySelectorAll(".pressure-unit").forEach((el) => {
+        el.textContent = pressureUnit;
+      });
+      document.querySelectorAll(".temperature-unit").forEach((el) => {
+        el.textContent = temperatureUnit;
+      });
+
+      imperialLabel.classList.toggle("active", !isMetric);
+      metricLabel.classList.toggle("active", isMetric);
+
+      pressureFields.forEach((fieldId) => {
+        const input = document.getElementById(fieldId);
+        input.placeholder = pressureUnit;
+      });
+
+      temperatureFields.forEach((fieldId) => {
+        const input = document.getElementById(fieldId);
+        input.placeholder = temperatureUnit;
+      });
+    }
+
+    function syncInputDisplays() {
+      const isMetric = unitToggle.checked;
+
+      fieldIds.forEach((fieldId) => {
+        const input = document.getElementById(fieldId);
+        const rawValue = parseFloat(input.dataset.imperialValue);
+
+        if (Number.isNaN(rawValue)) {
+          input.value = "";
+          return;
+        }
+
+        if (pressureFields.includes(fieldId)) {
+          input.value = isMetric ? formatValue(psigToKpa(rawValue)) : formatValue(rawValue);
+        } else {
+          input.value = isMetric ? formatValue(fToC(rawValue)) : formatValue(rawValue);
+        }
+      });
+    }
+
+    function setResult(element, value, unitSymbol) {
+      if (Number.isNaN(value)) {
+        element.textContent = "—";
+        return;
+      }
+
+      element.innerHTML = formatValue(value) + '<span class="result-unit">' + unitSymbol + "</span>";
+    }
+
+    function clearResults() {
+      [satSuctionResult, satLiquidResult, superheatResult, subcoolingResult].forEach((element) => {
+        element.textContent = "—";
+      });
+    }
+
+    function calculate() {
+      const refrigerant = refrigerantSelect.value;
+      const data = refrigerantData[refrigerant];
+      const suctionPressure = getImperialValue("suction-pressure");
+      const suctionTemperature = getImperialValue("suction-temperature");
+      const liquidPressure = getImperialValue("liquid-pressure");
+      const liquidTemperature = getImperialValue("liquid-temperature");
+
+      const invalid = [
+        suctionPressure,
+        suctionTemperature,
+        liquidPressure,
+        liquidTemperature
+      ].some((value) => Number.isNaN(value)) || suctionPressure < 0 || liquidPressure < 0;
+
+      if (invalid) {
+        clearResults();
+        return;
+      }
+
+      const saturatedSuction = interpolate(data, suctionPressure);
+      const saturatedLiquid = interpolate(data, liquidPressure);
+
+      if (Number.isNaN(saturatedSuction) || Number.isNaN(saturatedLiquid)) {
+        clearResults();
+        return;
+      }
+
+      const superheat = suctionTemperature - saturatedSuction;
+      const subcooling = saturatedLiquid - liquidTemperature;
+      const isMetric = unitToggle.checked;
+
+      if (isMetric) {
+        setResult(satSuctionResult, fToC(saturatedSuction), "°C");
+        setResult(satLiquidResult, fToC(saturatedLiquid), "°C");
+        setResult(superheatResult, superheat * 5 / 9, "°C");
+        setResult(subcoolingResult, subcooling * 5 / 9, "°C");
+        return;
+      }
+
+      setResult(satSuctionResult, saturatedSuction, "°F");
+      setResult(satLiquidResult, saturatedLiquid, "°F");
+      setResult(superheatResult, superheat, "°F");
+      setResult(subcoolingResult, subcooling, "°F");
+    }
+
+    function updateStoredValue(fieldId) {
+      const input = document.getElementById(fieldId);
+      const displayedValue = parseFloat(input.value);
+
+      if (Number.isNaN(displayedValue)) {
+        input.dataset.imperialValue = "";
+        calculate();
+        return;
+      }
+
+      if (pressureFields.includes(fieldId)) {
+        input.dataset.imperialValue = unitToggle.checked ? String(kpaToPsig(displayedValue)) : String(displayedValue);
+      } else {
+        input.dataset.imperialValue = unitToggle.checked ? String(cToF(displayedValue)) : String(displayedValue);
+      }
+
+      calculate();
+    }
+
+    fieldIds.forEach((fieldId) => {
+      const input = document.getElementById(fieldId);
+      input.dataset.imperialValue = input.value;
+      input.addEventListener("input", () => updateStoredValue(fieldId));
+      input.addEventListener("change", () => updateStoredValue(fieldId));
+    });
+
+    refrigerantSelect.addEventListener("input", calculate);
+    refrigerantSelect.addEventListener("change", calculate);
+
+    unitToggle.addEventListener("change", () => {
+      updateInputUnits();
+      syncInputDisplays();
+      calculate();
+    });
+
+    updateInputUnits();
+    syncInputDisplays();
+    calculate();
+  </script>
+</body>
+</html>
