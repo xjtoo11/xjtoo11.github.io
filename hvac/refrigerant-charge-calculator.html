@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Refrigerant Charge Calculator — Free Online Tool | EngineerCalc</title>
+  <meta name="description" content="Free refrigerant charge calculator. Compare measured vs target superheat and subcooling to check system charge status. No login required.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="canonical" href="https://xjtoo11.github.io/hvac/refrigerant-charge-calculator.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Refrigerant Charge Calculator",
+    "url": "https://xjtoo11.github.io/hvac/refrigerant-charge-calculator.html",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": 0,
+      "priceCurrency": "USD"
+    },
+    "description": "Free online refrigerant charge calculator for comparing measured versus target superheat and subcooling with line set charge adjustment."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "How to Check Refrigerant Charge",
+    "author": {
+      "@type": "Organization",
+      "name": "EngineerCalc"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "EngineerCalc"
+    },
+    "datePublished": "2026-04-13",
+    "dateModified": "2026-04-13",
+    "mainEntityOfPage": "https://xjtoo11.github.io/hvac/refrigerant-charge-calculator.html",
+    "description": "Step-by-step guidance for checking refrigerant charge using superheat, subcooling, and line set adjustments."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I know if my AC is low on refrigerant?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Low refrigerant charge often shows up as high superheat on a fixed-orifice system or low subcooling on a TXV system, along with poor cooling, long run times, and low evaporator capacity. Charge should only be judged after airflow, coil condition, and metering device operation are verified."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the difference between superheat and subcooling charging methods?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Superheat charging is mainly used on fixed-orifice or piston systems because it shows how fully the evaporator is fed. Subcooling charging is mainly used on TXV systems because it shows whether the condenser is storing the right amount of liquid refrigerant for the valve to receive a solid column of liquid."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much refrigerant should I add per foot of extra line set?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A common field estimate for a 3/8 inch liquid line is about 0.6 ounces per foot for R-410A, 0.3 for R-22, 0.5 for R-32, and 0.4 for R-134a. Manufacturer charging data should always take priority because tubing size and factory charge assumptions vary."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I mix refrigerants when topping off charge?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Mixing refrigerants changes pressure-temperature behavior, capacity, oil compatibility, and safety characteristics. A system should only be charged with the exact refrigerant listed on the nameplate, and contaminated charge should be properly recovered rather than blended."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What causes refrigerant leaks?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Leaks are commonly caused by vibration, poor braze joints, formicary corrosion, damaged service valves, rubbed tubing, flare problems, and coil corrosion. Refrigerant does not get used up, so repeated low charge always means there is a leak or an installation issue that needs correction."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a href="/" class="logo">EngineerCalc</a>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/hvac/refrigerant-charge-calculator.html" class="active">HVAC</a>
+        <a href="#">Welding</a>
+        <a href="#">Marine</a>
+        <a href="#">Oil &amp; Gas</a>
+        <a href="#">Data Center</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>Refrigerant Charge Calculator</h1>
+    <p class="subtitle">Free refrigerant charge calculator for comparing measured versus target superheat and subcooling on TXV and fixed-orifice systems. No login required.</p>
+
+    <section class="calculator" aria-labelledby="calculator-heading">
+      <div class="calc-section-title" id="calculator-heading">INPUTS</div>
+
+      <div class="calc-row">
+        <label for="refrigerant">Refrigerant Type</label>
+        <select id="refrigerant" name="refrigerant">
+          <option selected>R-410A</option>
+          <option>R-22</option>
+          <option>R-32</option>
+          <option>R-134a</option>
+        </select>
+        <span class="unit"></span>
+      </div>
+
+      <div class="calc-row">
+        <label for="metering-device">Metering Device</label>
+        <select id="metering-device" name="metering-device">
+          <option value="txv" selected>TXV</option>
+          <option value="fixed">Fixed Orifice/Piston</option>
+        </select>
+        <span class="unit"></span>
+      </div>
+
+      <div class="calc-row">
+        <label for="measured-superheat">Measured Superheat</label>
+        <input id="measured-superheat" name="measured-superheat" type="number" inputmode="decimal" step="0.1" value="15">
+        <span class="unit temperature-unit">&deg;F</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="measured-subcooling">Measured Subcooling</label>
+        <input id="measured-subcooling" name="measured-subcooling" type="number" inputmode="decimal" step="0.1" value="8">
+        <span class="unit temperature-unit">&deg;F</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="target-superheat" id="target-superheat-label">Target Superheat</label>
+        <input id="target-superheat" name="target-superheat" type="number" inputmode="decimal" step="0.1" value="10" readonly disabled>
+        <span class="unit temperature-unit">&deg;F</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="target-subcooling" id="target-subcooling-label">Target Subcooling</label>
+        <input id="target-subcooling" name="target-subcooling" type="number" inputmode="decimal" step="0.1" value="10" readonly>
+        <span class="unit temperature-unit">&deg;F</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="line-set-extra-length">Line Set Extra Length</label>
+        <input id="line-set-extra-length" name="line-set-extra-length" type="number" inputmode="decimal" step="0.1" value="0">
+        <span class="unit length-unit">ft</span>
+      </div>
+
+      <div class="unit-toggle">
+        <span id="imperial-label" class="active">Imperial</span>
+        <label class="toggle-switch" for="unit-system">
+          <input id="unit-system" type="checkbox" aria-label="Toggle between Imperial and Metric units">
+          <span class="toggle-slider"></span>
+        </label>
+        <span id="metric-label">Metric</span>
+      </div>
+
+      <div class="calc-section-title">RESULTS</div>
+      <div class="calc-results" aria-live="polite">
+        <div class="result-row">
+          <span class="result-label">Charge Status</span>
+          <span class="result-value ok" id="charge-status-result">Charge is OK</span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Superheat Deviation</span>
+          <span class="result-value small" id="superheat-deviation-result">+5.0<span class="result-unit">&deg;F above target</span></span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Subcooling Deviation</span>
+          <span class="result-value small" id="subcooling-deviation-result">+2.0<span class="result-unit">&deg;F below target</span></span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Line Set Charge Adjustment</span>
+          <span class="result-value small" id="line-adjustment-result">+0.0<span class="result-unit">oz</span></span>
+        </div>
+      </div>
+
+      <p>Use subcooling as the primary charging method for TXV systems and superheat for fixed-orifice systems. Always verify airflow and manufacturer charging data before adjusting charge.</p>
+    </section>
+
+    <section class="app-cta" aria-label="Mobile app promotion">
+      <p>📱 Get 13 HVAC calculators + refrigerant PT tables offline on your iPhone.</p>
+      <a href="https://apps.apple.com/app/id0000000000?utm_source=web&amp;utm_medium=calculator&amp;utm_campaign=refrigerant-charge">
+        <img src="../assets/app-store-badge.svg" alt="Download HVAC Toolkit on the App Store" width="120" height="40">
+      </a>
+    </section>
+
+    <article>
+      <h2>What is Refrigerant Charge?</h2>
+      <p>Refrigerant charge is the total amount of refrigerant in a sealed HVAC or refrigeration system. Proper charge means the equipment has enough refrigerant to feed the evaporator correctly, condense liquid reliably, and return oil to the compressor without flooding or starving major components. When the charge is too low, evaporator capacity drops, superheat usually rises, discharge temperatures can climb, and the compressor works harder while delivering less cooling. When the charge is too high, condenser pressure rises, subcooling can become excessive, system efficiency falls, and liquid management problems may appear.</p>
+      <p>Correct charge matters because it affects efficiency, comfort, and equipment life at the same time. A system can still run while undercharged or overcharged, but it will not run as intended. In field service, charge is usually checked with one of two methods. Fixed-orifice and piston systems are commonly charged by superheat because evaporator feeding changes directly with charge level. TXV systems are commonly charged by subcooling because the valve regulates evaporator superheat and condenser liquid inventory becomes the more reliable indicator. The right method depends on the metering device, not technician preference.</p>
+
+      <h2>How to Check Refrigerant Charge</h2>
+      <p>Start by making sure the system is stable before you judge charge. Filters should be clean, blower airflow should be correct, indoor and outdoor coils should not be blocked, and the equipment should run long enough to reach steady operation. If airflow is low, superheat and subcooling readings can point you in the wrong direction. Once the basic operating conditions look normal, identify the metering device. That tells you whether superheat or subcooling is the primary charging method.</p>
+      <p>On a TXV system, measure liquid line pressure and temperature, convert pressure to saturated condensing temperature using the correct refrigerant P-T relationship, and calculate subcooling. Compare the measured subcooling to the target from the manufacturer. In many comfort cooling systems that target is roughly 8 to 12&deg;F, though the actual value on the charging chart or nameplate is what matters. If measured subcooling is below target, the system is commonly undercharged and refrigerant may need to be added. If measured subcooling is above target, the system may be overcharged or have liquid backed up in the condenser.</p>
+      <p>On a fixed-orifice or piston system, measure suction pressure and suction line temperature, convert pressure to saturated evaporating temperature, and calculate superheat. Then compare measured superheat to the target from the charging chart or a reasonable field target, often around 10 to 15&deg;F depending on conditions. If measured superheat is higher than target, the evaporator is being starved and the system is usually undercharged. If measured superheat is lower than target, the system may be overfed or overcharged.</p>
+      <p>Line set length matters too. Many condensers are factory charged for a standard tubing length, often around 15 to 25 feet. If the actual line set is longer, additional refrigerant is needed to fill that extra liquid line volume. This calculator uses a simple ounces-per-foot estimate by refrigerant to give a quick adjustment value. It is useful for field screening, but manufacturer data still wins if there is any difference.</p>
+
+      <div class="formula-block">
+        <span class="formula-label">Field Rules</span>
+        <div>Superheat Method: If Measured SH &gt; Target SH → Undercharged (ADD)</div>
+        <div>Subcooling Method: If Measured SC &lt; Target SC → Undercharged (ADD)</div>
+        <div>Line Set Adjustment (oz) = Extra Length (ft) × Charge Rate (oz/ft)</div>
+      </div>
+
+      <p>Worked example: take a TXV system using R-410A with measured superheat of 15&deg;F, measured subcooling of 8&deg;F, and target subcooling of 10&deg;F. The relevant deviation is 10 - 8 = +2&deg;F, which means measured subcooling is 2 degrees below target. That points toward adding refrigerant, because the condenser is not holding as much liquid as the target calls for. If the line set is 10 feet longer than the factory allowance, the line set adjustment is 10 × 0.6 = 6 ounces of additional refrigerant. That number does not replace final charging by measurement, but it gives a sensible starting point.</p>
+      <p>Field tips: let the system stabilize before touching the charge. Check airflow first, because an iced evaporator, dirty filter, or wrong blower speed will distort readings. If pressures are abnormally high and subcooling does not make sense, consider non-condensables or another contamination issue instead of blindly removing charge. If refrigerant has been recovered after a major repair, use clean refrigerant that meets your service standard and weigh in charge carefully. Avoid mixing recovered and virgin refrigerant unless your procedures and local rules explicitly allow that handling path. In short, charging decisions should be based on correct measurements, stable operating conditions, and the actual equipment data plate.</p>
+
+      <h2>Target Superheat and Subcooling Reference Table</h2>
+      <p>This table summarizes the default targets used in the calculator. In real service work, always defer to the equipment manufacturer if the charging chart, installation instructions, or nameplate specify a different value.</p>
+      <div class="table-wrapper">
+        <table class="reference-table">
+          <thead>
+            <tr>
+              <th>Metering Device</th>
+              <th>Refrigerant</th>
+              <th>Target Superheat (&deg;F)</th>
+              <th>Target Subcooling (&deg;F)</th>
+              <th>Primary Method</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>TXV</td><td>R-410A</td><td>10</td><td>10</td><td>Subcooling</td><td>Use SH as a secondary check only.</td></tr>
+            <tr><td>TXV</td><td>R-22</td><td>10</td><td>10</td><td>Subcooling</td><td>Compare against the condenser charging chart.</td></tr>
+            <tr><td>TXV</td><td>R-32</td><td>10</td><td>10</td><td>Subcooling</td><td>Higher pressures require accurate instruments.</td></tr>
+            <tr><td>TXV</td><td>R-134a</td><td>10</td><td>10</td><td>Subcooling</td><td>Common on medium-temp refrigeration equipment.</td></tr>
+            <tr><td>Fixed Orifice</td><td>R-410A</td><td>15</td><td>8</td><td>Superheat</td><td>Use SC as a secondary check only.</td></tr>
+            <tr><td>Fixed Orifice</td><td>R-22</td><td>15</td><td>8</td><td>Superheat</td><td>Outdoor and indoor conditions affect target SH.</td></tr>
+            <tr><td>Fixed Orifice</td><td>R-32</td><td>15</td><td>8</td><td>Superheat</td><td>Confirm compatible charging procedures.</td></tr>
+            <tr><td>Fixed Orifice</td><td>R-134a</td><td>15</td><td>8</td><td>Superheat</td><td>Use evaporator feeding as the main indicator.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-section">
+        <details>
+          <summary>How do I know if my AC is low on refrigerant?</summary>
+          <div class="faq-answer">
+            <p>Low charge often shows up as high superheat on a fixed-orifice system or low subcooling on a TXV system. You may also see reduced cooling capacity, longer run times, low suction pressure, or a starved evaporator. Those symptoms are not enough by themselves. Always verify airflow, coil cleanliness, and metering device operation before deciding the system is truly low on refrigerant.</p>
+          </div>
+        </details>
+        <details>
+          <summary>What is the difference between superheat and subcooling charging methods?</summary>
+          <div class="faq-answer">
+            <p>Superheat tells you how far refrigerant vapor has been heated above saturation after the evaporator. That makes it useful on fixed-orifice systems where charge directly affects evaporator feeding. Subcooling tells you how far liquid refrigerant has been cooled below condensing saturation. That makes it useful on TXV systems where the valve regulates evaporator superheat and condenser liquid inventory becomes the better charging indicator.</p>
+          </div>
+        </details>
+        <details>
+          <summary>How much refrigerant should I add per foot of extra line set?</summary>
+          <div class="faq-answer">
+            <p>A quick estimate for a 3/8 inch liquid line is about 0.6 oz/ft for R-410A, 0.3 oz/ft for R-22, 0.5 oz/ft for R-32, and 0.4 oz/ft for R-134a. That is only a field estimate. Manufacturer line set tables are more reliable because standard factory charge length, tubing size, and application details can change the correct value.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Can I mix refrigerants when topping off charge?</summary>
+          <div class="faq-answer">
+            <p>No. Mixing refrigerants creates an unknown blend with different pressure-temperature characteristics, different oil behavior, and possibly different safety requirements. If the existing charge is contaminated or the refrigerant identity is uncertain, recover it properly and recharge with the exact refrigerant listed for the equipment.</p>
+          </div>
+        </details>
+        <details>
+          <summary>What causes refrigerant leaks?</summary>
+          <div class="faq-answer">
+            <p>Common causes include vibration wear, poor brazing, flare leaks, damaged Schrader cores, rubbed copper lines, coil corrosion, and mechanical damage during installation or service. Refrigerant does not get consumed during normal operation, so if charge keeps dropping, the correct fix is to find and repair the leak rather than repeatedly topping off the system.</p>
+          </div>
+        </details>
+      </div>
+    </article>
+
+    <section class="related-calculators">
+      <h3>More HVAC Calculators</h3>
+      <ul>
+        <li><a href="superheat-subcooling-calculator.html">Superheat &amp; Subcooling Calculator</a></li>
+        <li><a href="manual-j-calculator.html">Manual J Load Calculator</a></li>
+        <li><a href="btu-calculator.html">BTU Calculator</a></li>
+        <li><a href="glycol-freeze-point-calculator.html">Glycol Freeze Point Calculator</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <p>&copy; 2026 EngineerCalc. Free tools for working engineers.</p>
+      <div class="footer-apps">
+        <a href="#">HVAC Toolkit</a>
+        <a href="#">Welding Toolkit</a>
+        <a href="#">Marine Toolkit</a>
+        <a href="#">Oil &amp; Gas Toolkit</a>
+        <a href="#">DC Engineer Toolkit</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const targets = {
+      txv: { superheat: 10, subcooling: 10, primaryMethod: "subcooling" },
+      fixed: { superheat: 15, subcooling: 8, primaryMethod: "superheat" }
+    };
+
+    const lineChargePerFt = {
+      "R-410A": 0.6,
+      "R-22": 0.3,
+      "R-32": 0.5,
+      "R-134a": 0.4
+    };
+
+    const temperatureFields = [
+      "measured-superheat",
+      "measured-subcooling",
+      "target-superheat",
+      "target-subcooling"
+    ];
+    const lengthFields = ["line-set-extra-length"];
+    const editableNumericFields = [
+      "measured-superheat",
+      "measured-subcooling",
+      "line-set-extra-length"
+    ];
+
+    const refrigerantSelect = document.getElementById("refrigerant");
+    const meteringDeviceSelect = document.getElementById("metering-device");
+    const unitToggle = document.getElementById("unit-system");
+    const imperialLabel = document.getElementById("imperial-label");
+    const metricLabel = document.getElementById("metric-label");
+    const targetSuperheatInput = document.getElementById("target-superheat");
+    const targetSubcoolingInput = document.getElementById("target-subcooling");
+    const targetSuperheatLabel = document.getElementById("target-superheat-label");
+    const targetSubcoolingLabel = document.getElementById("target-subcooling-label");
+    const chargeStatusResult = document.getElementById("charge-status-result");
+    const superheatDeviationResult = document.getElementById("superheat-deviation-result");
+    const subcoolingDeviationResult = document.getElementById("subcooling-deviation-result");
+    const lineAdjustmentResult = document.getElementById("line-adjustment-result");
+
+    function fToC(value) {
+      return (value - 32) * 5 / 9;
+    }
+
+    function deltaFToC(value) {
+      return value * 5 / 9;
+    }
+
+    function ftToM(value) {
+      return value * 0.3048;
+    }
+
+    function mToFt(value) {
+      return value / 0.3048;
+    }
+
+    function ozToG(value) {
+      return value * 28.3495;
+    }
+
+    function formatValue(value) {
+      return Number(value).toFixed(1);
+    }
+
+    function getStoredValue(fieldId) {
+      return parseFloat(document.getElementById(fieldId).dataset.imperialValue);
+    }
+
+    function updateInputUnits() {
+      const isMetric = unitToggle.checked;
+      const temperatureUnit = isMetric ? "°C" : "°F";
+      const lengthUnit = isMetric ? "m" : "ft";
+
+      document.querySelectorAll(".temperature-unit").forEach((element) => {
+        element.textContent = temperatureUnit;
+      });
+      document.querySelectorAll(".length-unit").forEach((element) => {
+        element.textContent = lengthUnit;
+      });
+
+      imperialLabel.classList.toggle("active", !isMetric);
+      metricLabel.classList.toggle("active", isMetric);
+    }
+
+    function syncInputDisplays() {
+      const isMetric = unitToggle.checked;
+
+      temperatureFields.forEach((fieldId) => {
+        const input = document.getElementById(fieldId);
+        const rawValue = parseFloat(input.dataset.imperialValue);
+        input.value = Number.isNaN(rawValue) ? "" : formatValue(isMetric ? deltaFToC(rawValue) : rawValue);
+      });
+
+      lengthFields.forEach((fieldId) => {
+        const input = document.getElementById(fieldId);
+        const rawValue = parseFloat(input.dataset.imperialValue);
+        input.value = Number.isNaN(rawValue) ? "" : formatValue(isMetric ? ftToM(rawValue) : rawValue);
+      });
+    }
+
+    function setTargetFieldState() {
+      const target = targets[meteringDeviceSelect.value];
+      const isTxv = meteringDeviceSelect.value === "txv";
+
+      targetSuperheatInput.dataset.imperialValue = String(target.superheat);
+      targetSubcoolingInput.dataset.imperialValue = String(target.subcooling);
+      targetSuperheatInput.disabled = isTxv;
+      targetSubcoolingInput.disabled = !isTxv;
+      targetSuperheatLabel.textContent = isTxv ? "Target Superheat (N/A — use subcooling method)" : "Target Superheat";
+      targetSubcoolingLabel.textContent = isTxv ? "Target Subcooling" : "Target Subcooling (secondary — use superheat method)";
+
+      syncInputDisplays();
+    }
+
+    function setStatus(text, className) {
+      chargeStatusResult.textContent = text;
+      chargeStatusResult.className = "result-value " + className;
+    }
+
+    function formatDeviation(element, deviation, direction) {
+      const isMetric = unitToggle.checked;
+      const displayValue = isMetric ? deltaFToC(Math.abs(deviation)) : Math.abs(deviation);
+      const unitLabel = isMetric ? "°C" : "°F";
+      const prefix = deviation >= 0 ? "+" : "-";
+
+      element.innerHTML = prefix + formatValue(displayValue) + '<span class="result-unit">' + unitLabel + " " + direction + "</span>";
+    }
+
+    function formatLineAdjustment(valueOz) {
+      if (unitToggle.checked) {
+        lineAdjustmentResult.innerHTML = "+" + formatValue(ozToG(valueOz)) + '<span class="result-unit">g</span>';
+        return;
+      }
+
+      lineAdjustmentResult.innerHTML = "+" + formatValue(valueOz) + '<span class="result-unit">oz</span>';
+    }
+
+    function calculate() {
+      const refrigerant = refrigerantSelect.value;
+      const meteringDevice = meteringDeviceSelect.value;
+      const target = targets[meteringDevice];
+      const measuredSH = getStoredValue("measured-superheat");
+      const measuredSC = getStoredValue("measured-subcooling");
+      const extraLength = getStoredValue("line-set-extra-length");
+
+      const invalid = [measuredSH, measuredSC, extraLength].some((value) => Number.isNaN(value)) || extraLength < 0;
+
+      if (invalid) {
+        setStatus("—", "small");
+        superheatDeviationResult.textContent = "—";
+        subcoolingDeviationResult.textContent = "—";
+        lineAdjustmentResult.textContent = "—";
+        return;
+      }
+
+      const shDeviation = measuredSH - target.superheat;
+      const scDeviation = target.subcooling - measuredSC;
+      const lineAdj = extraLength * lineChargePerFt[refrigerant];
+      const primaryDeviation = target.primaryMethod === "subcooling" ? scDeviation : shDeviation;
+
+      if (Math.abs(shDeviation) <= 3 && Math.abs(scDeviation) <= 3) {
+        setStatus("Charge is OK", "ok");
+      } else if (Math.abs(primaryDeviation) > 10) {
+        setStatus(primaryDeviation > 0 ? "Significantly Under Charged" : "Significantly Over Charged", "error");
+      } else if (primaryDeviation > 0) {
+        setStatus("ADD Refrigerant", "warn");
+      } else {
+        setStatus("REMOVE Refrigerant", "warn");
+      }
+
+      formatDeviation(superheatDeviationResult, shDeviation, shDeviation >= 0 ? "above target" : "below target");
+      formatDeviation(subcoolingDeviationResult, scDeviation, scDeviation >= 0 ? "below target" : "above target");
+      formatLineAdjustment(lineAdj);
+    }
+
+    function updateStoredValue(fieldId) {
+      const input = document.getElementById(fieldId);
+      const displayedValue = parseFloat(input.value);
+
+      if (Number.isNaN(displayedValue)) {
+        input.dataset.imperialValue = "";
+        calculate();
+        return;
+      }
+
+      if (temperatureFields.includes(fieldId)) {
+        input.dataset.imperialValue = unitToggle.checked ? String(displayedValue * 9 / 5) : String(displayedValue);
+      } else {
+        input.dataset.imperialValue = unitToggle.checked ? String(mToFt(displayedValue)) : String(displayedValue);
+      }
+
+      calculate();
+    }
+
+    editableNumericFields.forEach((fieldId) => {
+      const input = document.getElementById(fieldId);
+      input.dataset.imperialValue = input.value;
+      input.addEventListener("input", () => updateStoredValue(fieldId));
+      input.addEventListener("change", () => updateStoredValue(fieldId));
+    });
+
+    refrigerantSelect.addEventListener("input", calculate);
+    refrigerantSelect.addEventListener("change", calculate);
+
+    meteringDeviceSelect.addEventListener("input", () => {
+      setTargetFieldState();
+      calculate();
+    });
+    meteringDeviceSelect.addEventListener("change", () => {
+      setTargetFieldState();
+      calculate();
+    });
+
+    unitToggle.addEventListener("change", () => {
+      updateInputUnits();
+      syncInputDisplays();
+      calculate();
+    });
+
+    setTargetFieldState();
+    updateInputUnits();
+    syncInputDisplays();
+    calculate();
+  </script>
+</body>
+</html>
