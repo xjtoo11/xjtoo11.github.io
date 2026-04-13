@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>BTU Calculator HVAC — Free Online BTU Calculator | EngineerCalc</title>
+  <meta name="description" content="Free HVAC BTU calculator. Enter room size, insulation, and climate details to find required BTU and AC tonnage. No login required.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="canonical" href="https://xjtoo11.github.io/hvac/btu-calculator.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "BTU Calculator",
+    "url": "https://xjtoo11.github.io/hvac/btu-calculator.html",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": 0,
+      "priceCurrency": "USD"
+    },
+    "description": "Free online HVAC BTU calculator for estimating room cooling capacity, AC tonnage, and BTU per square foot."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "How to Calculate BTU for HVAC",
+    "author": {
+      "@type": "Organization",
+      "name": "EngineerCalc"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "EngineerCalc"
+    },
+    "datePublished": "2026-04-13",
+    "dateModified": "2026-04-13",
+    "mainEntityOfPage": "https://xjtoo11.github.io/hvac/btu-calculator.html",
+    "description": "Step-by-step guidance for estimating HVAC BTU requirements from area, ceiling height, windows, climate zone, insulation, and occupants."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is a BTU in HVAC?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A BTU, or British Thermal Unit, is the amount of heat needed to raise one pound of water by one degree Fahrenheit. In HVAC, BTU per hour describes how much heating or cooling capacity equipment can deliver."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How many BTU per square foot do I need?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Many quick estimates land between about 18 and 30 BTU per square foot, but the correct number changes with climate, insulation quality, windows, ceiling height, sun exposure, and internal heat gains."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the difference between BTU and tons?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "BTU per hour is the direct heating or cooling rate, while one ton of air conditioning equals 12,000 BTU per hour. Tons are just a larger unit commonly used for AC equipment sizing."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I use this calculator for heating?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You can use it as a rough screening tool for heating, but heating design should be based on winter design temperatures, infiltration, and envelope losses. For final furnace or heat pump sizing, a dedicated heating load calculation is better."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What happens if my AC unit is too big?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Oversized air conditioners often short cycle, remove less humidity, create uneven temperatures, and increase wear from frequent starts. Correct sizing usually improves comfort more than simply choosing a larger unit."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a href="/" class="logo">EngineerCalc</a>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/hvac/btu-calculator.html" class="active">HVAC</a>
+        <a href="#">Welding</a>
+        <a href="#">Marine</a>
+        <a href="#">Oil &amp; Gas</a>
+        <a href="#">Data Center</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>BTU Calculator HVAC</h1>
+    <p class="subtitle">Free HVAC BTU calculator for estimating room cooling load, AC tonnage, and BTU per square foot from room size, insulation, climate, windows, and occupancy. No login required.</p>
+
+    <section class="calculator" aria-labelledby="calculator-heading">
+      <div class="calc-section-title" id="calculator-heading">INPUTS</div>
+
+      <div class="calc-row">
+        <label for="room-area">Room Area</label>
+        <input id="room-area" name="room-area" type="number" inputmode="decimal" step="0.1" value="500">
+        <span class="unit area-unit">sq ft</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="ceiling-height">Ceiling Height</label>
+        <input id="ceiling-height" name="ceiling-height" type="number" inputmode="decimal" step="0.1" value="8">
+        <span class="unit length-unit">ft</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="insulation-quality">Insulation Quality</label>
+        <select id="insulation-quality" name="insulation-quality">
+          <option value="poor">Poor</option>
+          <option value="average" selected>Average</option>
+          <option value="good">Good</option>
+        </select>
+        <span class="unit"></span>
+      </div>
+
+      <div class="calc-row">
+        <label for="window-area">Window Area</label>
+        <input id="window-area" name="window-area" type="number" inputmode="decimal" step="0.1" value="40">
+        <span class="unit area-unit">sq ft</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="climate-zone">Climate Zone</label>
+        <select id="climate-zone" name="climate-zone">
+          <option value="1">Zone 1 (Miami) — base 22 BTU/sq ft</option>
+          <option value="2">Zone 2 (Houston) — base 28 BTU/sq ft</option>
+          <option value="3">Zone 3 (Atlanta) — base 25 BTU/sq ft</option>
+          <option value="4" selected>Zone 4 (Baltimore) — base 26 BTU/sq ft</option>
+          <option value="5">Zone 5 (Chicago) — base 24 BTU/sq ft</option>
+          <option value="6">Zone 6 (Minneapolis) — base 22 BTU/sq ft</option>
+          <option value="7">Zone 7 (Duluth) — base 20 BTU/sq ft</option>
+          <option value="8">Zone 8 (Fairbanks) — base 18 BTU/sq ft</option>
+        </select>
+        <span class="unit"></span>
+      </div>
+
+      <div class="calc-row">
+        <label for="sun-exposure">Sun Exposure</label>
+        <select id="sun-exposure" name="sun-exposure">
+          <option value="low">Low</option>
+          <option value="medium" selected>Medium</option>
+          <option value="high">High</option>
+        </select>
+        <span class="unit"></span>
+      </div>
+
+      <div class="calc-row">
+        <label for="occupants">Number of Occupants</label>
+        <input id="occupants" name="occupants" type="number" inputmode="decimal" step="1" value="2">
+        <span class="unit"></span>
+      </div>
+
+      <div class="unit-toggle">
+        <span id="imperial-label" class="active">Imperial</span>
+        <label class="toggle-switch" for="unit-system">
+          <input id="unit-system" type="checkbox" aria-label="Toggle between Imperial and Metric units">
+          <span class="toggle-slider"></span>
+        </label>
+        <span id="metric-label">Metric</span>
+      </div>
+
+      <div class="calc-section-title">RESULTS</div>
+      <div class="calc-results" aria-live="polite">
+        <div class="result-row">
+          <span class="result-label">Required BTU/h</span>
+          <span class="result-value" id="btu-result">16,200<span class="result-unit">BTU/h</span></span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Recommended AC Tonnage</span>
+          <span class="result-value" id="tonnage-result">1.4<span class="result-unit">tons</span></span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">BTU per sq ft</span>
+          <span class="result-value small" id="btu-per-area-result">32.4<span class="result-unit">BTU/sq ft</span></span>
+        </div>
+      </div>
+
+      <p>This is a simplified sizing estimate. For final equipment selection, verify with a full load calculation.</p>
+    </section>
+
+    <section class="app-cta" aria-label="Mobile app promotion">
+      <p>📱 Get 13 HVAC calculators + refrigerant PT tables offline on your iPhone.</p>
+      <a href="https://apps.apple.com/app/id0000000000?utm_source=web&amp;utm_medium=calculator&amp;utm_campaign=btu-calculator">
+        <img src="../assets/app-store-badge.svg" alt="Download HVAC Toolkit on the App Store" width="120" height="40">
+      </a>
+    </section>
+
+    <article>
+      <h2>What is a BTU?</h2>
+      <p>BTU stands for British Thermal Unit. It is a unit of heat energy defined as the amount of energy required to raise the temperature of one pound of water by one degree Fahrenheit. In HVAC work, the term is usually used as BTU per hour, written BTU/h, because heating and cooling equipment moves heat continuously over time rather than in a single lump of energy. A small room air conditioner, a split system, and a furnace are all rated by how many BTU per hour they can remove or add.</p>
+      <p>That number matters because HVAC sizing is really a heat transfer problem. If a room gains 14,000 BTU of heat each hour on a hot day, the cooling equipment has to remove about the same amount to hold temperature. If the unit is too small, the space may never reach setpoint. If it is too large, it may cool quickly but run in short bursts, which hurts humidity control and comfort. Knowing the required BTU load gives you a better starting point for selecting AC tonnage, checking rule-of-thumb estimates, and deciding when you need a more detailed Manual J calculation.</p>
+
+      <h2>How to Calculate BTU for HVAC</h2>
+      <p>A useful quick HVAC BTU estimate starts with floor area, because larger rooms generally have more wall area, more air volume, and more surface through which heat can enter or leave. Climate comes next. A 500 sq ft room in a hot, humid market needs a different base load than the same room in a cool northern climate, so this calculator assigns a climate-zone BTU-per-square-foot factor before any other adjustments are applied.</p>
+      <p>From there, the load is adjusted for insulation quality, sun exposure, ceiling height, windows, and occupants. Poor insulation increases the load because more heat enters through the envelope. Good insulation reduces it. Higher sun exposure increases solar gain through walls and especially glazing. Ceiling height matters because a room with a 10-foot ceiling contains more conditioned volume than one with a standard 8-foot ceiling. Windows add a separate sensible load because glass is typically weaker than insulated walls and often admits direct solar energy. Occupants matter too: people release sensible heat, and in small rooms or crowded spaces that load is not trivial.</p>
+      <p>This page uses a simplified engineering formula suitable for landing-page estimating, not final design. It intentionally avoids the detail of a full Manual J, but it still captures the biggest load drivers that break simple square-foot rules.</p>
+
+      <div class="formula-block">
+        <span class="formula-label">Simplified Formula</span>
+        <div>Base Load = Area &times; Base Climate BTU per sq ft</div>
+        <div>Ceiling Adjustment = 1 + (Ceiling Height - 8) &times; 0.02, for ceilings above 8 ft</div>
+        <div>Window Load = Window Area &times; 50</div>
+        <div>Occupant Load = Occupants &times; 600</div>
+        <div>Total BTU/h = (Base Load &times; Insulation Multiplier &times; Sun Multiplier &times; Ceiling Adjustment) + Window Load + Occupant Load</div>
+        <div>AC Tonnage = Total BTU/h / 12,000</div>
+      </div>
+
+      <p>Worked example using the default values in this calculator: room area is 500 sq ft, ceiling height is 8 ft, insulation is Average, window area is 40 sq ft, climate zone is 4, sun exposure is Medium, and occupants are 2. Zone 4 uses a base factor of 26 BTU per sq ft, so the base load is 500 &times; 26 = 13,000 BTU/h. Average insulation uses a multiplier of 1.0, and Medium sun also uses 1.0, so the adjusted base remains 13,000 BTU/h. The ceiling is 8 ft, so there is no ceiling premium and the ceiling adjustment stays at 1.00.</p>
+      <p>Next add window and occupant loads. Window load is 40 &times; 50 = 2,000 BTU/h. Occupant load is 2 &times; 600 = 1,200 BTU/h. Total BTU/h is 13,000 + 2,000 + 1,200 = 16,200 BTU/h. Recommended AC tonnage is 16,200 / 12,000 = 1.35 tons. BTU per square foot is 16,200 / 500 = 32.4 BTU/sq ft. That is higher than the base climate factor because the windows and occupants add load on top of the envelope estimate.</p>
+      <p>Field tips: do not ignore kitchen appliances, bathrooms with exhaust-driven infiltration, or ductwork running through hot attics. If you are estimating several connected rooms, calculate each one and then evaluate diversity and common solar exposure instead of blindly combining square footage. Oversizing is not a harmless safety margin. An oversized AC can short cycle, dehumidify poorly, and create cold blasts followed by warm swings. Use quick BTU tools for screening, then move to a room-by-room load method when the project cost or comfort risk justifies it.</p>
+
+      <h2>BTU Per Square Foot Reference Table</h2>
+      <p>This reference table gives quick starting ranges before detailed adjustments. Mild climate values fit well-insulated or lower-load conditions. Extreme climate values are more appropriate where solar gain, outdoor temperature, or internal heat is consistently higher.</p>
+      <div class="table-wrapper">
+        <table class="reference-table">
+          <thead>
+            <tr>
+              <th>Room Type</th>
+              <th>Climate (Mild)</th>
+              <th>Climate (Moderate)</th>
+              <th>Climate (Extreme)</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Bedroom</td><td>18-22</td><td>22-28</td><td>28-34</td><td>Usually low internal gains unless occupied heavily at night.</td></tr>
+            <tr><td>Living Room</td><td>20-24</td><td>24-30</td><td>30-36</td><td>Often higher window area and variable occupancy.</td></tr>
+            <tr><td>Kitchen</td><td>24-30</td><td>30-38</td><td>38-48</td><td>Cooking appliances can add major sensible load.</td></tr>
+            <tr><td>Bathroom</td><td>22-28</td><td>28-34</td><td>34-40</td><td>Humidity and exhaust-driven makeup air can matter.</td></tr>
+            <tr><td>Sunroom</td><td>28-36</td><td>36-48</td><td>48-60</td><td>Heavy glazing and direct sun dominate the load.</td></tr>
+            <tr><td>Garage</td><td>18-24</td><td>24-32</td><td>32-40</td><td>Depends heavily on insulation and door leakage.</td></tr>
+            <tr><td>Server Room</td><td>40-70</td><td>70-120</td><td>120+</td><td>Equipment heat usually controls sizing more than climate.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-section">
+        <details>
+          <summary>What is a BTU in HVAC?</summary>
+          <div class="faq-answer">
+            <p>A BTU is a unit of heat energy. In HVAC, BTU per hour is used to describe how much heating or cooling capacity equipment can deliver. When someone says an air conditioner is 24,000 BTU, they usually mean 24,000 BTU per hour of cooling capacity.</p>
+          </div>
+        </details>
+        <details>
+          <summary>How many BTU per square foot do I need?</summary>
+          <div class="faq-answer">
+            <p>Many quick estimates fall between 18 and 30 BTU per square foot, but that range changes fast with climate, ceiling height, window area, sun exposure, and insulation. Kitchens, sunrooms, and server rooms can exceed normal residential rules by a wide margin.</p>
+          </div>
+        </details>
+        <details>
+          <summary>What is the difference between BTU and tons?</summary>
+          <div class="faq-answer">
+            <p>BTU per hour is the direct heat transfer rate. Tons are a larger AC sizing unit where 1 ton equals 12,000 BTU/h. Converting between them is simple: divide BTU/h by 12,000 to estimate required tonnage.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Can I use this calculator for heating?</summary>
+          <div class="faq-answer">
+            <p>You can use it for rough screening, but heating loads are driven by winter design temperatures, infiltration, and envelope losses in ways that differ from summer cooling. For furnace or cold-climate heat pump selection, use a dedicated heating load or full Manual J calculation.</p>
+          </div>
+        </details>
+        <details>
+          <summary>What happens if my AC unit is too big?</summary>
+          <div class="faq-answer">
+            <p>An oversized AC often satisfies thermostat temperature too quickly, then shuts off before it removes enough moisture. That short cycling can leave the home cool but clammy, increase start-stop wear, and reduce overall comfort compared with a properly sized unit.</p>
+          </div>
+        </details>
+      </div>
+    </article>
+
+    <section class="related-calculators">
+      <h3>More HVAC Calculators</h3>
+      <ul>
+        <li><a href="superheat-subcooling-calculator.html">Superheat &amp; Subcooling Calculator</a></li>
+        <li><a href="manual-j-calculator.html">Manual J Load Calculator</a></li>
+        <li><a href="refrigerant-charge-calculator.html">Refrigerant Charge Calculator</a></li>
+        <li><a href="glycol-freeze-point-calculator.html">Glycol Freeze Point Calculator</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <p>&copy; 2026 EngineerCalc. Free tools for working engineers.</p>
+      <div class="footer-apps">
+        <a href="#">HVAC Toolkit</a>
+        <a href="#">Welding Toolkit</a>
+        <a href="#">Marine Toolkit</a>
+        <a href="#">Oil &amp; Gas Toolkit</a>
+        <a href="#">DC Engineer Toolkit</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const baseBtuPerSqft = {
+      "1": 22, "2": 28, "3": 25, "4": 26, "5": 24, "6": 22, "7": 20, "8": 18
+    };
+
+    const climateZoneCities = {
+      "1": "Miami",
+      "2": "Houston",
+      "3": "Atlanta",
+      "4": "Baltimore",
+      "5": "Chicago",
+      "6": "Minneapolis",
+      "7": "Duluth",
+      "8": "Fairbanks"
+    };
+
+    const insulationMult = { poor: 1.3, average: 1.0, good: 0.75 };
+    const sunMult = { low: 0.9, medium: 1.0, high: 1.15 };
+
+    const areaFields = ["room-area", "window-area"];
+    const lengthFields = ["ceiling-height"];
+    const numericFields = [...areaFields, ...lengthFields, "occupants"];
+
+    const areaInput = document.getElementById("room-area");
+    const ceilingInput = document.getElementById("ceiling-height");
+    const insulationSelect = document.getElementById("insulation-quality");
+    const windowInput = document.getElementById("window-area");
+    const climateZoneSelect = document.getElementById("climate-zone");
+    const sunSelect = document.getElementById("sun-exposure");
+    const occupantsInput = document.getElementById("occupants");
+    const unitToggle = document.getElementById("unit-system");
+    const imperialLabel = document.getElementById("imperial-label");
+    const metricLabel = document.getElementById("metric-label");
+
+    const btuResult = document.getElementById("btu-result");
+    const tonnageResult = document.getElementById("tonnage-result");
+    const btuPerAreaResult = document.getElementById("btu-per-area-result");
+
+    function sqftToM2(value) {
+      return value * 0.092903;
+    }
+
+    function m2ToSqft(value) {
+      return value / 0.092903;
+    }
+
+    function ftToM(value) {
+      return value * 0.3048;
+    }
+
+    function mToFt(value) {
+      return value / 0.3048;
+    }
+
+    function btuToKw(value) {
+      return value * 0.00029307107;
+    }
+
+    function formatDecimal(value) {
+      return Number(value).toFixed(1);
+    }
+
+    function formatWhole(value) {
+      return Math.round(value).toLocaleString("en-US");
+    }
+
+    function getImperialValue(fieldId) {
+      const input = document.getElementById(fieldId);
+      return parseFloat(input.dataset.imperialValue);
+    }
+
+    function setResult(element, value, unitSymbol, formatter) {
+      if (!Number.isFinite(value)) {
+        element.textContent = "—";
+        return;
+      }
+
+      element.innerHTML = formatter(value) + '<span class="result-unit">' + unitSymbol + "</span>";
+    }
+
+    function clearResults() {
+      [btuResult, tonnageResult, btuPerAreaResult].forEach((element) => {
+        element.textContent = "—";
+      });
+    }
+
+    function updateZoneOptions() {
+      Array.from(climateZoneSelect.options).forEach((option) => {
+        const zone = option.value;
+        option.textContent = "Zone " + zone + " (" + climateZoneCities[zone] + ") — base " + baseBtuPerSqft[zone] + " BTU/sq ft";
+      });
+    }
+
+    function updateInputUnits() {
+      const isMetric = unitToggle.checked;
+
+      document.querySelectorAll(".area-unit").forEach((el) => {
+        el.textContent = isMetric ? "m²" : "sq ft";
+      });
+
+      document.querySelectorAll(".length-unit").forEach((el) => {
+        el.textContent = isMetric ? "m" : "ft";
+      });
+    }
+
+    function syncDisplayedValues() {
+      const isMetric = unitToggle.checked;
+
+      areaFields.forEach((fieldId) => {
+        const input = document.getElementById(fieldId);
+        const imperialValue = parseFloat(input.dataset.imperialValue);
+        input.value = isMetric ? formatDecimal(sqftToM2(imperialValue)) : formatDecimal(imperialValue);
+      });
+
+      lengthFields.forEach((fieldId) => {
+        const input = document.getElementById(fieldId);
+        const imperialValue = parseFloat(input.dataset.imperialValue);
+        input.value = isMetric ? formatDecimal(ftToM(imperialValue)) : formatDecimal(imperialValue);
+      });
+
+      const occupantsImperial = parseFloat(occupantsInput.dataset.imperialValue);
+      occupantsInput.value = formatDecimal(occupantsImperial);
+    }
+
+    function updateStoredValue(input) {
+      const value = parseFloat(input.value);
+      if (Number.isNaN(value)) {
+        input.dataset.imperialValue = "";
+        return;
+      }
+
+      if (areaFields.includes(input.id)) {
+        input.dataset.imperialValue = unitToggle.checked ? m2ToSqft(value) : value;
+        return;
+      }
+
+      if (lengthFields.includes(input.id)) {
+        input.dataset.imperialValue = unitToggle.checked ? mToFt(value) : value;
+        return;
+      }
+
+      input.dataset.imperialValue = value;
+    }
+
+    function calculate() {
+      const area = getImperialValue("room-area");
+      const ceiling = getImperialValue("ceiling-height");
+      const insulation = insulationSelect.value;
+      const windows = getImperialValue("window-area");
+      const zone = climateZoneSelect.value;
+      const sun = sunSelect.value;
+      const occupants = getImperialValue("occupants");
+
+      if (
+        !Number.isFinite(area) || area <= 0 ||
+        !Number.isFinite(ceiling) || ceiling <= 0 ||
+        !Number.isFinite(windows) || windows < 0 ||
+        !Number.isFinite(occupants) || occupants < 0
+      ) {
+        clearResults();
+        return;
+      }
+
+      const base = area * baseBtuPerSqft[zone];
+      const ceilingAdj = ceiling > 8 ? 1 + (ceiling - 8) * 0.02 : 1.0;
+      const windowLoad = windows * 50;
+      const occupantLoad = occupants * 600;
+      const totalBTU = Math.round((base * insulationMult[insulation] * sunMult[sun] * ceilingAdj) + windowLoad + occupantLoad);
+      const tonnage = totalBTU / 12000;
+      const btuPerSqft = totalBTU / area;
+      const isMetric = unitToggle.checked;
+
+      if (isMetric) {
+        const areaMetric = sqftToM2(area);
+        setResult(btuResult, btuToKw(totalBTU), "kW", formatDecimal);
+        setResult(tonnageResult, tonnage, "tons", formatDecimal);
+        setResult(btuPerAreaResult, totalBTU / areaMetric, "BTU/m²", formatDecimal);
+        return;
+      }
+
+      setResult(btuResult, totalBTU, "BTU/h", formatWhole);
+      setResult(tonnageResult, tonnage, "tons", formatDecimal);
+      setResult(btuPerAreaResult, btuPerSqft, "BTU/sq ft", formatDecimal);
+    }
+
+    numericFields.forEach((fieldId) => {
+      const input = document.getElementById(fieldId);
+      input.dataset.imperialValue = input.value;
+      input.addEventListener("input", () => {
+        updateStoredValue(input);
+        calculate();
+      });
+    });
+
+    [insulationSelect, climateZoneSelect, sunSelect].forEach((element) => {
+      element.addEventListener("input", calculate);
+      element.addEventListener("change", calculate);
+    });
+
+    unitToggle.addEventListener("change", () => {
+      const isMetric = unitToggle.checked;
+      imperialLabel.classList.toggle("active", !isMetric);
+      metricLabel.classList.toggle("active", isMetric);
+      updateInputUnits();
+      updateZoneOptions();
+      syncDisplayedValues();
+      calculate();
+    });
+
+    updateInputUnits();
+    updateZoneOptions();
+    syncDisplayedValues();
+    calculate();
+  </script>
+</body>
+</html>
