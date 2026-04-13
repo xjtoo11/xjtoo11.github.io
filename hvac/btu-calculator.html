@@ -436,7 +436,7 @@
       });
 
       const occupantsImperial = parseFloat(occupantsInput.dataset.imperialValue);
-      occupantsInput.value = formatDecimal(occupantsImperial);
+      occupantsInput.value = Math.round(occupantsImperial);
     }
 
     function updateStoredValue(input) {
