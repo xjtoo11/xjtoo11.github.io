@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Manual J Calculator — Free Online HVAC Load Calculator | EngineerCalc</title>
+  <meta name="description" content="Free Manual J HVAC load calculator. Enter climate zone, floor area, and building details to estimate cooling and heating loads instantly.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="canonical" href="https://xjtoo11.github.io/hvac/manual-j-calculator.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Manual J Calculator",
+    "url": "https://xjtoo11.github.io/hvac/manual-j-calculator.html",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": 0,
+      "priceCurrency": "USD"
+    },
+    "description": "Free online Manual J load calculator for estimating residential cooling and heating loads from climate zone and building inputs."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "How to Calculate HVAC Load with Manual J",
+    "author": {
+      "@type": "Organization",
+      "name": "EngineerCalc"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "EngineerCalc"
+    },
+    "datePublished": "2026-04-13",
+    "dateModified": "2026-04-13",
+    "mainEntityOfPage": "https://xjtoo11.github.io/hvac/manual-j-calculator.html",
+    "description": "Step-by-step guidance for estimating residential HVAC cooling and heating loads with a simplified Manual J method."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is Manual J in HVAC?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Manual J is the ACCA residential load calculation method used to estimate room-by-room and whole-house heating and cooling demand based on climate, envelope, windows, infiltration, internal loads, and occupancy."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How accurate is a simplified Manual J estimate?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A simplified Manual J estimate is useful for quick screening and early equipment discussions, but it does not replace a full ACCA Manual J analysis with room-by-room inputs, infiltration details, duct impacts, and local design data."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What happens if HVAC equipment is oversized?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Oversized equipment often short cycles, reduces humidity control, increases wear from frequent starts, and may leave rooms unevenly conditioned even if thermostat temperature is satisfied."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do I need a professional Manual J calculation?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "For permits, major system replacements, new construction, zoning changes, or comfort complaints, a professional Manual J calculation is recommended because it supports defensible sizing and better equipment selection."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does climate zone affect HVAC sizing?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Climate zone changes the outdoor design temperatures used in the load calculation. Hotter cooling climates increase sensible cooling demand, while colder heating climates raise the winter temperature difference and therefore the heating load."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a href="/" class="logo">EngineerCalc</a>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/hvac/manual-j-calculator.html" class="active">HVAC</a>
+        <a href="#">Welding</a>
+        <a href="#">Marine</a>
+        <a href="#">Oil &amp; Gas</a>
+        <a href="#">Data Center</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>Manual J Load Calculator</h1>
+    <p class="subtitle">Free online Manual J load calculator for estimating residential cooling and heating loads from climate zone, floor area, windows, and insulation inputs. No login required.</p>
+
+    <section class="calculator" aria-labelledby="calculator-heading">
+      <div class="calc-section-title" id="calculator-heading">INPUTS</div>
+
+      <div class="calc-row">
+        <label for="climate-zone">Climate Zone</label>
+        <select id="climate-zone" name="climate-zone">
+          <option value="1">Zone 1 (Miami) — design cooling 91°F, design heating 47°F</option>
+          <option value="2">Zone 2 (Houston) — design cooling 96°F, design heating 28°F</option>
+          <option value="3">Zone 3 (Atlanta) — design cooling 92°F, design heating 23°F</option>
+          <option value="4" selected>Zone 4 (Baltimore) — design cooling 93°F, design heating 13°F</option>
+          <option value="5">Zone 5 (Chicago) — design cooling 91°F, design heating -3°F</option>
+          <option value="6">Zone 6 (Minneapolis) — design cooling 89°F, design heating -12°F</option>
+          <option value="7">Zone 7 (Duluth) — design cooling 85°F, design heating -18°F</option>
+          <option value="8">Zone 8 (Fairbanks) — design cooling 78°F, design heating -40°F</option>
+        </select>
+        <span class="unit"></span>
+      </div>
+
+      <div class="calc-row">
+        <label for="floor-area">Floor Area</label>
+        <input id="floor-area" name="floor-area" type="number" inputmode="decimal" step="0.1" value="2000">
+        <span class="unit area-unit">sq ft</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="ceiling-height">Ceiling Height</label>
+        <input id="ceiling-height" name="ceiling-height" type="number" inputmode="decimal" step="0.1" value="8">
+        <span class="unit length-unit">ft</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="window-area">Window Area</label>
+        <input id="window-area" name="window-area" type="number" inputmode="decimal" step="0.1" value="200">
+        <span class="unit area-unit">sq ft</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="insulation-level">Insulation Level</label>
+        <select id="insulation-level" name="insulation-level">
+          <option value="poor">Poor</option>
+          <option value="average" selected>Average</option>
+          <option value="good">Good</option>
+          <option value="excellent">Excellent</option>
+        </select>
+        <span class="unit"></span>
+      </div>
+
+      <div class="calc-row">
+        <label for="occupants">Number of Occupants</label>
+        <input id="occupants" name="occupants" type="number" inputmode="decimal" step="1" value="4">
+        <span class="unit"></span>
+      </div>
+
+      <div class="calc-row">
+        <label for="window-direction">Largest Window Direction</label>
+        <select id="window-direction" name="window-direction">
+          <option value="north">North</option>
+          <option value="south" selected>South</option>
+          <option value="east">East</option>
+          <option value="west">West</option>
+        </select>
+        <span class="unit"></span>
+      </div>
+
+      <div class="unit-toggle">
+        <span id="imperial-label" class="active">Imperial</span>
+        <label class="toggle-switch" for="unit-system">
+          <input id="unit-system" type="checkbox" aria-label="Toggle between Imperial and Metric units">
+          <span class="toggle-slider"></span>
+        </label>
+        <span id="metric-label">Metric</span>
+      </div>
+
+      <div class="calc-section-title">RESULTS</div>
+      <div class="calc-results" aria-live="polite">
+        <div class="result-row">
+          <span class="result-label">Cooling Load</span>
+          <span class="result-value" id="cooling-result">8,940<span class="result-unit">BTU/h</span></span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Heating Load</span>
+          <span class="result-value" id="heating-result">16,720<span class="result-unit">BTU/h</span></span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Recommended Tonnage</span>
+          <span class="result-value small" id="tonnage-result">1.0<span class="result-unit">tons</span></span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Equipment Size Range</span>
+          <span class="result-value small" id="range-result">1.0 – 1.0<span class="result-unit">tons</span></span>
+        </div>
+      </div>
+
+      <p>This is a simplified estimate. For permit-grade calculations, use a full ACCA Manual J analysis.</p>
+    </section>
+
+    <section class="app-cta" aria-label="Mobile app promotion">
+      <p>📱 Get 13 HVAC calculators + refrigerant PT tables offline on your iPhone.</p>
+      <a href="https://apps.apple.com/app/id0000000000?utm_source=web&amp;utm_medium=calculator&amp;utm_campaign=manual-j">
+        <img src="../assets/app-store-badge.svg" alt="Download HVAC Toolkit on the App Store" width="120" height="40">
+      </a>
+    </section>
+
+    <article>
+      <h2>What is Manual J?</h2>
+      <p>Manual J is the Air Conditioning Contractors of America (ACCA) standard method for calculating residential heating and cooling loads. In practical terms, it is the framework contractors, designers, and commissioning teams use to estimate how much heat a house gains in summer and loses in winter under local design conditions. A proper Manual J study looks beyond simple square-foot rules. It accounts for outdoor design temperatures, indoor design targets, insulation levels, window area and orientation, air leakage, ceiling height, occupant count, lighting, appliances, and other internal gains that affect the total load.</p>
+      <p>That detail matters because equipment sizing drives comfort, humidity control, efficiency, and system life. A house with the same floor area can have very different load profiles depending on glazing, orientation, insulation, and infiltration. The calculator on this page follows the same core logic but in a simplified form for quick online estimating. It gives HVAC professionals and informed homeowners a fast screening number for cooling load, heating load, and approximate tonnage. It is useful for early planning, budget conversations, and sanity checks, but it is not a substitute for a room-by-room ACCA Manual J prepared for final equipment selection or permit documentation.</p>
+
+      <h2>How to Calculate HVAC Load with Manual J</h2>
+      <p>A Manual J load estimate starts with design temperatures. Cooling load depends on the difference between outdoor summer design and the indoor cooling setpoint, while heating load depends on the winter design condition and the indoor heating target. This calculator uses 75&deg;F indoors for cooling and 70&deg;F indoors for heating. From there, the estimate applies envelope heat transfer across the conditioned floor area, adjusts for insulation quality, adds window-related gains or losses, includes a ceiling-height adjustment for extra room volume, and adds sensible cooling from occupants.</p>
+      <p>In the simplified method used here, climate zone establishes the cooling and heating design temperatures. Floor area acts as the base envelope term. Window area is treated separately because solar gain and conductive transfer through glazing are usually much more significant than through insulated walls. Largest window direction increases or decreases cooling gain because south, east, and west exposures see different solar intensity. Insulation modifies both cooling and heating results, and ceiling height increases the load when the conditioned volume rises above a standard 8-foot ceiling. Occupants affect cooling load directly because people add sensible heat to the space.</p>
+      <p>The result is not a full room-by-room Manual J, but it follows the same engineering idea: load is driven by temperature difference, building envelope performance, solar exposure, and internal gains. That makes it far more useful than a single square-foot rule, especially when comparing homes in different climates or with different insulation levels.</p>
+
+      <div class="formula-block">
+        <span class="formula-label">Simplified Load Equations</span>
+        <div>Cooling Load = (Area × (Cooling Design Temp − 75) / 15 × Cooling Insulation Factor + Window Area × Cooling Delta-T × Direction Factor + Occupants × 600) × Ceiling Adjustment</div>
+        <div>Heating Load = (Area × (70 − Heating Design Temp) / 15 × Heating Insulation Factor + Window Area × Heating Delta-T × 0.8) × Ceiling Adjustment</div>
+        <div>Tonnage = Cooling Load / 12,000</div>
+      </div>
+
+      <p>Worked example using the default values in this calculator: Zone 4 Baltimore uses a 93&deg;F cooling design temperature and 13&deg;F heating design temperature. Floor area is 2,000 sq ft, ceiling height is 8 ft, window area is 200 sq ft, insulation is Average, occupant count is 4, and the largest window direction is South. Cooling delta-T is 93 - 75 = 18&deg;F. The envelope cooling term is 2,000 &times; (18 / 15) &times; 1.0 = 2,400 BTU/h. Ceiling adjustment stays at 1.00 because the ceiling is 8 ft. Window cooling gain is 200 &times; 18 &times; 1.0 &times; 1.15 = 4,140 BTU/h. Occupant cooling gain is 4 &times; 600 = 2,400 BTU/h. Total cooling load is 2,400 + 4,140 + 2,400 = 8,940 BTU/h.</p>
+      <p>For heating, the winter delta-T is 70 - 13 = 57&deg;F. Envelope heating load is 2,000 &times; (57 / 15) &times; 1.0 = 7,600 BTU/h. Window heating load is 200 &times; 57 &times; 0.8 = 9,120 BTU/h. Total heating load is 7,600 + 9,120 = 16,720 BTU/h. Recommended tonnage is cooling load divided by 12,000, or 8,940 / 12,000 = 0.75 tons, which this tool rounds to a practical recommendation of 1.0 ton with an equipment size range of 1.0 to 1.0 tons. In the field, treat that result as an estimating baseline rather than a final schedule value.</p>
+      <p>Field tips: insulation assessment needs to be realistic, not optimistic. A home with thermal bypasses, attic gaps, or poor air sealing should not be treated as “good” just because insulation depth looks adequate. Window orientation matters more than many quick sizing rules acknowledge, especially with large west-facing glass. Oversized equipment creates short cycling, weaker latent removal, and wider temperature swings, even when nameplate capacity looks safe. After the load is estimated, always cross-check the selected unit against manufacturer expanded performance data, blower capability, and the actual sensible-latent split expected at design conditions.</p>
+
+      <h2>Climate Zone Design Temperature Reference Table</h2>
+      <p>This reference table summarizes the design temperatures used in the calculator along with approximate cooling and heating degree day values. Degree days vary by data source and weather station, but these figures are useful for quick comparison between climate bands when evaluating likely HVAC demand trends.</p>
+      <div class="table-wrapper">
+        <table class="reference-table">
+          <thead>
+            <tr>
+              <th>Zone</th>
+              <th>City</th>
+              <th>Cooling Design Temp (&deg;F)</th>
+              <th>Heating Design Temp (&deg;F)</th>
+              <th>Cooling Degree Days</th>
+              <th>Heating Degree Days</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>Miami</td><td>91</td><td>47</td><td>4,500</td><td>100</td></tr>
+            <tr><td>2</td><td>Houston</td><td>96</td><td>28</td><td>3,000</td><td>1,400</td></tr>
+            <tr><td>3</td><td>Atlanta</td><td>92</td><td>23</td><td>1,800</td><td>3,000</td></tr>
+            <tr><td>4</td><td>Baltimore</td><td>93</td><td>13</td><td>1,200</td><td>4,300</td></tr>
+            <tr><td>5</td><td>Chicago</td><td>91</td><td>-3</td><td>900</td><td>6,200</td></tr>
+            <tr><td>6</td><td>Minneapolis</td><td>89</td><td>-12</td><td>700</td><td>8,200</td></tr>
+            <tr><td>7</td><td>Duluth</td><td>85</td><td>-18</td><td>500</td><td>10,000</td></tr>
+            <tr><td>8</td><td>Fairbanks</td><td>78</td><td>-40</td><td>200</td><td>14,000</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-section">
+        <details>
+          <summary>What is Manual J in HVAC?</summary>
+          <div class="faq-answer">
+            <p>Manual J is the ACCA residential load calculation standard used to estimate how much heating and cooling a house requires under design conditions. It considers climate, construction, windows, infiltration, occupancy, and internal gains so equipment can be selected on measured building characteristics rather than rough square-foot assumptions.</p>
+          </div>
+        </details>
+        <details>
+          <summary>How accurate is a simplified Manual J estimate?</summary>
+          <div class="faq-answer">
+            <p>A simplified estimate is useful for early screening, budgeting, and sanity checks, but it is less accurate than a full Manual J because it does not include room-by-room orientation, infiltration testing, duct losses, shading details, or appliance and lighting diversity. It should support discussion, not replace final design work.</p>
+          </div>
+        </details>
+        <details>
+          <summary>What happens if HVAC equipment is oversized?</summary>
+          <div class="faq-answer">
+            <p>Oversized HVAC equipment usually short cycles, satisfies the thermostat too quickly, and often removes less humidity because run times are too short. That can leave the house feeling cool but clammy in summer, increase compressor and contactor wear, and reduce seasonal efficiency compared with a properly sized system.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Do I need a professional Manual J calculation?</summary>
+          <div class="faq-answer">
+            <p>Yes, if the project involves permit submittals, a major retrofit, custom glazing, zoning, comfort complaints, or a new build. A professional Manual J provides defensible inputs, supports Manual S equipment selection, and reduces the risk of locking in poor comfort or humidity performance for the life of the system.</p>
+          </div>
+        </details>
+        <details>
+          <summary>How does climate zone affect HVAC sizing?</summary>
+          <div class="faq-answer">
+            <p>Climate zone changes the outdoor design temperatures used in the calculation. Higher summer design temperatures increase cooling load, and colder winter design temperatures increase heating load. The same 2,000 sq ft house can need very different equipment in Miami, Baltimore, and Fairbanks even with identical construction.</p>
+          </div>
+        </details>
+      </div>
+    </article>
+
+    <section class="related-calculators">
+      <h3>More HVAC Calculators</h3>
+      <ul>
+        <li><a href="superheat-subcooling-calculator.html">Superheat &amp; Subcooling Calculator</a></li>
+        <li><a href="btu-calculator.html">BTU Calculator</a></li>
+        <li><a href="refrigerant-charge-calculator.html">Refrigerant Charge Calculator</a></li>
+        <li><a href="glycol-freeze-point-calculator.html">Glycol Freeze Point Calculator</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <p>&copy; 2026 EngineerCalc. Free tools for working engineers.</p>
+      <div class="footer-apps">
+        <a href="#">HVAC Toolkit</a>
+        <a href="#">Welding Toolkit</a>
+        <a href="#">Marine Toolkit</a>
+        <a href="#">Oil &amp; Gas Toolkit</a>
+        <a href="#">DC Engineer Toolkit</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const climateZones = {
+      "1": { city: "Miami", coolDesign: 91, heatDesign: 47, cdd: 4500, hdd: 100 },
+      "2": { city: "Houston", coolDesign: 96, heatDesign: 28, cdd: 3000, hdd: 1400 },
+      "3": { city: "Atlanta", coolDesign: 92, heatDesign: 23, cdd: 1800, hdd: 3000 },
+      "4": { city: "Baltimore", coolDesign: 93, heatDesign: 13, cdd: 1200, hdd: 4300 },
+      "5": { city: "Chicago", coolDesign: 91, heatDesign: -3, cdd: 900, hdd: 6200 },
+      "6": { city: "Minneapolis", coolDesign: 89, heatDesign: -12, cdd: 700, hdd: 8200 },
+      "7": { city: "Duluth", coolDesign: 85, heatDesign: -18, cdd: 500, hdd: 10000 },
+      "8": { city: "Fairbanks", coolDesign: 78, heatDesign: -40, cdd: 200, hdd: 14000 }
+    };
+
+    const insulationFactors = {
+      poor: { cooling: 1.3, heating: 1.4 },
+      average: { cooling: 1.0, heating: 1.0 },
+      good: { cooling: 0.8, heating: 0.75 },
+      excellent: { cooling: 0.65, heating: 0.6 }
+    };
+
+    const directionFactors = { north: 0.85, south: 1.15, east: 1.1, west: 1.2 };
+    const indoorCool = 75;
+    const indoorHeat = 70;
+
+    const areaFields = ["floor-area", "window-area"];
+    const lengthFields = ["ceiling-height"];
+    const numericFields = [...areaFields, ...lengthFields, "occupants"];
+
+    const zoneSelect = document.getElementById("climate-zone");
+    const insulationSelect = document.getElementById("insulation-level");
+    const directionSelect = document.getElementById("window-direction");
+    const unitToggle = document.getElementById("unit-system");
+    const imperialLabel = document.getElementById("imperial-label");
+    const metricLabel = document.getElementById("metric-label");
+
+    const coolingResult = document.getElementById("cooling-result");
+    const heatingResult = document.getElementById("heating-result");
+    const tonnageResult = document.getElementById("tonnage-result");
+    const rangeResult = document.getElementById("range-result");
+
+    function fToC(value) {
+      return (value - 32) * 5 / 9;
+    }
+
+    function sqftToM2(value) {
+      return value * 0.092903;
+    }
+
+    function m2ToSqft(value) {
+      return value / 0.092903;
+    }
+
+    function ftToM(value) {
+      return value * 0.3048;
+    }
+
+    function mToFt(value) {
+      return value / 0.3048;
+    }
+
+    function btuToW(value) {
+      return value * 0.29307107;
+    }
+
+    function formatDecimal(value) {
+      return Number(value).toFixed(1);
+    }
+
+    function formatWhole(value) {
+      return Math.round(value).toLocaleString("en-US");
+    }
+
+    function setResult(element, value, unitSymbol, formatter) {
+      if (Number.isNaN(value)) {
+        element.textContent = "—";
+        return;
+      }
+
+      element.innerHTML = formatter(value) + '<span class="result-unit">' + unitSymbol + "</span>";
+    }
+
+    function clearResults() {
+      [coolingResult, heatingResult, tonnageResult, rangeResult].forEach((element) => {
+        element.textContent = "—";
+      });
+    }
+
+    function updateZoneOptions() {
+      const isMetric = unitToggle.checked;
+
+      Array.from(zoneSelect.options).forEach((option) => {
+        const zone = climateZones[option.value];
+        const coolTemp = isMetric ? formatDecimal(fToC(zone.coolDesign)) + "°C" : zone.coolDesign + "°F";
+        const heatTemp = isMetric ? formatDecimal(fToC(zone.heatDesign)) + "°C" : zone.heatDesign + "°F";
+        option.textContent = "Zone " + option.value + " (" + zone.city + ") — design cooling " + coolTemp + ", design heating " + heatTemp;
+      });
+    }
+
+    function updateInputUnits() {
+      const isMetric = unitToggle.checked;
+
+      document.querySelectorAll(".area-unit").forEach((el) => {
+        el.textContent = isMetric ? "m²" : "sq ft";
+      });
+
+      document.querySelectorAll(".length-unit").forEach((el) => {
+        el.textContent = isMetric ? "m" : "ft";
+      });
+
+      imperialLabel.classList.toggle("active", !isMetric);
+      metricLabel.classList.toggle("active", isMetric);
+      updateZoneOptions();
+    }
+
+    function syncInputDisplays() {
+      const isMetric = unitToggle.checked;
+
+      numericFields.forEach((fieldId) => {
+        const input = document.getElementById(fieldId);
+        const rawValue = parseFloat(input.dataset.imperialValue);
+
+        if (Number.isNaN(rawValue)) {
+          input.value = "";
+          return;
+        }
+
+        if (areaFields.includes(fieldId)) {
+          input.value = isMetric ? formatDecimal(sqftToM2(rawValue)) : formatDecimal(rawValue);
+          return;
+        }
+
+        if (lengthFields.includes(fieldId)) {
+          input.value = isMetric ? formatDecimal(ftToM(rawValue)) : formatDecimal(rawValue);
+          return;
+        }
+
+        input.value = String(Math.round(rawValue));
+      });
+    }
+
+    function updateStoredValue(fieldId) {
+      const input = document.getElementById(fieldId);
+      const displayedValue = parseFloat(input.value);
+
+      if (Number.isNaN(displayedValue)) {
+        input.dataset.imperialValue = "";
+        calculate();
+        return;
+      }
+
+      if (areaFields.includes(fieldId)) {
+        input.dataset.imperialValue = unitToggle.checked ? String(m2ToSqft(displayedValue)) : String(displayedValue);
+        calculate();
+        return;
+      }
+
+      if (lengthFields.includes(fieldId)) {
+        input.dataset.imperialValue = unitToggle.checked ? String(mToFt(displayedValue)) : String(displayedValue);
+        calculate();
+        return;
+      }
+
+      input.dataset.imperialValue = String(displayedValue);
+      calculate();
+    }
+
+    function calculate() {
+      const zone = climateZones[zoneSelect.value];
+      const area = parseFloat(document.getElementById("floor-area").dataset.imperialValue);
+      const ceiling = parseFloat(document.getElementById("ceiling-height").dataset.imperialValue);
+      const windows = parseFloat(document.getElementById("window-area").dataset.imperialValue);
+      const occupants = parseInt(document.getElementById("occupants").dataset.imperialValue, 10) || 0;
+      const insulation = insulationFactors[insulationSelect.value];
+      const direction = directionFactors[directionSelect.value];
+
+      const invalid = [area, ceiling, windows].some((value) => Number.isNaN(value) || value <= 0) ||
+        Number.isNaN(occupants) || occupants < 0;
+
+      if (!zone || !insulation || !direction || invalid) {
+        clearResults();
+        return;
+      }
+
+      const deltaTC = zone.coolDesign - indoorCool;
+      const deltaTH = indoorHeat - zone.heatDesign;
+      const envelopeCool = area * (deltaTC / 15) * insulation.cooling;
+      const ceilingAdj = ceiling > 8 ? 1 + (ceiling - 8) * 0.02 : 1.0;
+      const windowCool = windows * deltaTC * direction;
+      const occupantCool = occupants * 600;
+      const coolingLoad = Math.round((envelopeCool + windowCool + occupantCool) * ceilingAdj);
+
+      const envelopeHeat = area * (deltaTH / 15) * insulation.heating;
+      const windowHeat = windows * deltaTH * 0.8;
+      const heatingLoad = Math.round((envelopeHeat + windowHeat) * ceilingAdj);
+
+      const tonnage = coolingLoad / 12000;
+      const recommendedTon = Math.max(1, Math.ceil(tonnage * 2) / 2);
+      const minTon = Math.max(1, Math.floor(tonnage * 2) / 2);
+      const maxTon = Math.max(1, Math.ceil(tonnage * 2) / 2);
+      const isMetric = unitToggle.checked;
+
+      if (isMetric) {
+        setResult(coolingResult, btuToW(coolingLoad), "W", formatWhole);
+        setResult(heatingResult, btuToW(heatingLoad), "W", formatWhole);
+      } else {
+        setResult(coolingResult, coolingLoad, "BTU/h", formatWhole);
+        setResult(heatingResult, heatingLoad, "BTU/h", formatWhole);
+      }
+
+      setResult(tonnageResult, recommendedTon, "tons", formatDecimal);
+      rangeResult.innerHTML = formatDecimal(minTon) + " – " + formatDecimal(maxTon) + '<span class="result-unit">tons</span>';
+    }
+
+    numericFields.forEach((fieldId) => {
+      const input = document.getElementById(fieldId);
+      input.dataset.imperialValue = input.value;
+      input.addEventListener("input", () => updateStoredValue(fieldId));
+      input.addEventListener("change", () => updateStoredValue(fieldId));
+    });
+
+    zoneSelect.addEventListener("input", calculate);
+    zoneSelect.addEventListener("change", calculate);
+    insulationSelect.addEventListener("input", calculate);
+    insulationSelect.addEventListener("change", calculate);
+    directionSelect.addEventListener("input", calculate);
+    directionSelect.addEventListener("change", calculate);
+
+    unitToggle.addEventListener("change", () => {
+      updateInputUnits();
+      syncInputDisplays();
+      calculate();
+    });
+
+    updateInputUnits();
+    syncInputDisplays();
+    calculate();
+  </script>
+</body>
+</html>
