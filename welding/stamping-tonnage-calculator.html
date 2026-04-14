@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YB2TFN4NPN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-YB2TFN4NPN');
+  </script>
+  <title>Stamping Tonnage Calculator — Free Press Tonnage Tool | EngineerCalc</title>
+  <meta name="description" content="Free stamping tonnage calculator. Enter cut length, material thickness, and shear strength to calculate press force for blanking and piercing.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="canonical" href="https://xjtoo11.github.io/welding/stamping-tonnage-calculator.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Stamping Tonnage Calculator",
+    "url": "https://xjtoo11.github.io/welding/stamping-tonnage-calculator.html",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": 0,
+      "priceCurrency": "USD"
+    },
+    "description": "Free online press stamping tonnage calculator for blanking and piercing with required tonnage, cut force, and material shear strength outputs."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "How to Calculate Press Stamping Tonnage",
+    "author": {
+      "@type": "Organization",
+      "name": "EngineerCalc"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "EngineerCalc"
+    },
+    "datePublished": "2026-04-14",
+    "dateModified": "2026-04-14",
+    "mainEntityOfPage": "https://xjtoo11.github.io/welding/stamping-tonnage-calculator.html",
+    "description": "Step-by-step guidance for calculating blanking and piercing tonnage from cut perimeter, material thickness, shear strength, and safety factor."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is stamping tonnage?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Stamping tonnage is the press force required to shear, blank, pierce, or form sheet material. In blanking and piercing calculations it is based on the cut perimeter, material thickness, and material shear strength, then multiplied by a safety factor to size the press realistically."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why include a safety factor for press tonnage?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A safety factor accounts for material variation, tool wear, edge condition, press shock loading, and real production conditions. It helps prevent selecting a press that is too small for the job even when the theoretical shear calculation looks adequate."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does material thickness affect tonnage?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Tonnage rises directly with material thickness. If cut perimeter and shear strength stay constant, doubling the thickness doubles the required shearing force and therefore doubles the press tonnage before any safety factor is applied."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Blanking vs piercing tonnage — any difference?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The basic tonnage equation is the same for blanking and piercing because both operations shear the material along a cut edge. The main differences in practice come from punch count, edge quality targets, clearance, stripping force, and whether multiple hits occur in one stroke."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What happens if press tonnage is underestimated?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Underestimating tonnage can overload the press, shorten tool life, damage punches or dies, create poor edge quality, stall the machine, and introduce serious safety risks. Conservative selection is standard practice because press capacity errors can become expensive quickly."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <span class="logo">EngineerCalc</span>
+      <nav>
+        <a href="bend-allowance-calculator.html">Bend Allowance</a>
+        <a href="welding-heat-input-calculator.html">Heat Input</a>
+        <a href="k-factor-calculator.html">K-Factor</a>
+        <a href="dry-film-thickness-calculator.html">DFT</a>
+        <a href="stamping-tonnage-calculator.html" class="active">Stamping</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>Press Stamping Tonnage Calculator</h1>
+    <p class="subtitle">Free online stamping tonnage calculator for blanking and piercing operations. Enter cut perimeter, sheet thickness, material shear strength, and safety factor to estimate required press force instantly.</p>
+
+    <section class="calculator" aria-labelledby="calculator-heading">
+      <div class="calc-section-title" id="calculator-heading">INPUTS</div>
+
+      <div class="calc-row">
+        <label for="perimeter">Cut Perimeter P</label>
+        <input id="perimeter" name="perimeter" type="number" inputmode="decimal" value="12" step="0.1">
+        <span class="unit dimension-unit">in</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="thickness">Material Thickness T</label>
+        <input id="thickness" name="thickness" type="number" inputmode="decimal" value="0.1" step="0.01">
+        <span class="unit dimension-unit">in</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="material">Material</label>
+        <select id="material" name="material">
+          <option value="al1100" data-ksi="10" data-mpa="70">Aluminum 1100-O (10 ksi / 70 MPa)</option>
+          <option value="al6061" data-ksi="30" data-mpa="207">Aluminum 6061-T6 (30 ksi / 207 MPa)</option>
+          <option value="steel1018" data-ksi="45" data-mpa="310" selected>Mild Steel 1018 (45 ksi / 310 MPa)</option>
+          <option value="ss304" data-ksi="62" data-mpa="425">Stainless 304 (62 ksi / 425 MPa)</option>
+          <option value="copper110" data-ksi="22" data-mpa="150">Copper C110 (22 ksi / 150 MPa)</option>
+          <option value="brass260" data-ksi="35" data-mpa="240">Brass 260 (35 ksi / 240 MPa)</option>
+        </select>
+        <span class="unit"></span>
+      </div>
+
+      <div class="calc-row">
+        <label for="safety-factor">Safety Factor</label>
+        <input id="safety-factor" name="safety-factor" type="number" inputmode="decimal" value="1.2" step="0.1">
+        <span class="unit"></span>
+      </div>
+
+      <div class="unit-toggle">
+        <span id="metric-label">Metric</span>
+        <label class="toggle-switch" for="unit-system">
+          <input id="unit-system" type="checkbox" checked aria-label="Toggle between Metric and Imperial units">
+          <span class="toggle-slider"></span>
+        </label>
+        <span id="imperial-label" class="active">Imperial</span>
+      </div>
+
+      <div class="calc-section-title">RESULTS</div>
+      <div class="calc-results" aria-live="polite">
+        <div class="result-row">
+          <span class="result-label">Required Tonnage</span>
+          <span class="result-value" id="tonnage-result">32.40<span class="result-unit">tons</span></span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Cut Force (before safety factor)</span>
+          <span class="result-value small" id="force-result">54,000<span class="result-unit">lbs</span></span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Shear Strength Used</span>
+          <span class="result-value small" id="shear-result">45.00<span class="result-unit">ksi</span></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="app-cta" aria-label="Mobile app promotion">
+      <p>Get welding and fabrication calculators on your iPhone for quick shop-floor reference.</p>
+      <a href="https://apps.apple.com/app/id0000000000?utm_source=web&amp;utm_medium=calculator&amp;utm_campaign=stamping-tonnage">
+        <img src="../assets/app-store-badge.svg" alt="Download Welding Toolkit on the App Store" width="120" height="40">
+      </a>
+    </section>
+
+    <article>
+      <h2>What is Stamping Tonnage?</h2>
+      <p>Stamping tonnage is the amount of force a press must deliver to cut or form sheet material during a stamping operation. In blanking and piercing, tonnage is the shearing force needed to push the punch through the workpiece and separate the metal cleanly along the cutting edge. That force depends on three main inputs: the total cut perimeter, the material thickness, and the material shear strength. A larger perimeter means more edge length is being cut at once. A thicker sheet increases the area being sheared. A stronger alloy resists the cut more heavily, so the press has to work harder.</p>
+      <p>Understanding tonnage is essential for press selection, die design, scheduling, and safe production planning. If the calculated requirement is too low, the press may overload, punches can chip, and edge quality may suffer. If the estimate is too conservative, the job may be assigned to a larger and more expensive machine than necessary. That is why engineers usually begin with the theoretical shearing force and then apply a practical safety factor. The result is a realistic press tonnage requirement that supports consistent blanking and piercing without overstressing equipment. Even though the equation is simple, using the right units and material data is what makes it valuable on the shop floor.</p>
+
+      <h2>How to Calculate Press Tonnage</h2>
+      <p>For blanking and piercing, press tonnage is calculated from the total cut perimeter P, material thickness T, and the material shear strength S. The basic idea is straightforward: the press must shear the full perimeter of the part through the full thickness of the sheet. The product of those three values gives the base cutting force. From there, a safety factor is applied to reflect real operating conditions such as punch wear, die clearance variation, inconsistent stock properties, and impact loading near breakthrough.</p>
+      <p>In imperial units, perimeter is entered in inches, thickness in inches, and shear strength in psi. In practice, many tables list shear strength in ksi, so the calculator converts ksi to psi internally by multiplying by 1,000. The base force is produced in pounds-force, and the required press tonnage is then found by dividing by 2,000 pounds per ton and multiplying by the safety factor. In metric units, perimeter is entered in millimeters, thickness in millimeters, and shear strength in MPa. Since 1 MPa equals 1 N/mm&sup2;, the same multiplication directly gives force in newtons. Dividing by 1,000 converts the result to kN before the safety factor is applied.</p>
+      <div class="formula-block">
+        <span class="formula-label">Formulas</span>
+        <div>Force (lbs) = P &times; T &times; S, where S is in psi</div>
+        <div>Required Tonnage (tons) = Force &divide; 2000 &times; Safety Factor</div>
+        <div>Force (N) = P &times; T &times; S, where S is in Pa</div>
+        <div>Required Force (kN) = Force &divide; 1000 &times; Safety Factor</div>
+      </div>
+      <p>Worked example: use a cut perimeter of 12 in, material thickness of 0.1 in, Mild Steel 1018 with shear strength of 45 ksi, and a safety factor of 1.2. Convert 45 ksi to 45,000 psi. The cutting force becomes 12 &times; 0.1 &times; 45,000 = 54,000 lbs. Then divide by 2,000 to convert to tons: 54,000 &divide; 2,000 = 27 tons. After multiplying by the 1.2 safety factor, the required press tonnage is 32.4 tons. This is the default example shown in the calculator. The same logic applies to piercing multiple holes or blanking larger profiles: just use the total active cut perimeter for the stroke and choose a safety factor consistent with your tooling and production risk.</p>
+
+      <h2>Material Shear Strength Reference Table</h2>
+      <p>Material shear strength varies by alloy, temper, and product condition, so the values below should be treated as common estimating references rather than absolute design limits. They are useful for quoting and first-pass press sizing, but production tooling decisions should still follow the actual material specification used in your shop. If you expect harder stock, tighter tolerances, or heavy punch loading, adjust the safety factor accordingly.</p>
+      <div class="table-wrapper">
+        <table class="reference-table">
+          <thead>
+            <tr>
+              <th>Material</th>
+              <th>Alloy</th>
+              <th>Shear Strength (ksi)</th>
+              <th>Shear Strength (MPa)</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Aluminum</td><td>1100-O</td><td>10</td><td>70</td><td>Very soft, low blanking force, common for easy forming.</td></tr>
+            <tr><td>Aluminum</td><td>3003-H14</td><td>18</td><td>124</td><td>Moderate strength and good formability for general sheet work.</td></tr>
+            <tr><td>Aluminum</td><td>5052-H32</td><td>24</td><td>165</td><td>Common sheet alloy with better strength than 1100 or 3003.</td></tr>
+            <tr><td>Aluminum</td><td>6061-T6</td><td>30</td><td>207</td><td>Stronger heat-treated alloy; tonnage rises quickly with thickness.</td></tr>
+            <tr><td>Low Carbon Steel</td><td>1010/1018</td><td>45</td><td>310</td><td>Typical mild steel reference for blanking and piercing estimates.</td></tr>
+            <tr><td>HSLA Steel</td><td>50 ksi grade</td><td>55</td><td>380</td><td>Higher strength sheet usually needs more press margin.</td></tr>
+            <tr><td>Stainless Steel</td><td>304</td><td>62</td><td>425</td><td>Higher cutting load and often greater tool wear than mild steel.</td></tr>
+            <tr><td>Copper</td><td>C110</td><td>22</td><td>150</td><td>Soft and conductive; common in electrical stampings.</td></tr>
+            <tr><td>Brass</td><td>260</td><td>35</td><td>240</td><td>Moderate strength with clean sheared edges in many applications.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-section">
+        <details>
+          <summary>What is stamping tonnage?</summary>
+          <div class="faq-answer">
+            <p>Stamping tonnage is the force required for a press to perform a cutting or forming operation. For blanking and piercing, it is based on cut perimeter, sheet thickness, and the material's shear strength, then adjusted with a safety factor for real production use.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Why include a safety factor for press tonnage?</summary>
+          <div class="faq-answer">
+            <p>A safety factor covers the gap between an ideal calculation and actual shop conditions. Material properties vary, tools wear, clearances drift, and breakthrough loads can shock the press. A modest factor helps keep the selected machine out of overload territory.</p>
+          </div>
+        </details>
+        <details>
+          <summary>How does material thickness affect tonnage?</summary>
+          <div class="faq-answer">
+            <p>Tonnage increases directly with thickness. If the cut perimeter and material strength stay the same, doubling the sheet thickness doubles the force needed to shear the part. Thickness is therefore one of the fastest ways to drive press demand upward.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Blanking vs piercing tonnage — any difference?</summary>
+          <div class="faq-answer">
+            <p>The same basic equation is used for both because each operation shears material along a cutting edge. In practice, the total active perimeter, stripping force, number of punches, and desired edge condition may change how the die is designed, but the core cutting force calculation is the same.</p>
+          </div>
+        </details>
+        <details>
+          <summary>What happens if press tonnage is underestimated?</summary>
+          <div class="faq-answer">
+            <p>An undersized press can overload mechanically, produce rough or incomplete cuts, accelerate punch and die damage, and create serious safety issues. It also reduces process reliability because the press may struggle to maintain repeatable performance from stroke to stroke.</p>
+          </div>
+        </details>
+      </div>
+    </article>
+
+    <section class="related-calculators">
+      <h3>More Welding Calculators</h3>
+      <ul>
+        <li><a href="bend-allowance-calculator.html">Bend Allowance Calculator</a></li>
+        <li><a href="welding-heat-input-calculator.html">Welding Heat Input Calculator</a></li>
+        <li><a href="k-factor-calculator.html">K-Factor Calculator</a></li>
+        <li><a href="dry-film-thickness-calculator.html">Dry Film Thickness Calculator</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-apps">
+        <a href="https://apps.apple.com/app/id0000000000?utm_source=web&amp;utm_medium=calculator&amp;utm_campaign=welding-toolkit">Welding Toolkit on App Store</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const perimeterInput = document.getElementById("perimeter");
+    const thicknessInput = document.getElementById("thickness");
+    const materialInput = document.getElementById("material");
+    const safetyFactorInput = document.getElementById("safety-factor");
+    const unitToggle = document.getElementById("unit-system");
+    const metricLabel = document.getElementById("metric-label");
+    const imperialLabel = document.getElementById("imperial-label");
+
+    const tonnageResult = document.getElementById("tonnage-result");
+    const forceResult = document.getElementById("force-result");
+    const shearResult = document.getElementById("shear-result");
+
+    function mmToInches(value) {
+      return value / 25.4;
+    }
+
+    function inchesToMm(value) {
+      return value * 25.4;
+    }
+
+    function formatValue(value) {
+      return Number(value).toFixed(2);
+    }
+
+    function formatForce(value) {
+      return new Intl.NumberFormat("en-US", {
+        maximumFractionDigits: 2,
+        minimumFractionDigits: value >= 1000 ? 0 : 2
+      }).format(value);
+    }
+
+    function setResult(element, value, unitSymbol, formatter = formatValue) {
+      if (!Number.isFinite(value)) {
+        element.textContent = "—";
+        return;
+      }
+
+      element.innerHTML = formatter(value) + '<span class="result-unit">' + unitSymbol + "</span>";
+    }
+
+    function getSelectedShearStrength() {
+      const selected = materialInput.options[materialInput.selectedIndex];
+      return {
+        ksi: parseFloat(selected.dataset.ksi),
+        mpa: parseFloat(selected.dataset.mpa)
+      };
+    }
+
+    function updateInputUnits() {
+      const isImperial = unitToggle.checked;
+      document.querySelectorAll(".dimension-unit").forEach((el) => {
+        el.textContent = isImperial ? "in" : "mm";
+      });
+      metricLabel.classList.toggle("active", !isImperial);
+      imperialLabel.classList.toggle("active", isImperial);
+    }
+
+    function syncDisplayedDimensions() {
+      const perimeterMm = parseFloat(perimeterInput.dataset.metricValue);
+      const thicknessMm = parseFloat(thicknessInput.dataset.metricValue);
+      const isImperial = unitToggle.checked;
+
+      perimeterInput.value = Number.isFinite(perimeterMm)
+        ? formatValue(isImperial ? mmToInches(perimeterMm) : perimeterMm)
+        : "";
+      thicknessInput.value = Number.isFinite(thicknessMm)
+        ? formatValue(isImperial ? mmToInches(thicknessMm) : thicknessMm)
+        : "";
+    }
+
+    function calculate() {
+      const perimeterMm = parseFloat(perimeterInput.dataset.metricValue);
+      const thicknessMm = parseFloat(thicknessInput.dataset.metricValue);
+      const safetyFactor = parseFloat(safetyFactorInput.value);
+      const shearStrength = getSelectedShearStrength();
+
+      if (![perimeterMm, thicknessMm, safetyFactor, shearStrength.ksi, shearStrength.mpa].every(Number.isFinite)) {
+        [tonnageResult, forceResult, shearResult].forEach((element) => {
+          element.textContent = "—";
+        });
+        return;
+      }
+
+      const isImperial = unitToggle.checked;
+
+      if (isImperial) {
+        const perimeterIn = mmToInches(perimeterMm);
+        const thicknessIn = mmToInches(thicknessMm);
+        const forceLbs = perimeterIn * thicknessIn * (shearStrength.ksi * 1000);
+        const requiredTons = (forceLbs / 2000) * safetyFactor;
+
+        setResult(tonnageResult, requiredTons, "tons");
+        setResult(forceResult, forceLbs, "lbs", formatForce);
+        setResult(shearResult, shearStrength.ksi, "ksi");
+        return;
+      }
+
+      const forceN = perimeterMm * thicknessMm * shearStrength.mpa;
+      const requiredKn = (forceN / 1000) * safetyFactor;
+      const forceKn = forceN / 1000;
+
+      setResult(tonnageResult, requiredKn, "kN");
+      setResult(forceResult, forceKn, "kN", formatForce);
+      setResult(shearResult, shearStrength.mpa, "MPa");
+    }
+
+    perimeterInput.addEventListener("input", () => {
+      const displayedValue = parseFloat(perimeterInput.value);
+      perimeterInput.dataset.metricValue = Number.isFinite(displayedValue)
+        ? String(unitToggle.checked ? inchesToMm(displayedValue) : displayedValue)
+        : "";
+      calculate();
+    });
+
+    thicknessInput.addEventListener("input", () => {
+      const displayedValue = parseFloat(thicknessInput.value);
+      thicknessInput.dataset.metricValue = Number.isFinite(displayedValue)
+        ? String(unitToggle.checked ? inchesToMm(displayedValue) : displayedValue)
+        : "";
+      calculate();
+    });
+
+    materialInput.addEventListener("change", calculate);
+    safetyFactorInput.addEventListener("input", calculate);
+
+    unitToggle.addEventListener("change", () => {
+      updateInputUnits();
+      syncDisplayedDimensions();
+      calculate();
+    });
+
+    perimeterInput.dataset.metricValue = String(inchesToMm(parseFloat(perimeterInput.value)));
+    thicknessInput.dataset.metricValue = String(inchesToMm(parseFloat(thicknessInput.value)));
+    updateInputUnits();
+    syncDisplayedDimensions();
+    calculate();
+  </script>
+</body>
+</html>

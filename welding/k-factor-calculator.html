@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YB2TFN4NPN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-YB2TFN4NPN');
+  </script>
+  <title>K-Factor Calculator Sheet Metal — Free Online Tool | EngineerCalc</title>
+  <meta name="description" content="Free sheet metal K-factor calculator. Determine K-factor for bend allowance calculations by material thickness and inside bend radius.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="canonical" href="https://xjtoo11.github.io/welding/k-factor-calculator.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "K-Factor Calculator",
+    "url": "https://xjtoo11.github.io/welding/k-factor-calculator.html",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": 0,
+      "priceCurrency": "USD"
+    },
+    "description": "Free online K-factor calculator for sheet metal. Estimate K-factor from thickness, inside bend radius, and material type for bend allowance planning."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "How to Calculate K-Factor for Sheet Metal",
+    "author": {
+      "@type": "Organization",
+      "name": "EngineerCalc"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "EngineerCalc"
+    },
+    "datePublished": "2026-04-14",
+    "dateModified": "2026-04-14",
+    "mainEntityOfPage": "https://xjtoo11.github.io/welding/k-factor-calculator.html",
+    "description": "Step-by-step guidance for estimating sheet metal K-factor from material thickness, inside bend radius, and material condition."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is K-factor in sheet metal?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "K-factor is the ratio that describes the location of the neutral axis within sheet thickness during bending, measured from the inside face. It is used to predict how much material is consumed in the bend."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is K-factor related to bend allowance?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "K-factor is part of the bend allowance equation because it converts material thickness into the neutral-axis offset. A larger K-factor places the neutral axis farther from the inside face and increases bend allowance."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is a typical K-factor value?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Typical sheet metal K-factor values often fall between about 0.30 and 0.50, with many air-bent steel parts landing near 0.38 to 0.45 depending on radius, tooling, and material temper."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does K-factor change with bend angle?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "K-factor is influenced more strongly by material, tooling, and radius-to-thickness ratio than by bend angle alone, but in real production a change in angle can come with different forming conditions, springback, and pressure distribution that shift the effective value."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I measure K-factor empirically?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Make a controlled test bend, measure the finished part, back-calculate the bend allowance or bend deduction that matches the real blank, and solve for the K-factor that makes the calculation agree with the measured geometry."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <span class="logo">EngineerCalc</span>
+      <nav>
+        <a href="bend-allowance-calculator.html">Bend Allowance</a>
+        <a href="welding-heat-input-calculator.html">Heat Input</a>
+        <a href="k-factor-calculator.html" class="active">K-Factor</a>
+        <a href="dry-film-thickness-calculator.html">DFT</a>
+        <a href="stamping-tonnage-calculator.html">Stamping</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>K-Factor Calculator for Sheet Metal</h1>
+    <p class="subtitle">Free online K-factor calculator for sheet metal bending. Enter thickness, inside bend radius, and material type to estimate K-factor, neutral axis location, and R/T ratio for bend allowance work.</p>
+
+    <section class="calculator" aria-labelledby="calculator-heading">
+      <div class="calc-section-title" id="calculator-heading">INPUTS</div>
+
+      <div class="calc-row">
+        <label for="thickness">Material Thickness T</label>
+        <input id="thickness" name="thickness" type="number" inputmode="decimal" value="2.0" step="0.1">
+        <span class="unit dimension-unit">mm</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="radius">Inside Bend Radius R</label>
+        <input id="radius" name="radius" type="number" inputmode="decimal" value="3.0" step="0.1">
+        <span class="unit dimension-unit">mm</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="material-type">Material Type</label>
+        <select id="material-type" name="material-type">
+          <option value="soft-aluminum">Soft Aluminum</option>
+          <option value="soft-brass-copper">Soft Brass/Copper</option>
+          <option value="mild-steel" selected>Mild Steel</option>
+          <option value="hard-aluminum">Hard Aluminum</option>
+          <option value="hard-brass-copper">Hard Brass/Copper</option>
+          <option value="stainless-steel">Stainless Steel</option>
+        </select>
+        <span class="unit"></span>
+      </div>
+
+      <div class="unit-toggle">
+        <span id="metric-label" class="active">Metric</span>
+        <label class="toggle-switch" for="unit-system">
+          <input id="unit-system" type="checkbox" aria-label="Toggle between Metric and Imperial units">
+          <span class="toggle-slider"></span>
+        </label>
+        <span id="imperial-label">Imperial</span>
+      </div>
+
+      <div class="calc-section-title">RESULTS</div>
+      <div class="calc-results" aria-live="polite">
+        <div class="result-row">
+          <span class="result-label">K-Factor</span>
+          <span class="result-value" id="k-factor-result">0.409</span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">R/T Ratio</span>
+          <span class="result-value small" id="rt-ratio-result">1.50</span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Neutral Axis Location</span>
+          <span class="result-value small" id="neutral-axis-result">0.818<span class="result-unit">mm</span></span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Material Category</span>
+          <span class="result-value small" id="material-category-result">Medium</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="app-cta" aria-label="Mobile app promotion">
+      <p>Get welding and fabrication calculators on your iPhone for quick shop-floor reference.</p>
+      <a href="https://apps.apple.com/app/id0000000000?utm_source=web&amp;utm_medium=calculator&amp;utm_campaign=k-factor">
+        <img src="../assets/app-store-badge.svg" alt="Download Welding Toolkit on the App Store" width="120" height="40">
+      </a>
+    </section>
+
+    <article>
+      <h2>What is K-Factor?</h2>
+      <p>K-factor is a practical sheet metal forming value that describes where the neutral axis sits through the thickness of a part while it is bent. During bending, the inside surface is compressed and the outside surface is stretched. Between those layers is the neutral axis, the zone that changes length the least. K-factor expresses the neutral axis position as a fraction of material thickness measured from the inside face. If the neutral axis is exactly halfway through the thickness, the K-factor would be 0.50. In real brake forming, it is usually lower because the neutral axis shifts inward toward the compressed side.</p>
+      <p>This value matters because bend allowance depends on the neutral axis location, not simply on the inside or outside surface. If your K-factor estimate is wrong, the flat pattern will also be wrong, and that can lead to bad flange lengths, hole position drift, assembly fit problems, and extra press brake setup time. K-factor is therefore one of the most useful shortcut values in fabrication planning. Engineers use it during design, estimators use it while quoting formed parts, and brake operators use it to tune flat blanks to real tooling behavior. It is not a universal constant for a material. Instead, it changes with thickness, bend radius, temper, tooling, and bending method, so calculators provide a strong starting point that shops can refine with test bends.</p>
+
+      <h2>How to Calculate K-Factor</h2>
+      <p>A fully empirical K-factor comes from shop testing, but a useful first-pass estimate can be built from material type and the ratio of inside bend radius to material thickness. That ratio, written as R/T, captures how severe the bend is. Tight bends with a small radius compared with thickness tend to pull the neutral axis inward and produce lower K-factors. Larger radii move the neutral axis outward and generally increase the value. Material softness matters too. Softer alloys and tempers usually bend more easily and often start from a lower base value, while harder materials and stainless grades tend to run higher.</p>
+      <p>This calculator uses a simplified empirical model. Each material family starts with a base K-factor, then a logarithmic adjustment is applied using the R/T ratio. The logarithmic term keeps the change moderate: it raises K-factor gradually as radius grows instead of allowing unrealistic jumps. The result is clamped to a practical range of 0.25 to 0.50 because most sheet metal work falls inside that band. Once K-factor is known, the neutral axis location from the inside face is simply K multiplied by thickness.</p>
+      <div class="formula-block">
+        <span class="formula-label">Formulas</span>
+        <div>R/T Ratio = R &divide; T</div>
+        <div>K = clamp(Base K + log10(max(R/T, 0.1)) &times; 0.05, 0.25, 0.50)</div>
+        <div>Neutral Axis Location = K &times; T</div>
+      </div>
+      <p>Worked example: use material thickness T = 2 mm, inside bend radius R = 3 mm, and material type Mild Steel. First calculate the ratio R/T = 3/2 = 1.5. Mild steel uses a base K-factor of 0.40. The logarithmic term is log10(1.5), which is about 0.176. Multiply that by 0.05 and the adjustment becomes 0.0088. Add the adjustment to the base value and you get K = 0.4088, which rounds to 0.409. The neutral axis location is then 0.409 multiplied by 2 mm, or 0.818 mm from the inside face.</p>
+      <p>That result is useful immediately in bend allowance calculations because it tells you where the neutral axis runs through the bend. In production, the best workflow is to start with an estimated K-factor, form a test coupon using real tooling, compare predicted and measured dimensions, and then update your process table if needed. For quoting, CAD flat patterns, and first-pass brake setup, this type of model is fast and usually close enough to avoid obvious mistakes. For critical parts, aerospace work, cosmetic stainless, or heavy-gauge forming, a shop-specific bend table remains the more defensible standard.</p>
+
+      <h2>K-Factor Reference Table by Material</h2>
+      <p>The table below gives practical starting ranges for common sheet materials. The columns group conditions by bend severity. “Soft” here means a tight bend where radius is smaller than thickness. “Medium” represents bends around one to three times thickness. “Hard” in this table means a larger radius condition above three times thickness, where the neutral axis tends to sit farther from the inside face. Use these numbers as first estimates, then validate against your brake setup, die opening, punch radius, and material lot.</p>
+      <div class="table-wrapper">
+        <table class="reference-table">
+          <thead>
+            <tr>
+              <th>Material</th>
+              <th>Soft (R&lt;T)</th>
+              <th>Medium (R~T to 3T)</th>
+              <th>Hard (R&gt;3T)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Aluminum 1100</td><td>0.32</td><td>0.36</td><td>0.42</td></tr>
+            <tr><td>Aluminum 5052</td><td>0.33</td><td>0.38</td><td>0.44</td></tr>
+            <tr><td>Aluminum 6061</td><td>0.36</td><td>0.41</td><td>0.46</td></tr>
+            <tr><td>Mild Steel</td><td>0.35</td><td>0.40</td><td>0.46</td></tr>
+            <tr><td>Stainless 304</td><td>0.38</td><td>0.43</td><td>0.48</td></tr>
+            <tr><td>Copper</td><td>0.32</td><td>0.37</td><td>0.43</td></tr>
+            <tr><td>Brass</td><td>0.33</td><td>0.38</td><td>0.44</td></tr>
+            <tr><td>Titanium</td><td>0.39</td><td>0.44</td><td>0.49</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>These values are intentionally conservative. Material specification alone does not lock in the true K-factor because temper, yield strength, rolling direction, lubrication, bottoming versus air bending, and even operator setup choices all influence the final position of the neutral axis. A stainless sheet bent with a narrow V-die may behave differently from the same grade bent over a larger opening. Likewise, aluminum 6061 can show noticeably different forming behavior depending on temper and whether the bend line runs with or across the grain. If you are building a production bend chart, treat reference tables as seed data rather than as final truth.</p>
+
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-section">
+        <details>
+          <summary>What is K-factor in sheet metal?</summary>
+          <div class="faq-answer">
+            <p>K-factor is the ratio that shows the neutral axis location within sheet thickness during bending, measured from the inside surface. It lets you convert a real bend into a usable flat-pattern calculation.</p>
+          </div>
+        </details>
+        <details>
+          <summary>How is K-factor related to bend allowance?</summary>
+          <div class="faq-answer">
+            <p>K-factor appears directly in the bend allowance equation through the term R + K &times; T. As K-factor increases, the effective neutral-axis radius increases, which usually increases bend allowance and the developed flat length assigned to the bend.</p>
+          </div>
+        </details>
+        <details>
+          <summary>What is a typical K-factor value?</summary>
+          <div class="faq-answer">
+            <p>Many common sheet metal jobs fall between about 0.30 and 0.50. Tight bends in soft material often sit near the low end, while larger-radius bends and harder materials such as stainless tend to run closer to 0.43 to 0.48.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Does K-factor change with bend angle?</summary>
+          <div class="faq-answer">
+            <p>The main drivers are usually radius-to-thickness ratio, material properties, and tooling rather than angle alone. However, if angle changes also alter springback, penetration, or forming method, the effective K-factor observed in production can shift.</p>
+          </div>
+        </details>
+        <details>
+          <summary>How do I measure K-factor empirically?</summary>
+          <div class="faq-answer">
+            <p>Cut a test blank, bend it using the same press brake setup planned for production, measure the finished geometry, and compare it with your predicted flat pattern. Then adjust the K-factor until the calculated bend allowance matches the real part dimensions.</p>
+          </div>
+        </details>
+      </div>
+    </article>
+
+    <section class="related-calculators">
+      <h3>More Welding Calculators</h3>
+      <ul>
+        <li><a href="bend-allowance-calculator.html">Bend Allowance Calculator</a></li>
+        <li><a href="welding-heat-input-calculator.html">Welding Heat Input Calculator</a></li>
+        <li><a href="dry-film-thickness-calculator.html">Dry Film Thickness Calculator</a></li>
+        <li><a href="stamping-tonnage-calculator.html">Stamping Tonnage Calculator</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-apps">
+        <a href="https://apps.apple.com/app/id0000000000?utm_source=web&amp;utm_medium=calculator&amp;utm_campaign=welding-toolkit">Welding Toolkit on App Store</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const thicknessInput = document.getElementById("thickness");
+    const radiusInput = document.getElementById("radius");
+    const materialTypeInput = document.getElementById("material-type");
+    const unitToggle = document.getElementById("unit-system");
+    const metricLabel = document.getElementById("metric-label");
+    const imperialLabel = document.getElementById("imperial-label");
+
+    const kFactorResult = document.getElementById("k-factor-result");
+    const rtRatioResult = document.getElementById("rt-ratio-result");
+    const neutralAxisResult = document.getElementById("neutral-axis-result");
+    const materialCategoryResult = document.getElementById("material-category-result");
+
+    const baseKByMaterial = {
+      "soft-aluminum": 0.33,
+      "soft-brass-copper": 0.33,
+      "mild-steel": 0.40,
+      "hard-aluminum": 0.45,
+      "hard-brass-copper": 0.45,
+      "stainless-steel": 0.45
+    };
+
+    function mmToInches(value) {
+      return value / 25.4;
+    }
+
+    function inchesToMm(value) {
+      return value * 25.4;
+    }
+
+    function formatDimension(value) {
+      return Number(value).toFixed(3);
+    }
+
+    function formatRatio(value) {
+      return Number(value).toFixed(2);
+    }
+
+    function formatKFactor(value) {
+      return Number(value).toFixed(3);
+    }
+
+    function clamp(value, min, max) {
+      return Math.min(Math.max(value, min), max);
+    }
+
+    function setDimensionResult(element, value, unitSymbol) {
+      if (!Number.isFinite(value)) {
+        element.textContent = "—";
+        return;
+      }
+
+      element.innerHTML = formatDimension(value) + '<span class="result-unit">' + unitSymbol + "</span>";
+    }
+
+    function updateInputUnits() {
+      const isImperial = unitToggle.checked;
+      document.querySelectorAll(".dimension-unit").forEach((el) => {
+        el.textContent = isImperial ? "in" : "mm";
+      });
+      metricLabel.classList.toggle("active", !isImperial);
+      imperialLabel.classList.toggle("active", isImperial);
+    }
+
+    function syncDisplayedDimensions() {
+      const thicknessMm = parseFloat(thicknessInput.dataset.metricValue);
+      const radiusMm = parseFloat(radiusInput.dataset.metricValue);
+      const isImperial = unitToggle.checked;
+
+      thicknessInput.value = Number.isFinite(thicknessMm)
+        ? formatDimension(isImperial ? mmToInches(thicknessMm) : thicknessMm)
+        : "";
+      radiusInput.value = Number.isFinite(radiusMm)
+        ? formatDimension(isImperial ? mmToInches(radiusMm) : radiusMm)
+        : "";
+    }
+
+    function getMaterialCategory(materialKey) {
+      if (materialKey === "soft-aluminum" || materialKey === "soft-brass-copper") {
+        return "Soft";
+      }
+      if (materialKey === "mild-steel") {
+        return "Medium";
+      }
+      return "Hard";
+    }
+
+    function calculate() {
+      const thicknessMm = parseFloat(thicknessInput.dataset.metricValue);
+      const radiusMm = parseFloat(radiusInput.dataset.metricValue);
+      const materialKey = materialTypeInput.value;
+
+      if (![thicknessMm, radiusMm].every(Number.isFinite) || thicknessMm <= 0 || radiusMm < 0) {
+        [kFactorResult, rtRatioResult, neutralAxisResult, materialCategoryResult].forEach((element) => {
+          element.textContent = "—";
+        });
+        return;
+      }
+
+      const rtRatio = radiusMm / thicknessMm;
+      const baseK = baseKByMaterial[materialKey] || 0.40;
+      const adjustedK = clamp(baseK + Math.log10(Math.max(rtRatio, 0.1)) * 0.05, 0.25, 0.50);
+      const neutralAxisMm = adjustedK * thicknessMm;
+      const category = getMaterialCategory(materialKey);
+
+      const isImperial = unitToggle.checked;
+      const unitSymbol = isImperial ? "in" : "mm";
+      const convert = isImperial ? mmToInches : (value) => value;
+
+      kFactorResult.textContent = formatKFactor(adjustedK);
+      rtRatioResult.textContent = formatRatio(rtRatio);
+      setDimensionResult(neutralAxisResult, convert(neutralAxisMm), unitSymbol);
+      materialCategoryResult.textContent = category;
+    }
+
+    thicknessInput.addEventListener("input", () => {
+      const displayedValue = parseFloat(thicknessInput.value);
+      thicknessInput.dataset.metricValue = Number.isFinite(displayedValue)
+        ? String(unitToggle.checked ? inchesToMm(displayedValue) : displayedValue)
+        : "";
+      calculate();
+    });
+
+    radiusInput.addEventListener("input", () => {
+      const displayedValue = parseFloat(radiusInput.value);
+      radiusInput.dataset.metricValue = Number.isFinite(displayedValue)
+        ? String(unitToggle.checked ? inchesToMm(displayedValue) : displayedValue)
+        : "";
+      calculate();
+    });
+
+    materialTypeInput.addEventListener("change", calculate);
+
+    unitToggle.addEventListener("change", () => {
+      updateInputUnits();
+      syncDisplayedDimensions();
+      calculate();
+    });
+
+    thicknessInput.dataset.metricValue = thicknessInput.value;
+    radiusInput.dataset.metricValue = radiusInput.value;
+    updateInputUnits();
+    syncDisplayedDimensions();
+    calculate();
+  </script>
+</body>
+</html>

@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YB2TFN4NPN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-YB2TFN4NPN');
+  </script>
+  <title>Dry Film Thickness Calculator — Free Online DFT Tool | EngineerCalc</title>
+  <meta name="description" content="Free dry film thickness calculator. Enter wet film thickness and volume solids percentage to calculate DFT for paint and protective coatings.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="canonical" href="https://xjtoo11.github.io/welding/dry-film-thickness-calculator.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Dry Film Thickness Calculator",
+    "url": "https://xjtoo11.github.io/welding/dry-film-thickness-calculator.html",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": 0,
+      "priceCurrency": "USD"
+    },
+    "description": "Free online dry film thickness calculator for paint and protective coatings with DFT, effective volume solids, and coverage rate outputs."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "How to Calculate Dry Film Thickness",
+    "author": {
+      "@type": "Organization",
+      "name": "EngineerCalc"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "EngineerCalc"
+    },
+    "datePublished": "2026-04-14",
+    "dateModified": "2026-04-14",
+    "mainEntityOfPage": "https://xjtoo11.github.io/welding/dry-film-thickness-calculator.html",
+    "description": "Step-by-step guidance for calculating dry film thickness from wet film thickness, volume solids percentage, thinner percentage, and coating system selection."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is dry film thickness?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Dry film thickness is the cured thickness of a paint or protective coating left on the surface after solvents evaporate and the film sets. It is usually specified in mils or microns because corrosion protection and service life depend on the final dry layer, not just the wet applied layer."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is volume solids in paint?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Volume solids is the percentage of the wet coating volume that remains as solid material after drying. A coating with higher volume solids leaves behind a thicker dry film at the same wet film thickness, while added thinner reduces the effective solids percentage."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How accurate is a calculated DFT?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Calculated DFT is a useful theoretical estimate, but actual field results depend on spray technique, overspray, surface profile, thinner ratio, environmental conditions, and product-specific data sheets. Inspectors still verify the finished coating with gauges after cure."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What tools measure DFT in the field?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Inspectors commonly use magnetic pull-off gauges, electronic magnetic induction gauges for steel, and eddy current gauges for nonferrous substrates. Wet film combs are used during application, while dry film gauges confirm the cured thickness afterward."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What happens if DFT is too thin or too thick?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "If dry film thickness is too thin, barrier protection and corrosion resistance may be inadequate. If it is too thick, coatings can crack, mud-crack, solvent trap, lose adhesion, or cure improperly depending on the product and service conditions."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <span class="logo">EngineerCalc</span>
+      <nav>
+        <a href="bend-allowance-calculator.html">Bend Allowance</a>
+        <a href="welding-heat-input-calculator.html">Heat Input</a>
+        <a href="k-factor-calculator.html">K-Factor</a>
+        <a href="dry-film-thickness-calculator.html" class="active">DFT</a>
+        <a href="stamping-tonnage-calculator.html">Stamping</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>Dry Film Thickness Calculator</h1>
+    <p class="subtitle">Free online dry film thickness calculator for paint and protective coatings. Enter wet film thickness, volume solids, thinner percentage, and coating system to estimate DFT, effective solids, and theoretical coverage instantly.</p>
+
+    <section class="calculator" aria-labelledby="calculator-heading">
+      <div class="calc-section-title" id="calculator-heading">INPUTS</div>
+
+      <div class="calc-row">
+        <label for="wft">Wet Film Thickness WFT</label>
+        <input id="wft" name="wft" type="number" inputmode="decimal" value="6.0" step="0.1">
+        <span class="unit thickness-unit">mils</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="volume-solids">Volume Solids %</label>
+        <input id="volume-solids" name="volume-solids" type="number" inputmode="decimal" value="50" step="1">
+        <span class="unit">%</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="thinner">Thinner Added %</label>
+        <input id="thinner" name="thinner" type="number" inputmode="decimal" value="0" step="1">
+        <span class="unit">%</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="coating-system">Coating System</label>
+        <select id="coating-system" name="coating-system">
+          <option value="45">Alkyd (45%)</option>
+          <option value="65">Epoxy (65%)</option>
+          <option value="55">Polyurethane (55%)</option>
+          <option value="72">Zinc Primer (72%)</option>
+          <option value="custom" selected>Custom</option>
+        </select>
+        <span class="unit"></span>
+      </div>
+
+      <div class="unit-toggle">
+        <span id="metric-label">Metric</span>
+        <label class="toggle-switch" for="unit-system">
+          <input id="unit-system" type="checkbox" aria-label="Toggle between Metric and Imperial units" checked>
+          <span class="toggle-slider"></span>
+        </label>
+        <span id="imperial-label" class="active">Imperial</span>
+      </div>
+
+      <div class="calc-section-title">RESULTS</div>
+      <div class="calc-results" aria-live="polite">
+        <div class="result-row">
+          <span class="result-label">DFT</span>
+          <span class="result-value" id="dft-result">3.00<span class="result-unit">mils</span></span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Effective Volume Solids</span>
+          <span class="result-value small" id="effective-vs-result">50.0<span class="result-unit">%</span></span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Coverage Rate</span>
+          <span class="result-value small" id="coverage-result">267.33<span class="result-unit">sq ft/gal</span></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="app-cta" aria-label="Mobile app promotion">
+      <p>Get welding and fabrication calculators on your iPhone for quick shop-floor reference.</p>
+      <a href="https://apps.apple.com/app/id0000000000?utm_source=web&amp;utm_medium=calculator&amp;utm_campaign=dry-film-thickness">
+        <img src="../assets/app-store-badge.svg" alt="Download Welding Toolkit on the App Store" width="120" height="40">
+      </a>
+    </section>
+
+    <article>
+      <h2>What is Dry Film Thickness?</h2>
+      <p>Dry film thickness, usually shortened to DFT, is the thickness of the coating that remains on a surface after the liquid paint or lining has dried and cured. During application, a coating contains solids plus solvent or other volatile components. The wet film thickness you spray, brush, or roll onto steel is therefore not the same as the final protective layer left in service. Once the volatile portion flashes off, only the solids remain, and that remaining thickness is the value inspectors, engineers, and owners care about.</p>
+      <p>DFT matters because coating performance is strongly tied to final thickness. If the film is too thin, the coating may not provide the intended barrier against moisture, oxygen, chemicals, or abrasion. If it is too thick, the system can suffer from cracking, solvent entrapment, cure problems, or poor intercoat adhesion. Specifications for tanks, structural steel, pipelines, marine assets, and industrial equipment are therefore usually written around target DFT ranges for each coat and for the total system. Understanding DFT also helps with estimating material usage, checking whether a chosen wet film thickness will meet the specification, and planning inspection points during painting work.</p>
+
+      <h2>How to Calculate DFT</h2>
+      <p>The basic idea is simple: dry film thickness depends on how much of the wet coating volume remains after drying. That retained fraction is the volume solids percentage. If a coating has 50 percent volume solids, roughly half of the wet film remains as dry film under ideal conditions. If thinner is added, the effective solids percentage drops because you increase liquid volume without increasing the amount of solid resin and pigment left behind. That is why the first calculation is the adjusted or effective volume solids.</p>
+      <p>To calculate DFT, start with the measured or target wet film thickness and multiply it by the effective volume solids fraction. Keep units consistent. If wet film thickness is in mils, the result comes out in mils. If the input is in microns, the output comes out in microns. Coverage rate can then be estimated from the resulting DFT. The coverage value shown here is theoretical, meaning it assumes 100 percent transfer efficiency and does not account for overspray, surface roughness, container loss, or practical wastage in the field.</p>
+      <div class="formula-block">
+        <span class="formula-label">Formulas</span>
+        <div>Effective VS% = VS% &divide; (1 + Thinner% &divide; 100)</div>
+        <div>DFT = WFT &times; Effective VS% &divide; 100</div>
+        <div>Coverage (sq ft/gal) = 1604 &times; Effective VS fraction &divide; DFT in mils</div>
+        <div>Coverage (m2/L) = 1000 &times; Effective VS fraction &divide; DFT in microns</div>
+      </div>
+      <p>Worked example: use a wet film thickness of 6 mils, volume solids of 50 percent, and no thinner added. Effective volume solids remains 50 percent. DFT therefore equals 6 &times; 50 &divide; 100 = 3 mils. The theoretical coverage rate is 1604 &times; 0.50 &divide; 3, which gives 267 square feet per gallon. That is the same result the calculator shows with its default values. If you added 10 percent thinner to the same coating, the effective solids would drop to about 45.5 percent, the dry film thickness would fall to about 2.73 mils at the same wet application thickness, and the theoretical coverage at that thinner-adjusted film would also change. This is why painters and inspectors track both wet application thickness and mix ratio rather than relying on nominal product data alone.</p>
+      <p>In practice, treat the math as a planning tool rather than a substitute for inspection. Product data sheets can list a range of volume solids, field thinning may be limited by the manufacturer, and surface profile can absorb part of the first coat. WFT combs help applicators check the wet film immediately after spraying, while dry film gauges confirm whether the cured system actually meets the specified range. Good coating control combines both steps: calculate the target, apply to that target, and then verify the result after cure.</p>
+
+      <h2>Coating Volume Solids Reference Table</h2>
+      <p>The table below gives common starting values for industrial coating systems. These are typical ranges used for planning and education, not product-specific guarantees. Always confirm the exact volume solids, recommended thinning limits, and target dry film thickness from the manufacturer’s current product data sheet and project specification before work begins.</p>
+      <div class="table-wrapper">
+        <table class="reference-table">
+          <thead>
+            <tr>
+              <th>Coating Type</th>
+              <th>Typical VS%</th>
+              <th>Recommended DFT (mils)</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Alkyd Primer</td><td>40-48%</td><td>2.0-3.0</td><td>General-purpose primer with moderate solids and easy application.</td></tr>
+            <tr><td>Alkyd Topcoat</td><td>45-52%</td><td>1.5-2.5</td><td>Common architectural or maintenance finish coat.</td></tr>
+            <tr><td>Epoxy Primer</td><td>55-70%</td><td>3.0-5.0</td><td>Good corrosion resistance and common for steel protection.</td></tr>
+            <tr><td>Epoxy Intermediate</td><td>60-75%</td><td>4.0-8.0</td><td>Build coat used to increase total system thickness.</td></tr>
+            <tr><td>Polyurethane Topcoat</td><td>50-60%</td><td>2.0-3.0</td><td>UV-stable finish with good color and gloss retention.</td></tr>
+            <tr><td>Zinc-Rich Primer</td><td>65-78%</td><td>2.5-4.0</td><td>High-solids sacrificial primer for steel structures.</td></tr>
+            <tr><td>Coal Tar Epoxy</td><td>68-75%</td><td>8.0-12.0</td><td>Heavy-build system often used for immersion or buried service.</td></tr>
+            <tr><td>Inorganic Zinc</td><td>60-68%</td><td>2.0-3.5</td><td>Requires careful DFT control to avoid mud cracking.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-section">
+        <details>
+          <summary>What is dry film thickness?</summary>
+          <div class="faq-answer">
+            <p>Dry film thickness is the cured thickness of the coating left on the substrate after solvents evaporate and the film sets. It is the thickness that governs corrosion protection, appearance, and long-term coating performance.</p>
+          </div>
+        </details>
+        <details>
+          <summary>What is volume solids in paint?</summary>
+          <div class="faq-answer">
+            <p>Volume solids is the percentage of the applied wet coating volume that remains on the surface as dry solid material. Higher volume solids generally produce a higher DFT at the same wet film thickness.</p>
+          </div>
+        </details>
+        <details>
+          <summary>How accurate is a calculated DFT?</summary>
+          <div class="faq-answer">
+            <p>The calculation is a theoretical estimate based on stated solids content and uniform application. Real results vary with thinner addition, spray efficiency, surface profile, environmental conditions, and product-specific behavior, so field measurement is still required.</p>
+          </div>
+        </details>
+        <details>
+          <summary>What tools measure DFT in the field?</summary>
+          <div class="faq-answer">
+            <p>Inspectors usually measure cured DFT with magnetic or electronic coating thickness gauges. During application they may also use a wet film thickness comb to estimate what the final DFT should be after drying.</p>
+          </div>
+        </details>
+        <details>
+          <summary>What happens if DFT is too thin or too thick?</summary>
+          <div class="faq-answer">
+            <p>Too little dry film can leave the substrate underprotected and shorten service life. Too much can cause cracking, poor cure, solvent entrapment, reduced adhesion, or topcoat problems depending on the coating chemistry and service conditions.</p>
+          </div>
+        </details>
+      </div>
+    </article>
+
+    <section class="related-calculators">
+      <h3>More Welding Calculators</h3>
+      <ul>
+        <li><a href="bend-allowance-calculator.html">Bend Allowance Calculator</a></li>
+        <li><a href="welding-heat-input-calculator.html">Welding Heat Input Calculator</a></li>
+        <li><a href="k-factor-calculator.html">K-Factor Calculator</a></li>
+        <li><a href="stamping-tonnage-calculator.html">Stamping Tonnage Calculator</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-apps">
+        <a href="https://apps.apple.com/app/id0000000000?utm_source=web&amp;utm_medium=calculator&amp;utm_campaign=welding-toolkit">Welding Toolkit on App Store</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const wftInput = document.getElementById("wft");
+    const volumeSolidsInput = document.getElementById("volume-solids");
+    const thinnerInput = document.getElementById("thinner");
+    const coatingSystemSelect = document.getElementById("coating-system");
+    const unitToggle = document.getElementById("unit-system");
+    const metricLabel = document.getElementById("metric-label");
+    const imperialLabel = document.getElementById("imperial-label");
+
+    const dftResult = document.getElementById("dft-result");
+    const effectiveVsResult = document.getElementById("effective-vs-result");
+    const coverageResult = document.getElementById("coverage-result");
+
+    function milsToMicrons(value) {
+      return value * 25.4;
+    }
+
+    function micronsToMils(value) {
+      return value / 25.4;
+    }
+
+    function formatThickness(value) {
+      return Number(value).toFixed(2);
+    }
+
+    function formatPercent(value) {
+      return Number(value).toFixed(1);
+    }
+
+    function formatCoverage(value) {
+      return Number(value).toFixed(2);
+    }
+
+    function updateInputUnits() {
+      const isImperial = unitToggle.checked;
+      document.querySelectorAll(".thickness-unit").forEach((el) => {
+        el.textContent = isImperial ? "mils" : "microns";
+      });
+      metricLabel.classList.toggle("active", !isImperial);
+      imperialLabel.classList.toggle("active", isImperial);
+    }
+
+    function syncDisplayedThickness() {
+      const wftMicrons = parseFloat(wftInput.dataset.metricValue);
+      const isImperial = unitToggle.checked;
+
+      wftInput.value = Number.isFinite(wftMicrons)
+        ? formatThickness(isImperial ? micronsToMils(wftMicrons) : wftMicrons)
+        : "";
+    }
+
+    function setResult(element, value, unit) {
+      if (!Number.isFinite(value)) {
+        element.textContent = "—";
+        return;
+      }
+
+      element.innerHTML = value + '<span class="result-unit">' + unit + "</span>";
+    }
+
+    function updateCoatingPreset() {
+      const volumeSolids = parseFloat(volumeSolidsInput.value);
+      const presetValues = ["45", "65", "55", "72"];
+
+      if (!Number.isFinite(volumeSolids)) {
+        coatingSystemSelect.value = "custom";
+        return;
+      }
+
+      const matchedValue = presetValues.find((value) => Number(value) === volumeSolids);
+      coatingSystemSelect.value = matchedValue || "custom";
+    }
+
+    function calculate() {
+      const wftMicrons = parseFloat(wftInput.dataset.metricValue);
+      const volumeSolids = parseFloat(volumeSolidsInput.value);
+      const thinnerPercent = parseFloat(thinnerInput.value);
+
+      if (![wftMicrons, volumeSolids, thinnerPercent].every(Number.isFinite) || volumeSolids < 0 || volumeSolids > 100 || thinnerPercent < 0) {
+        [dftResult, effectiveVsResult, coverageResult].forEach((element) => {
+          element.textContent = "—";
+        });
+        return;
+      }
+
+      const effectiveVsPercent = volumeSolids / (1 + thinnerPercent / 100);
+      const dftMicrons = wftMicrons * effectiveVsPercent / 100;
+      const effectiveVsFraction = effectiveVsPercent / 100;
+      const dftMils = micronsToMils(dftMicrons);
+
+      if (dftMicrons <= 0 || dftMils <= 0) {
+        setResult(dftResult, formatThickness(unitToggle.checked ? dftMils : dftMicrons), unitToggle.checked ? "mils" : "microns");
+        setResult(effectiveVsResult, formatPercent(effectiveVsPercent), "%");
+        coverageResult.textContent = "—";
+        return;
+      }
+
+      const isImperial = unitToggle.checked;
+      const dftValue = isImperial ? dftMils : dftMicrons;
+      const dftUnit = isImperial ? "mils" : "microns";
+      const coverage = isImperial
+        ? (1604 * effectiveVsFraction) / dftMils
+        : (1000 * effectiveVsFraction) / dftMicrons;
+      const coverageUnit = isImperial ? "sq ft/gal" : "m2/L";
+
+      setResult(dftResult, formatThickness(dftValue), dftUnit);
+      setResult(effectiveVsResult, formatPercent(effectiveVsPercent), "%");
+      setResult(coverageResult, formatCoverage(coverage), coverageUnit);
+    }
+
+    wftInput.addEventListener("input", () => {
+      const displayedValue = parseFloat(wftInput.value);
+      wftInput.dataset.metricValue = Number.isFinite(displayedValue)
+        ? String(unitToggle.checked ? milsToMicrons(displayedValue) : displayedValue)
+        : "";
+      calculate();
+    });
+
+    volumeSolidsInput.addEventListener("input", () => {
+      updateCoatingPreset();
+      calculate();
+    });
+
+    thinnerInput.addEventListener("input", calculate);
+
+    coatingSystemSelect.addEventListener("change", () => {
+      if (coatingSystemSelect.value !== "custom") {
+        volumeSolidsInput.value = coatingSystemSelect.value;
+      }
+      calculate();
+    });
+
+    unitToggle.addEventListener("change", () => {
+      updateInputUnits();
+      syncDisplayedThickness();
+      calculate();
+    });
+
+    wftInput.dataset.metricValue = String(milsToMicrons(parseFloat(wftInput.value)));
+    updateInputUnits();
+    syncDisplayedThickness();
+    calculate();
+  </script>
+</body>
+</html>

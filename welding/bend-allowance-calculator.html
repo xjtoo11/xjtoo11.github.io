@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YB2TFN4NPN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-YB2TFN4NPN');
+  </script>
+  <title>Bend Allowance Calculator — Free Online Sheet Metal Tool | EngineerCalc</title>
+  <meta name="description" content="Free bend allowance calculator for sheet metal. Enter material thickness, bend radius, and K-factor to get accurate bend allowance instantly.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="canonical" href="https://xjtoo11.github.io/welding/bend-allowance-calculator.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Bend Allowance Calculator",
+    "url": "https://xjtoo11.github.io/welding/bend-allowance-calculator.html",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": 0,
+      "priceCurrency": "USD"
+    },
+    "description": "Free online bend allowance calculator for sheet metal with bend allowance, neutral axis offset, bend deduction, and developed length outputs."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "How to Calculate Bend Allowance",
+    "author": {
+      "@type": "Organization",
+      "name": "EngineerCalc"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "EngineerCalc"
+    },
+    "datePublished": "2026-04-15",
+    "dateModified": "2026-04-15",
+    "mainEntityOfPage": "https://xjtoo11.github.io/welding/bend-allowance-calculator.html",
+    "description": "Step-by-step guidance for calculating bend allowance, neutral axis offset, bend deduction, and choosing a practical K-factor for sheet metal bends."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is bend allowance in sheet metal?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Bend allowance is the length of the neutral axis through the bend. It is the portion of the flat pattern assigned to the curved section, so it lets fabricators convert a finished bent part into an accurate blank size."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is K-factor and how does it relate to bend allowance?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "K-factor describes where the neutral axis sits within the material thickness during bending. It is the ratio of neutral axis offset to thickness. A higher K-factor moves the neutral axis farther from the inside face and increases bend allowance."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How accurate is a theoretical bend allowance calculation?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Theoretical bend allowance is a strong starting point, but real accuracy depends on material temper, grain direction, tooling radius, press brake setup, and springback. Shops usually validate calculations with test bends and then tune the K-factor or bend deduction table."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What's the difference between bend allowance and bend deduction?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Bend allowance is the arc length of the neutral axis in the bend. Bend deduction is the amount subtracted from the total outside flange lengths to get the flat length. They describe the same geometry from different flat-pattern calculation methods."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I find the right K-factor for my material?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Start with a reference value based on material and tooling, then verify it with a sample bend. Measure the finished part, compare it with the predicted flat pattern, and adjust the K-factor until your calculated and measured values match your actual process."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <span class="logo">EngineerCalc</span>
+      <nav>
+        <a href="bend-allowance-calculator.html" class="active">Bend Allowance</a>
+        <a href="welding-heat-input-calculator.html">Heat Input</a>
+        <a href="k-factor-calculator.html">K-Factor</a>
+        <a href="dry-film-thickness-calculator.html">DFT</a>
+        <a href="stamping-tonnage-calculator.html">Stamping</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>Bend Allowance Calculator</h1>
+    <p class="subtitle">Free online bend allowance calculator for sheet metal layout, brake forming, and fabrication planning. Enter material thickness, inside radius, bend angle, and K-factor to estimate flat-pattern values instantly.</p>
+
+    <section class="calculator" aria-labelledby="calculator-heading">
+      <div class="calc-section-title" id="calculator-heading">INPUTS</div>
+
+      <div class="calc-row">
+        <label for="thickness">Material Thickness T</label>
+        <input id="thickness" name="thickness" type="number" inputmode="decimal" value="2.0" step="0.1">
+        <span class="unit dimension-unit">mm</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="radius">Inside Bend Radius R</label>
+        <input id="radius" name="radius" type="number" inputmode="decimal" value="3.0" step="0.1">
+        <span class="unit dimension-unit">mm</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="angle">Bend Angle</label>
+        <input id="angle" name="angle" type="number" inputmode="decimal" value="90" step="1">
+        <span class="unit">degrees</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="k-factor">K-Factor</label>
+        <input id="k-factor" name="k-factor" type="number" inputmode="decimal" value="0.42" step="0.01">
+        <span class="unit"></span>
+      </div>
+
+      <div class="unit-toggle">
+        <span id="metric-label" class="active">Metric</span>
+        <label class="toggle-switch" for="unit-system">
+          <input id="unit-system" type="checkbox" aria-label="Toggle between Metric and Imperial units">
+          <span class="toggle-slider"></span>
+        </label>
+        <span id="imperial-label">Imperial</span>
+      </div>
+
+      <div class="calc-section-title">RESULTS</div>
+      <div class="calc-results" aria-live="polite">
+        <div class="result-row">
+          <span class="result-label">Bend Allowance</span>
+          <span class="result-value" id="bend-allowance-result">6.03<span class="result-unit">mm</span></span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Neutral Axis Offset</span>
+          <span class="result-value small" id="neutral-axis-result">0.84<span class="result-unit">mm</span></span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Bend Deduction</span>
+          <span class="result-value small" id="bend-deduction-result">3.97<span class="result-unit">mm</span></span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Developed Length</span>
+          <span class="result-value small" id="developed-length-result">6.03<span class="result-unit">mm</span></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="app-cta" aria-label="Mobile app promotion">
+      <p>Get welding and fabrication calculators on your iPhone for quick shop-floor reference.</p>
+      <a href="https://apps.apple.com/app/id0000000000?utm_source=web&amp;utm_medium=calculator&amp;utm_campaign=bend-allowance">
+        <img src="../assets/app-store-badge.svg" alt="Download Welding Toolkit on the App Store" width="120" height="40">
+      </a>
+    </section>
+
+    <article>
+      <h2>What is Bend Allowance?</h2>
+      <p>Bend allowance is the length of material consumed by the curved portion of a sheet metal bend. When a flat blank is formed in a press brake, the inside surface compresses and the outside surface stretches. Somewhere between those faces there is a neutral axis, a layer that changes length very little during bending. Bend allowance is the arc length of that neutral axis through the bend angle. In practical fabrication terms, it is the piece of the flat pattern that belongs to the bend itself rather than to either straight flange.</p>
+      <p>This matters because flat-pattern layout is only accurate when the bend region is accounted for correctly. If you ignore bend allowance, the developed blank will come out too long or too short, and the final formed part will miss key dimensions. That can throw off hole locations, mating features, assembly fit, and repeatability at the brake. Engineers, estimators, and fabricators use bend allowance to convert a finished part drawing into a cut length that reflects real forming behavior. It is a simple concept, but it sits at the center of reliable sheet metal manufacturing.</p>
+
+      <h2>How to Calculate Bend Allowance</h2>
+      <p>The standard bend allowance equation combines bend angle, inside bend radius, material thickness, and K-factor. The radius and thickness describe the geometry. The bend angle controls how much of the arc is formed. The K-factor represents where the neutral axis sits within the material thickness during bending. Because the neutral axis does not remain exactly at mid-thickness, K-factor is needed to turn a geometric bend into a usable flat-pattern number.</p>
+      <p>For most hand calculations, start by keeping all linear dimensions in the same unit system. If you use millimeters for thickness and radius, the result will also come out in millimeters. Bend angle is entered in degrees, then converted internally by the factor &pi;/180. Once bend allowance is known, you can also estimate the neutral axis offset and the bend deduction. Neutral axis offset is simply the distance from the inside face to the neutral axis, calculated as K multiplied by thickness. Bend deduction is more useful when you start from outside flange dimensions and want the flat blank length by subtraction rather than by adding flange lengths and bend allowance separately.</p>
+      <div class="formula-block">
+        <span class="formula-label">Formulas</span>
+        <div>BA = (&pi;/180) &times; Bend Angle &times; (R + K &times; T)</div>
+        <div>Neutral Axis Offset = K &times; T</div>
+        <div>Bend Deduction = 2 &times; (R + T) &times; tan(Angle / 2) &minus; BA</div>
+      </div>
+      <p>Worked example: let material thickness T equal 2 mm, inside radius R equal 3 mm, bend angle equal 90 degrees, and K-factor equal 0.42. The neutral axis offset is 0.42 &times; 2 = 0.84 mm. The bend allowance is (&pi;/180) &times; 90 &times; (3 + 0.42 &times; 2). That becomes 1.5708 &times; 3.84, which gives 6.03 mm. For bend deduction, calculate 2 &times; (3 + 2) &times; tan(45 degrees) &minus; 6.03. Since tan(45 degrees) = 1, the first term is 10, so bend deduction is 10 &minus; 6.03 = 3.97 mm.</p>
+      <p>These values are excellent for planning, quoting, and first-pass setup, but production accuracy still depends on how the part is actually formed. Material temper, grain direction, punch radius, die opening, air bending versus bottoming, and springback all shift the neutral axis slightly. That is why strong shops treat theoretical bend allowance as a starting model, then validate it with sample bends and measured flats. Once the K-factor is tuned to the real tooling and material lot, the same equation becomes a dependable shop standard.</p>
+
+      <h2>K-Factor Reference Table</h2>
+      <p>K-factor is not a material constant in the strict scientific sense. It is a practical forming parameter that changes with radius-to-thickness ratio, tooling, and process severity. The table below gives common starting values for sheet metal work. Use it to choose an initial estimate, then adjust based on your own brake setup and inspection results.</p>
+      <div class="table-wrapper">
+        <table class="reference-table">
+          <thead>
+            <tr>
+              <th>Material</th>
+              <th>Soft (small R/T)</th>
+              <th>Medium</th>
+              <th>Hard (large R/T)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Aluminum 1100-H14</td><td>0.33</td><td>0.38</td><td>0.44</td></tr>
+            <tr><td>Aluminum 5052-H32</td><td>0.34</td><td>0.40</td><td>0.45</td></tr>
+            <tr><td>Mild Steel 1018</td><td>0.35</td><td>0.41</td><td>0.46</td></tr>
+            <tr><td>Stainless 304</td><td>0.37</td><td>0.43</td><td>0.48</td></tr>
+            <tr><td>Copper</td><td>0.33</td><td>0.39</td><td>0.44</td></tr>
+            <tr><td>Brass</td><td>0.34</td><td>0.40</td><td>0.45</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-section">
+        <details>
+          <summary>What is bend allowance in sheet metal?</summary>
+          <div class="faq-answer">
+            <p>Bend allowance is the neutral-axis arc length assigned to the bend zone of a formed part. When you create a flat pattern, it is the amount added for the curved region so the cut blank matches the final bent geometry after forming.</p>
+          </div>
+        </details>
+        <details>
+          <summary>What is K-factor and how does it relate to bend allowance?</summary>
+          <div class="faq-answer">
+            <p>K-factor describes the neutral axis location as a fraction of material thickness measured from the inside face. Because bend allowance uses the term R + K &times; T, a larger K-factor increases the effective bend radius of the neutral axis and therefore increases bend allowance.</p>
+          </div>
+        </details>
+        <details>
+          <summary>How accurate is a theoretical bend allowance calculation?</summary>
+          <div class="faq-answer">
+            <p>The equation is accurate enough for design and first-pass process setup, but final production accuracy depends on tooling, material lot, temper, die opening, and springback. Most shops refine the starting K-factor with test bends until measured parts align with calculated flat layouts.</p>
+          </div>
+        </details>
+        <details>
+          <summary>What's the difference between bend allowance and bend deduction?</summary>
+          <div class="faq-answer">
+            <p>Bend allowance measures the arc length of the neutral axis inside the bend itself. Bend deduction is a subtraction value used when you begin with outside flange dimensions. Both are ways to reach the same flat-pattern goal, but they come from different dimensioning workflows.</p>
+          </div>
+        </details>
+        <details>
+          <summary>How do I find the right K-factor for my material?</summary>
+          <div class="faq-answer">
+            <p>Use a published starting range for your material and bend condition, cut a test blank, form the part with production tooling, and compare the finished dimensions with the predicted flat. Adjust the K-factor until the calculation matches what your brake actually produces.</p>
+          </div>
+        </details>
+      </div>
+    </article>
+
+    <section class="related-calculators">
+      <h3>More Welding Calculators</h3>
+      <ul>
+        <li><a href="welding-heat-input-calculator.html">Welding Heat Input Calculator</a></li>
+        <li><a href="k-factor-calculator.html">K-Factor Calculator</a></li>
+        <li><a href="dry-film-thickness-calculator.html">Dry Film Thickness Calculator</a></li>
+        <li><a href="stamping-tonnage-calculator.html">Stamping Tonnage Calculator</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-apps">
+        <a href="https://apps.apple.com/app/id0000000000?utm_source=web&amp;utm_medium=calculator&amp;utm_campaign=welding-toolkit">Welding Toolkit on App Store</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const thicknessInput = document.getElementById("thickness");
+    const radiusInput = document.getElementById("radius");
+    const angleInput = document.getElementById("angle");
+    const kFactorInput = document.getElementById("k-factor");
+    const unitToggle = document.getElementById("unit-system");
+    const metricLabel = document.getElementById("metric-label");
+    const imperialLabel = document.getElementById("imperial-label");
+
+    const bendAllowanceResult = document.getElementById("bend-allowance-result");
+    const neutralAxisResult = document.getElementById("neutral-axis-result");
+    const bendDeductionResult = document.getElementById("bend-deduction-result");
+    const developedLengthResult = document.getElementById("developed-length-result");
+
+    function mmToInches(value) {
+      return value / 25.4;
+    }
+
+    function inchesToMm(value) {
+      return value * 25.4;
+    }
+
+    function formatValue(value) {
+      return Number(value).toFixed(2);
+    }
+
+    function setDimensionResult(element, value, unitSymbol) {
+      if (!Number.isFinite(value)) {
+        element.textContent = "—";
+        return;
+      }
+
+      element.innerHTML = formatValue(value) + '<span class="result-unit">' + unitSymbol + "</span>";
+    }
+
+    function updateInputUnits() {
+      const isImperial = unitToggle.checked;
+      document.querySelectorAll(".dimension-unit").forEach((el) => {
+        el.textContent = isImperial ? "in" : "mm";
+      });
+      metricLabel.classList.toggle("active", !isImperial);
+      imperialLabel.classList.toggle("active", isImperial);
+    }
+
+    function syncDisplayedDimensions() {
+      const thicknessMm = parseFloat(thicknessInput.dataset.metricValue);
+      const radiusMm = parseFloat(radiusInput.dataset.metricValue);
+      const isImperial = unitToggle.checked;
+
+      thicknessInput.value = Number.isFinite(thicknessMm)
+        ? formatValue(isImperial ? mmToInches(thicknessMm) : thicknessMm)
+        : "";
+      radiusInput.value = Number.isFinite(radiusMm)
+        ? formatValue(isImperial ? mmToInches(radiusMm) : radiusMm)
+        : "";
+    }
+
+    function calculate() {
+      const thicknessMm = parseFloat(thicknessInput.dataset.metricValue);
+      const radiusMm = parseFloat(radiusInput.dataset.metricValue);
+      const angle = parseFloat(angleInput.value);
+      const kFactor = parseFloat(kFactorInput.value);
+
+      if (![thicknessMm, radiusMm, angle, kFactor].every(Number.isFinite)) {
+        [bendAllowanceResult, neutralAxisResult, bendDeductionResult, developedLengthResult].forEach((element) => {
+          element.textContent = "—";
+        });
+        return;
+      }
+
+      const angleRadians = angle * Math.PI / 180;
+      const neutralAxisOffsetMm = kFactor * thicknessMm;
+      const bendAllowanceMm = angleRadians * (radiusMm + neutralAxisOffsetMm);
+      const halfAngleRadians = angleRadians / 2;
+      const bendDeductionMm = 2 * (radiusMm + thicknessMm) * Math.tan(halfAngleRadians) - bendAllowanceMm;
+      const developedLengthMm = bendAllowanceMm;
+
+      const isImperial = unitToggle.checked;
+      const unitSymbol = isImperial ? "in" : "mm";
+      const convert = isImperial ? mmToInches : (value) => value;
+
+      setDimensionResult(bendAllowanceResult, convert(bendAllowanceMm), unitSymbol);
+      setDimensionResult(neutralAxisResult, convert(neutralAxisOffsetMm), unitSymbol);
+      setDimensionResult(bendDeductionResult, convert(bendDeductionMm), unitSymbol);
+      setDimensionResult(developedLengthResult, convert(developedLengthMm), unitSymbol);
+    }
+
+    thicknessInput.addEventListener("input", () => {
+      const displayedValue = parseFloat(thicknessInput.value);
+      thicknessInput.dataset.metricValue = Number.isFinite(displayedValue)
+        ? String(unitToggle.checked ? inchesToMm(displayedValue) : displayedValue)
+        : "";
+      calculate();
+    });
+
+    radiusInput.addEventListener("input", () => {
+      const displayedValue = parseFloat(radiusInput.value);
+      radiusInput.dataset.metricValue = Number.isFinite(displayedValue)
+        ? String(unitToggle.checked ? inchesToMm(displayedValue) : displayedValue)
+        : "";
+      calculate();
+    });
+
+    angleInput.addEventListener("input", calculate);
+    kFactorInput.addEventListener("input", calculate);
+
+    unitToggle.addEventListener("change", () => {
+      updateInputUnits();
+      syncDisplayedDimensions();
+      calculate();
+    });
+
+    thicknessInput.dataset.metricValue = thicknessInput.value;
+    radiusInput.dataset.metricValue = radiusInput.value;
+    updateInputUnits();
+    syncDisplayedDimensions();
+    calculate();
+  </script>
+</body>
+</html>

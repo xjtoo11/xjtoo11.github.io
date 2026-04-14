@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YB2TFN4NPN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-YB2TFN4NPN');
+  </script>
+  <title>Welding Heat Input Calculator — Free Online Tool | EngineerCalc</title>
+  <meta name="description" content="Free welding heat input calculator. Enter voltage, amperage, travel speed, and process efficiency to calculate heat input per unit length.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="canonical" href="https://xjtoo11.github.io/welding/welding-heat-input-calculator.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Welding Heat Input Calculator",
+    "url": "https://xjtoo11.github.io/welding/welding-heat-input-calculator.html",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "keywords": ["welding heat input calculator"],
+    "offers": {
+      "@type": "Offer",
+      "price": 0,
+      "priceCurrency": "USD"
+    },
+    "description": "Free online welding heat input calculator with voltage, amperage, travel speed, process efficiency, arc power, and gross versus net heat input outputs."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "How to Calculate Welding Heat Input",
+    "author": {
+      "@type": "Organization",
+      "name": "EngineerCalc"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "EngineerCalc"
+    },
+    "datePublished": "2026-04-14",
+    "dateModified": "2026-04-14",
+    "mainEntityOfPage": "https://xjtoo11.github.io/welding/welding-heat-input-calculator.html",
+    "keywords": ["welding heat input calculator"],
+    "description": "Step-by-step guidance for a welding heat input calculator, including formulas, process efficiency factors, unit conversions, and practical weld quality considerations."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is welding heat input?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Welding heat input is the thermal energy delivered per unit length of weld. It is usually expressed as kJ/in or kJ/mm and is calculated from voltage, amperage, travel speed, and often process efficiency to estimate the amount of useful heat entering the joint."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why does process efficiency matter in heat input?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Process efficiency matters because not all electrical energy from the arc reaches the workpiece. Some energy is lost to radiation, spatter, electrode heating, and the surrounding environment. Applying an efficiency factor converts gross electrical input into a more realistic net heat input."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is a typical heat input range?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Typical heat input depends on process, material thickness, code limits, and weld joint design. Light manual welds may be only a few kJ/in, while high-deposition automated welds can be far higher. Procedure specifications and material requirements should always control the acceptable range."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does heat input affect weld quality?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Heat input affects fusion, penetration, cooling rate, distortion, and heat-affected-zone properties. Too little heat can lead to lack of fusion or poor bead shape, while too much heat can increase distortion, soften the HAZ, widen the bead, or reduce toughness in sensitive materials."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the difference between gross and net heat input?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Gross heat input is the raw electrical energy per unit length calculated from voltage, amperage, and travel speed. Net heat input multiplies that value by a process efficiency factor to estimate how much of the arc energy is actually transferred into the weldment."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <span class="logo">EngineerCalc</span>
+      <nav>
+        <a href="bend-allowance-calculator.html">Bend Allowance</a>
+        <a href="welding-heat-input-calculator.html" class="active">Heat Input</a>
+        <a href="k-factor-calculator.html">K-Factor</a>
+        <a href="dry-film-thickness-calculator.html">DFT</a>
+        <a href="stamping-tonnage-calculator.html">Stamping</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>Welding Heat Input Calculator</h1>
+    <p class="subtitle">Free online welding heat input calculator for procedure review, weld planning, and shop-floor checks. Enter voltage, amperage, travel speed, and process efficiency to estimate net heat input, gross heat input, and arc power instantly.</p>
+
+    <section class="calculator" aria-labelledby="calculator-heading">
+      <div class="calc-section-title" id="calculator-heading">INPUTS</div>
+
+      <div class="calc-row">
+        <label for="voltage">Voltage V</label>
+        <input id="voltage" name="voltage" type="number" inputmode="decimal" value="24" step="0.1">
+        <span class="unit">volts</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="amperage">Amperage A</label>
+        <input id="amperage" name="amperage" type="number" inputmode="decimal" value="250" step="1">
+        <span class="unit">amps</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="travel-speed">Travel Speed</label>
+        <input id="travel-speed" name="travel-speed" type="number" inputmode="decimal" value="12" step="0.1">
+        <span class="unit speed-unit">in/min</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="efficiency">Process Efficiency</label>
+        <select id="efficiency" name="efficiency">
+          <option value="0.75">SMAW / Stick (0.75)</option>
+          <option value="0.80" selected>GMAW / MIG (0.80)</option>
+          <option value="0.80">FCAW / Flux Core (0.80)</option>
+          <option value="0.60">GTAW / TIG (0.60)</option>
+          <option value="1.00">SAW / Submerged Arc (1.00)</option>
+          <option value="0.60">PAW / Plasma (0.60)</option>
+        </select>
+        <span class="unit"></span>
+      </div>
+
+      <div class="unit-toggle">
+        <span id="metric-label">Metric</span>
+        <label class="toggle-switch" for="unit-system">
+          <input id="unit-system" type="checkbox" aria-label="Toggle between Metric and Imperial units" checked>
+          <span class="toggle-slider"></span>
+        </label>
+        <span id="imperial-label" class="active">Imperial</span>
+      </div>
+
+      <div class="calc-section-title">RESULTS</div>
+      <div class="calc-results" aria-live="polite">
+        <div class="result-row">
+          <span class="result-label">Heat Input</span>
+          <span class="result-value" id="heat-input-result">24.00<span class="result-unit">kJ/in</span></span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Arc Power</span>
+          <span class="result-value small" id="arc-power-result">6000<span class="result-unit">W</span></span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Heat Input without efficiency</span>
+          <span class="result-value small" id="gross-heat-input-result">30.00<span class="result-unit">kJ/in</span></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="app-cta" aria-label="Mobile app promotion">
+      <p>Get welding and fabrication calculators on your iPhone for quick shop-floor reference.</p>
+      <a href="https://apps.apple.com/app/id0000000000?utm_source=web&amp;utm_medium=calculator&amp;utm_campaign=welding-heat-input">
+        <img src="../assets/app-store-badge.svg" alt="Download Welding Toolkit on the App Store" width="120" height="40">
+      </a>
+    </section>
+
+    <article>
+      <h2>What is Welding Heat Input?</h2>
+      <p>Welding heat input is the amount of arc energy applied to the workpiece per unit length of weld. Fabricators usually express it as kilojoules per inch or kilojoules per millimeter because that makes it easy to compare procedures that run at different travel speeds. The value depends on four practical variables: voltage, amperage, travel speed, and process efficiency. Voltage and amperage set the electrical power available at the arc, while travel speed spreads that energy over a longer or shorter weld length. The efficiency factor recognizes that not all electrical energy becomes useful heat in the joint.</p>
+      <p>Heat input matters because it strongly influences cooling rate, penetration profile, bead shape, distortion, and the size of the heat-affected zone. On carbon steel, a higher value may help achieve fusion on thicker joints, but it can also increase warping and widen the HAZ. On stainless steels, alloy steels, and other procedure-sensitive materials, too much or too little heat input can affect corrosion resistance, hardness, toughness, or code compliance. For that reason, engineers often track heat input during WPS development, procedure qualification, and production welding so the actual weld stays inside an acceptable processing window.</p>
+
+      <h2>How to Calculate Heat Input</h2>
+      <p>The basic calculation starts with arc power. Multiply voltage by amperage to get watts. That tells you how much electrical power the arc is producing at any moment. To convert that power into energy per unit weld length, multiply by 60 so the time basis matches travel speed in minutes, then divide by travel speed. Finally, divide by 1000 to express the result in kilojoules rather than joules. If you want a more realistic estimate of useful energy delivered into the weldment, multiply by the process efficiency factor. This gives net heat input rather than gross electrical heat input.</p>
+      <p>Keep the travel speed unit consistent with the output unit you want. If travel speed is entered in inches per minute, the result is kJ/in. If travel speed is entered in millimeters per minute, the result is kJ/mm. The underlying physics is the same; only the length basis changes. This is why the same voltage and amperage combination can produce a much larger number in kJ/in than in kJ/mm. A single inch contains 25.4 millimeters, so the per-inch energy value is spread across a shorter count of length units.</p>
+      <div class="formula-block">
+        <span class="formula-label">Formulas</span>
+        <div>Arc Power (W) = V &times; A</div>
+        <div>HI (kJ/in) = (V &times; A &times; 60) / (1000 &times; Travel Speed in/min) &times; Efficiency</div>
+        <div>HI (kJ/mm) = (V &times; A &times; 60) / (1000 &times; Travel Speed mm/min) &times; Efficiency</div>
+        <div>Heat Input without Efficiency = (V &times; A &times; 60) / (1000 &times; Travel Speed)</div>
+      </div>
+      <p>Worked example: use 24 V, 250 A, 12 in/min, and GMAW efficiency of 0.80. First calculate arc power: 24 &times; 250 = 6000 W. Next calculate gross heat input before efficiency: (24 &times; 250 &times; 60) / (1000 &times; 12) = 30 kJ/in. Then apply efficiency to estimate net heat input delivered into the joint: 30 &times; 0.80 = 24 kJ/in. Showing both values is useful because some shops discuss gross electrical heat input, while procedure control often focuses on an efficiency-adjusted number. The key takeaway is that voltage and amperage raise heat input, while faster travel speed lowers it.</p>
+      <p>In practice, heat input should be treated as a process-control indicator rather than the only welding quality metric. Two welds can share the same calculated heat input and still behave differently because of joint fit-up, arc length, oscillation, waveform, electrode extension, preheat, or interpass temperature. Still, the formula is valuable because it gives engineers and welders a fast way to compare settings, check procedure limits, and understand whether a setup is trending toward hotter or colder welding conditions before destructive effects show up in the finished weld.</p>
+
+      <h2>Welding Process Efficiency Reference Table</h2>
+      <p>Process efficiency factors estimate how much of the electrical energy generated by the arc actually enters the workpiece. The exact number depends on equipment, technique, shielding, and measurement method, so these values are best used as standard planning factors unless your procedure or code specifies something different. Lower-efficiency processes lose more energy to the environment, while highly concentrated or submerged processes usually transfer a larger share into the joint.</p>
+      <div class="table-wrapper">
+        <table class="reference-table">
+          <thead>
+            <tr>
+              <th>Process</th>
+              <th>Abbreviation</th>
+              <th>Efficiency Factor</th>
+              <th>Typical Range</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Shielded Metal Arc Welding</td><td>SMAW</td><td>0.75</td><td>0.70-0.80</td></tr>
+            <tr><td>Gas Metal Arc Welding</td><td>GMAW</td><td>0.80</td><td>0.75-0.85</td></tr>
+            <tr><td>Flux Cored Arc Welding</td><td>FCAW</td><td>0.80</td><td>0.75-0.85</td></tr>
+            <tr><td>Gas Tungsten Arc Welding</td><td>GTAW</td><td>0.60</td><td>0.55-0.65</td></tr>
+            <tr><td>Submerged Arc Welding</td><td>SAW</td><td>1.00</td><td>0.95-1.00</td></tr>
+            <tr><td>Plasma Arc Welding</td><td>PAW</td><td>0.60</td><td>0.55-0.65</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-section">
+        <details>
+          <summary>What is welding heat input?</summary>
+          <div class="faq-answer">
+            <p>Welding heat input is the amount of energy applied to the joint per unit length of weld. It is usually shown as kJ/in or kJ/mm and helps relate electrical settings and travel speed to real weld thermal conditions.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Why does process efficiency matter in heat input?</summary>
+          <div class="faq-answer">
+            <p>Process efficiency matters because a portion of arc energy is lost before it reaches the base metal. Using an efficiency factor gives a better estimate of net heat input, which is more useful when comparing different welding processes.</p>
+          </div>
+        </details>
+        <details>
+          <summary>What is a typical heat input range?</summary>
+          <div class="faq-answer">
+            <p>There is no single universal range. Thin-gauge manual welding may run at relatively low heat input, while thick-section mechanized welding can be much higher. Acceptable values should come from the WPS, procedure qualification, material limits, and service requirements.</p>
+          </div>
+        </details>
+        <details>
+          <summary>How does heat input affect weld quality?</summary>
+          <div class="faq-answer">
+            <p>Heat input changes cooling rate, fusion, penetration, distortion, and heat-affected-zone width. Too little heat can contribute to lack of fusion or a ropey bead, while too much heat can increase warping, reduce toughness, or alter microstructure in sensitive alloys.</p>
+          </div>
+        </details>
+        <details>
+          <summary>What is the difference between gross and net heat input?</summary>
+          <div class="faq-answer">
+            <p>Gross heat input is the electrical energy per unit length before any process losses are considered. Net heat input applies the efficiency factor to estimate how much of that energy actually enters the weldment and influences the joint.</p>
+          </div>
+        </details>
+      </div>
+    </article>
+
+    <section class="related-calculators">
+      <h3>More Welding Calculators</h3>
+      <ul>
+        <li><a href="bend-allowance-calculator.html">Bend Allowance Calculator</a></li>
+        <li><a href="k-factor-calculator.html">K-Factor Calculator</a></li>
+        <li><a href="dry-film-thickness-calculator.html">Dry Film Thickness Calculator</a></li>
+        <li><a href="stamping-tonnage-calculator.html">Stamping Tonnage Calculator</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-apps">
+        <a href="https://apps.apple.com/app/id0000000000?utm_source=web&amp;utm_medium=calculator&amp;utm_campaign=welding-toolkit">Welding Toolkit on App Store</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const voltageInput = document.getElementById("voltage");
+    const amperageInput = document.getElementById("amperage");
+    const travelSpeedInput = document.getElementById("travel-speed");
+    const efficiencyInput = document.getElementById("efficiency");
+    const unitToggle = document.getElementById("unit-system");
+    const metricLabel = document.getElementById("metric-label");
+    const imperialLabel = document.getElementById("imperial-label");
+
+    const heatInputResult = document.getElementById("heat-input-result");
+    const arcPowerResult = document.getElementById("arc-power-result");
+    const grossHeatInputResult = document.getElementById("gross-heat-input-result");
+
+    function inchesToMm(value) {
+      return value * 25.4;
+    }
+
+    function mmToInches(value) {
+      return value / 25.4;
+    }
+
+    function formatValue(value) {
+      return Number(value).toFixed(2);
+    }
+
+    function formatPower(value) {
+      return Number(value).toFixed(0);
+    }
+
+    function setResult(element, value, unitSymbol, formatter) {
+      if (!Number.isFinite(value)) {
+        element.textContent = "—";
+        return;
+      }
+
+      element.innerHTML = formatter(value) + '<span class="result-unit">' + unitSymbol + "</span>";
+    }
+
+    function updateInputUnits() {
+      const isImperial = unitToggle.checked;
+      document.querySelector(".speed-unit").textContent = isImperial ? "in/min" : "mm/min";
+      metricLabel.classList.toggle("active", !isImperial);
+      imperialLabel.classList.toggle("active", isImperial);
+    }
+
+    function syncDisplayedTravelSpeed() {
+      const speedMmPerMin = parseFloat(travelSpeedInput.dataset.metricValue);
+      const isImperial = unitToggle.checked;
+
+      travelSpeedInput.value = Number.isFinite(speedMmPerMin)
+        ? formatValue(isImperial ? mmToInches(speedMmPerMin) : speedMmPerMin)
+        : "";
+    }
+
+    function calculate() {
+      const voltage = parseFloat(voltageInput.value);
+      const amperage = parseFloat(amperageInput.value);
+      const speedMmPerMin = parseFloat(travelSpeedInput.dataset.metricValue);
+      const efficiency = parseFloat(efficiencyInput.value);
+
+      if (![voltage, amperage, speedMmPerMin, efficiency].every(Number.isFinite) || speedMmPerMin <= 0) {
+        [heatInputResult, arcPowerResult, grossHeatInputResult].forEach((element) => {
+          element.textContent = "—";
+        });
+        return;
+      }
+
+      const isImperial = unitToggle.checked;
+      const travelSpeed = isImperial ? mmToInches(speedMmPerMin) : speedMmPerMin;
+      const unitSymbol = isImperial ? "kJ/in" : "kJ/mm";
+      const arcPower = voltage * amperage;
+      const grossHeatInput = (voltage * amperage * 60) / (1000 * travelSpeed);
+      const netHeatInput = grossHeatInput * efficiency;
+
+      setResult(heatInputResult, netHeatInput, unitSymbol, formatValue);
+      setResult(arcPowerResult, arcPower, "W", formatPower);
+      setResult(grossHeatInputResult, grossHeatInput, unitSymbol, formatValue);
+    }
+
+    voltageInput.addEventListener("input", calculate);
+    amperageInput.addEventListener("input", calculate);
+    efficiencyInput.addEventListener("change", calculate);
+
+    travelSpeedInput.addEventListener("input", () => {
+      const displayedValue = parseFloat(travelSpeedInput.value);
+      travelSpeedInput.dataset.metricValue = Number.isFinite(displayedValue)
+        ? String(unitToggle.checked ? inchesToMm(displayedValue) : displayedValue)
+        : "";
+      calculate();
+    });
+
+    unitToggle.addEventListener("change", () => {
+      updateInputUnits();
+      syncDisplayedTravelSpeed();
+      calculate();
+    });
+
+    travelSpeedInput.dataset.metricValue = String(inchesToMm(parseFloat(travelSpeedInput.value)));
+    updateInputUnits();
+    syncDisplayedTravelSpeed();
+    calculate();
+  </script>
+</body>
+</html>
