@@ -13,7 +13,7 @@ Competitors are weak: FUTEK has 0 words, Lennox requires login, OmniCalculator u
 ### Tech Stack
 - Pure static HTML + CSS + vanilla JavaScript
 - No frameworks (SPA hurts SEO — FUTEK's Angular is the anti-pattern)
-- Hosted on GitHub Pages at `xjtoo11.github.io`
+- Hosted on GitHub Pages at `dust.github.io`
 - Each page is an independent HTML file
 
 ### Three-AI Workflow (adapted from iOS workflow)
@@ -94,7 +94,7 @@ Each landing page follows this exact structure:
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{Keyword} Calculator - Free Online Tool | EngineerCalc</title>
   <meta name="description" content="Free {keyword} calculator. Enter {inputs}, get {outputs} instantly. No login required. {value prop}.">
-  <link rel="canonical" href="https://xjtoo11.github.io/{path}">
+  <link rel="canonical" href="https://dust.github.io/{path}">
   <link rel="stylesheet" href="../styles.css">
   
   <!-- JSON-LD: WebApplication + Article + FAQPage -->
@@ -423,7 +423,7 @@ PROMPT
 2. **SEO**: Validate JSON-LD with Google Rich Results Test (or manual schema check)
 3. **Performance**: Lighthouse audit for each page (target > 90)
 4. **Cross-page**: Verify all internal links work, consistent styling across 5 pages
-5. **Deployment**: Push to GitHub, verify pages load at xjtoo11.github.io/hvac/*
+5. **Deployment**: Push to GitHub, verify pages load at dust.github.io/hvac/*
 
 ---
 
