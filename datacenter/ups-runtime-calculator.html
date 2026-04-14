@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YB2TFN4NPN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-YB2TFN4NPN');
+  </script>
+  <title>UPS Runtime Calculator — Free Battery Backup Tool | EngineerCalc</title>
+  <meta name="description" content="Free UPS runtime calculator. Estimate battery backup time from UPS capacity, battery Ah, voltage, load, and efficiency for data center planning.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="canonical" href="https://xjtoo11.github.io/datacenter/ups-runtime-calculator.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "UPS Runtime Calculator",
+    "url": "https://xjtoo11.github.io/datacenter/ups-runtime-calculator.html",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": 0,
+      "priceCurrency": "USD"
+    },
+    "description": "Free online UPS runtime calculator for estimating battery backup time from battery voltage, amp-hours, depth of discharge, load, power factor, and UPS efficiency."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "How to Calculate UPS Runtime",
+    "author": {
+      "@type": "Organization",
+      "name": "EngineerCalc"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "EngineerCalc"
+    },
+    "datePublished": "2026-04-14",
+    "dateModified": "2026-04-14",
+    "mainEntityOfPage": "https://xjtoo11.github.io/datacenter/ups-runtime-calculator.html",
+    "description": "Step-by-step guidance for estimating UPS battery runtime, accounting for battery energy, depth of discharge, UPS efficiency, load power factor, and practical runtime expectations."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is UPS runtime?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "UPS runtime is the amount of time an uninterruptible power supply can continue supporting a connected load from its batteries after utility power is lost. It depends on stored battery energy, allowable depth of discharge, inverter efficiency, power factor, and the size of the connected load."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How long should a UPS run?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The required runtime depends on the design objective. Some facilities need only 5 to 15 minutes to bridge to a generator, while others need longer autonomy for graceful shutdown, remote sites, or generator start uncertainty. The correct target is set by risk tolerance and operational strategy."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What affects UPS runtime?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "UPS runtime is affected by battery voltage, amp-hour capacity, battery age, temperature, depth of discharge limits, UPS efficiency, inverter power factor, discharge rate, and the actual connected load. Higher load generally reduces runtime sharply."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why use 80% depth of discharge?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Many designs use 80% depth of discharge as a practical planning assumption because it leaves a margin against battery aging, temperature effects, and manufacturer discharge limits. It helps avoid relying on the last portion of capacity, which is often the least reliable in real operating conditions."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does load affect runtime non-linearly?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Runtime often falls faster than a simple inverse relationship at high discharge rates because real batteries deliver less usable capacity when discharged harder. Temperature, battery chemistry, and UPS conversion losses also make actual performance depart from a perfectly linear estimate."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <span class="logo">EngineerCalc</span>
+      <nav>
+        <a href="pue-calculator.html">PUE</a>
+        <a href="rack-power-density-calculator.html">Rack Density</a>
+        <a href="raised-floor-load-calculator.html">Floor Load</a>
+        <a href="ups-runtime-calculator.html" class="active">UPS Runtime</a>
+        <a href="pdu-load-balance-calculator.html">PDU Balance</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>UPS Runtime Calculator</h1>
+    <p class="subtitle">Free UPS runtime calculator for estimating battery backup duration from DC battery capacity, discharge depth, UPS efficiency, power factor, and connected load. Use it to size ride-through time for generator start, graceful shutdown, and data center resilience planning.</p>
+
+    <section class="calculator" aria-labelledby="calculator-heading">
+      <div class="calc-section-title" id="calculator-heading">INPUTS</div>
+
+      <div class="calc-row">
+        <label for="battery-voltage">Battery System Voltage</label>
+        <input id="battery-voltage" name="battery-voltage" type="number" inputmode="decimal" value="480" step="1">
+        <span class="unit">V</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="battery-capacity">Total Battery Capacity</label>
+        <input id="battery-capacity" name="battery-capacity" type="number" inputmode="decimal" value="200" step="10">
+        <span class="unit">Ah</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="ups-efficiency">UPS Efficiency</label>
+        <input id="ups-efficiency" name="ups-efficiency" type="number" inputmode="decimal" value="0.95" step="0.01">
+        <span class="unit">dec</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="power-factor">Inverter Power Factor</label>
+        <input id="power-factor" name="power-factor" type="number" inputmode="decimal" value="1.0" step="0.05">
+        <span class="unit">PF</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="load-input">Load</label>
+        <input id="load-input" name="load-input" type="number" inputmode="decimal" value="40" step="1">
+        <span class="unit load-unit">kW</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="depth-of-discharge">Depth of Discharge</label>
+        <input id="depth-of-discharge" name="depth-of-discharge" type="number" inputmode="decimal" value="80" step="5">
+        <span class="unit">%</span>
+      </div>
+
+      <div class="unit-toggle">
+        <span id="metric-label" class="active">kW</span>
+        <label class="toggle-switch" for="unit-system">
+          <input id="unit-system" type="checkbox" aria-label="Toggle load input between kW and kVA">
+          <span class="toggle-slider"></span>
+        </label>
+        <span id="imperial-label">kVA</span>
+      </div>
+
+      <div class="calc-section-title">RESULTS</div>
+      <div class="calc-results" aria-live="polite">
+        <div class="result-row">
+          <span class="result-label">Runtime (Minutes)</span>
+          <span class="result-value" id="runtime-minutes-result">109.5<span class="result-unit">min</span></span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Runtime (HH:MM)</span>
+          <span class="result-value small" id="runtime-hhmm-result">01:49</span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Battery Energy Available</span>
+          <span class="result-value small" id="battery-energy-result">76.8<span class="result-unit">kWh</span></span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Effective Load</span>
+          <span class="result-value small" id="effective-load-result">42.1<span class="result-unit">kW</span></span>
+        </div>
+      </div>
+    </section>
+
+    <article>
+      <h2>What is UPS Runtime?</h2>
+      <p>UPS runtime is the amount of time a battery-backed uninterruptible power supply can continue serving a connected electrical load after upstream power fails. In a data center, that interval is not just a convenience metric. It is the bridge between a utility event and whatever happens next, whether that is generator startup, automatic transfer, controlled shutdown, or service migration. Engineers use runtime calculations to confirm that the battery system can carry the load long enough for the designed recovery sequence to complete without dropping critical equipment.</p>
+      <p>The term is sometimes used casually, but in practice runtime is shaped by several interacting assumptions. Battery nameplate capacity alone is not enough. Usable energy depends on battery string voltage, amp-hour rating, allowable depth of discharge, conversion losses inside the UPS, and the actual real-power load on the inverter. Ambient temperature, battery age, and discharge rate also matter in the real world. That is why an estimate should be treated as a planning number rather than a guarantee. Even so, a simple runtime calculation is one of the fastest ways to check whether a proposed UPS design is roughly aligned with operational goals.</p>
+
+      <h2>How to Calculate UPS Runtime</h2>
+      <p>A practical UPS runtime estimate starts by converting the battery system into usable energy. Multiply battery system voltage by total amp-hour capacity to get watt-hours, then apply the selected depth of discharge to reflect the fraction of stored energy you are willing to use. Dividing by 1000 converts the result to kilowatt-hours. That gives the battery energy available to support the inverter.</p>
+      <p>The next step is to determine the effective electrical demand seen by the battery. If load is entered in kW, that value already represents real power. If the load is entered in kVA, multiply it by inverter power factor to convert apparent power into real power. Then divide the real load by UPS efficiency to account for conversion losses. This adjusted demand is the load level the battery must actually support. Runtime in hours is then battery energy divided by effective load, and runtime in minutes is found by multiplying by 60.</p>
+      <p>This approach is intentionally simple and useful for front-end planning, concept evaluation, and quick reasonableness checks during equipment sizing. It does not model battery discharge curves, temperature correction, aging margin, cell imbalance, reserve margin, or the runtime reduction that can appear at very high discharge currents. Those factors are important for detailed design and should be checked against the battery vendor's discharge tables. Still, for many engineering decisions, this calculation is the right first pass because it makes the dominant variables visible immediately.</p>
+      <div class="formula-block">
+        <span class="formula-label">Formula</span>
+        <div>BatteryEnergy (kWh) = (Voltage &times; Ah &times; DoD/100) / 1000</div>
+        <div>RealLoad (kW) = kW input, or kVA &times; Power Factor</div>
+        <div>EffectiveLoad (kW) = RealLoad / UPS Efficiency</div>
+        <div>Runtime (hours) = BatteryEnergy / EffectiveLoad</div>
+        <div>Runtime (minutes) = Runtime (hours) &times; 60</div>
+      </div>
+      <p>Worked example: assume a 480 V battery system with 200 Ah of capacity, 80% depth of discharge, 95% UPS efficiency, and a 40 kW critical load. Battery energy is calculated as (480 &times; 200 &times; 0.8) / 1000 = 76.8 kWh. Effective load seen by the battery is 40 / 0.95 = 42.1 kW. Runtime is therefore 76.8 / 42.1 = 1.824 hours, or 109.5 minutes. Expressed as clock time, that is approximately 01:49. This kind of worked example is useful because it shows that small efficiency losses matter; the battery is not only supporting IT equipment, it is also covering the UPS conversion overhead during the outage.</p>
+      <p>When runtime is short, engineers often increase autonomy by adding battery strings, raising system voltage where the UPS architecture allows, lowering the supported load, or using a more realistic power factor assumption instead of treating apparent power as real power. In facilities with generators, the target may only be a short ride-through window. In remote or unmanned installations, the target runtime can be much longer. The correct answer depends on the operational sequence you are trying to protect.</p>
+
+      <h2>Typical UPS Battery Configurations Reference Table</h2>
+      <p>The table below is a rough planning reference rather than a manufacturer-specific selection guide. Real products vary by DC bus architecture, battery chemistry, autonomy target, and whether the design prioritizes long runtime or a compact footprint. The values are still useful for sanity-checking whether an assumed battery string looks broadly reasonable for a given UPS size.</p>
+      <div class="table-wrapper">
+        <table class="reference-table">
+          <thead>
+            <tr>
+              <th>UPS Size (kVA)</th>
+              <th>Typical String Voltage</th>
+              <th>Ah Range</th>
+              <th>Typical Runtime @ Full Load</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>10 kVA</td><td>192 - 240 VDC</td><td>26 - 65 Ah</td><td>5 - 20 min</td></tr>
+            <tr><td>20 kVA</td><td>240 - 384 VDC</td><td>40 - 100 Ah</td><td>5 - 15 min</td></tr>
+            <tr><td>40 kVA</td><td>384 - 480 VDC</td><td>50 - 150 Ah</td><td>5 - 15 min</td></tr>
+            <tr><td>80 kVA</td><td>480 VDC</td><td>75 - 200 Ah</td><td>5 - 12 min</td></tr>
+            <tr><td>160 kVA</td><td>480 - 540 VDC</td><td>100 - 300 Ah</td><td>5 - 10 min</td></tr>
+            <tr><td>300+ kVA</td><td>480 - 540 VDC</td><td>150 - 600+ Ah</td><td>3 - 10 min</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Large enterprise and colocation sites commonly target only a few minutes of battery autonomy at full load because the design assumption is generator support. The battery system is there to ride through transfer delays and starting transients, not to operate the facility for an extended period. By contrast, telecom, healthcare, industrial control, and remote edge sites may carry larger battery reserves because restoration time is less predictable. The same UPS power rating can therefore be paired with very different battery capacities depending on mission, budget, and risk tolerance.</p>
+
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-section">
+        <details>
+          <summary>What is UPS runtime?</summary>
+          <div class="faq-answer">
+            <p>UPS runtime is the duration a UPS can continue powering the connected load from batteries after normal power is lost. It is usually expressed in minutes and depends on usable battery energy, load size, and conversion losses.</p>
+          </div>
+        </details>
+        <details>
+          <summary>How long should a UPS run?</summary>
+          <div class="faq-answer">
+            <p>There is no universal target. Many data centers design for roughly 5 to 15 minutes, enough to bridge generator startup and transfer. Sites without dependable standby generation, or sites that need orderly shutdown time, may require substantially longer runtime.</p>
+          </div>
+        </details>
+        <details>
+          <summary>What affects UPS runtime?</summary>
+          <div class="faq-answer">
+            <p>Runtime is affected by battery voltage, amp-hour capacity, depth of discharge, UPS efficiency, power factor, battery age, temperature, discharge rate, and the actual load profile during the outage. Any increase in real load reduces available runtime.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Why use 80% depth of discharge?</summary>
+          <div class="faq-answer">
+            <p>Using 80% depth of discharge is a common planning convention because it avoids depending on the last portion of stored battery capacity. That margin helps account for aging, temperature variation, and practical operating limits that can make full nameplate capacity unavailable.</p>
+          </div>
+        </details>
+        <details>
+          <summary>How does load affect runtime non-linearly?</summary>
+          <div class="faq-answer">
+            <p>Simple runtime math assumes usable battery energy stays proportional across all discharge rates, but real batteries do not behave perfectly that way. At high loads, available capacity often drops, so runtime can shrink faster than a perfectly linear estimate would suggest.</p>
+          </div>
+        </details>
+      </div>
+    </article>
+
+    <section class="related-calculators">
+      <h3>More Data Center Calculators</h3>
+      <ul>
+        <li><a href="pue-calculator.html">PUE Calculator</a></li>
+        <li><a href="rack-power-density-calculator.html">Rack Power Density Calculator</a></li>
+        <li><a href="raised-floor-load-calculator.html">Raised Floor Load Calculator</a></li>
+        <li><a href="pdu-load-balance-calculator.html">PDU Load Balance Calculator</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-apps">
+        <a href="https://apps.apple.com/us/app/data-center-engineer-toolkit/id6761987963?utm_source=web&amp;utm_medium=calculator&amp;utm_campaign=ups-runtime-calculator">Data Center Engineer Toolkit on App Store</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const batteryVoltageInput = document.getElementById("battery-voltage");
+    const batteryCapacityInput = document.getElementById("battery-capacity");
+    const upsEfficiencyInput = document.getElementById("ups-efficiency");
+    const powerFactorInput = document.getElementById("power-factor");
+    const loadInput = document.getElementById("load-input");
+    const depthOfDischargeInput = document.getElementById("depth-of-discharge");
+    const unitToggle = document.getElementById("unit-system");
+    const metricLabel = document.getElementById("metric-label");
+    const imperialLabel = document.getElementById("imperial-label");
+
+    const runtimeMinutesResult = document.getElementById("runtime-minutes-result");
+    const runtimeHhmmResult = document.getElementById("runtime-hhmm-result");
+    const batteryEnergyResult = document.getElementById("battery-energy-result");
+    const effectiveLoadResult = document.getElementById("effective-load-result");
+
+    function formatValue(value, decimals) {
+      return Number(value).toFixed(decimals);
+    }
+
+    function formatClockMinutes(totalMinutes) {
+      const roundedMinutes = Math.max(0, Math.round(totalMinutes));
+      const hours = Math.floor(roundedMinutes / 60);
+      const minutes = roundedMinutes % 60;
+      return String(hours).padStart(2, "0") + ":" + String(minutes).padStart(2, "0");
+    }
+
+    function updateUnitLabels() {
+      const isKvaInput = unitToggle.checked;
+
+      document.querySelectorAll(".load-unit").forEach((element) => {
+        element.textContent = isKvaInput ? "kVA" : "kW";
+      });
+
+      metricLabel.classList.toggle("active", !isKvaInput);
+      imperialLabel.classList.toggle("active", isKvaInput);
+    }
+
+    function calculate() {
+      const batteryVoltage = parseFloat(batteryVoltageInput.value);
+      const batteryCapacity = parseFloat(batteryCapacityInput.value);
+      const upsEfficiency = parseFloat(upsEfficiencyInput.value);
+      const powerFactor = parseFloat(powerFactorInput.value);
+      const loadValue = parseFloat(loadInput.value);
+      const depthOfDischarge = parseFloat(depthOfDischargeInput.value);
+
+      const validInputs = [
+        batteryVoltage,
+        batteryCapacity,
+        upsEfficiency,
+        powerFactor,
+        loadValue,
+        depthOfDischarge
+      ].every(Number.isFinite);
+
+      if (!validInputs || batteryVoltage <= 0 || batteryCapacity <= 0 || upsEfficiency <= 0 || powerFactor <= 0 || loadValue <= 0 || depthOfDischarge <= 0) {
+        runtimeMinutesResult.textContent = "—";
+        runtimeHhmmResult.textContent = "—";
+        batteryEnergyResult.textContent = "—";
+        effectiveLoadResult.textContent = "—";
+        return;
+      }
+
+      const depthFraction = depthOfDischarge / 100;
+      const realLoadKw = unitToggle.checked ? loadValue * powerFactor : loadValue;
+      const batteryEnergyKwh = (batteryVoltage * batteryCapacity * depthFraction) / 1000;
+      const effectiveLoadKw = realLoadKw / upsEfficiency;
+      const runtimeHours = batteryEnergyKwh / effectiveLoadKw;
+      const runtimeMinutes = runtimeHours * 60;
+
+      if (!Number.isFinite(runtimeMinutes) || runtimeMinutes < 0) {
+        runtimeMinutesResult.textContent = "—";
+        runtimeHhmmResult.textContent = "—";
+        batteryEnergyResult.textContent = "—";
+        effectiveLoadResult.textContent = "—";
+        return;
+      }
+
+      runtimeMinutesResult.innerHTML = formatValue(runtimeMinutes, 1) + '<span class="result-unit">min</span>';
+      runtimeHhmmResult.textContent = formatClockMinutes(runtimeMinutes);
+      batteryEnergyResult.innerHTML = formatValue(batteryEnergyKwh, 1) + '<span class="result-unit">kWh</span>';
+      effectiveLoadResult.innerHTML = formatValue(effectiveLoadKw, 1) + '<span class="result-unit">kW</span>';
+    }
+
+    [
+      batteryVoltageInput,
+      batteryCapacityInput,
+      upsEfficiencyInput,
+      powerFactorInput,
+      loadInput,
+      depthOfDischargeInput
+    ].forEach((input) => {
+      input.addEventListener("input", calculate);
+    });
+
+    unitToggle.addEventListener("change", () => {
+      updateUnitLabels();
+      calculate();
+    });
+
+    updateUnitLabels();
+    calculate();
+  </script>
+</body>
+</html>

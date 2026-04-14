@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YB2TFN4NPN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-YB2TFN4NPN');
+  </script>
+  <title>PUE Calculator — Free Data Center Efficiency Tool | EngineerCalc</title>
+  <meta name="description" content="Free PUE calculator. Calculate Power Usage Effectiveness from total facility power and IT load to benchmark data center efficiency.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="canonical" href="https://xjtoo11.github.io/datacenter/pue-calculator.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "PUE Calculator",
+    "url": "https://xjtoo11.github.io/datacenter/pue-calculator.html",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": 0,
+      "priceCurrency": "USD"
+    },
+    "description": "Free online PUE calculator for data center efficiency benchmarking using total facility power and IT equipment load."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "How to Calculate PUE",
+    "author": {
+      "@type": "Organization",
+      "name": "EngineerCalc"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "EngineerCalc"
+    },
+    "datePublished": "2026-04-15",
+    "dateModified": "2026-04-15",
+    "mainEntityOfPage": "https://xjtoo11.github.io/datacenter/pue-calculator.html",
+    "description": "Step-by-step guidance for calculating data center PUE, converting it to DCiE, benchmarking efficiency bands, and understanding what the metric does and does not capture."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is PUE in data centers?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "PUE, or Power Usage Effectiveness, is a data center efficiency metric defined as total facility power divided by IT equipment power. A value closer to 1.0 indicates that a larger share of incoming power is reaching the IT load instead of supporting cooling, power conversion, lighting, and other overhead."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is a good PUE value?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A good PUE depends on climate, load factor, and facility design, but many operators view values below 1.5 as efficient and values near 1.2 as excellent. Large hyperscale facilities with optimized cooling and electrical systems often report the lowest PUE figures."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the difference between PUE and DCiE?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "PUE expresses total facility power relative to IT power, while DCiE expresses the inverse as a percentage. DCiE equals IT equipment power divided by total facility power multiplied by 100, so a lower PUE corresponds to a higher DCiE."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How can I reduce PUE?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Operators reduce PUE by improving cooling efficiency, raising supply-air temperatures where acceptable, minimizing UPS and transformer losses, using efficient airflow management, consolidating lightly loaded equipment, and increasing IT utilization so fixed overhead is spread over more useful compute load."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What are the limitations of PUE as a metric?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "PUE is useful for infrastructure efficiency benchmarking, but it does not measure compute productivity, application efficiency, carbon intensity, water use, or whether waste heat is recovered. It can also vary with weather, occupancy, and measurement boundaries."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <span class="logo">EngineerCalc</span>
+      <nav>
+        <a href="pue-calculator.html" class="active">PUE</a>
+        <a href="rack-power-density-calculator.html">Rack Density</a>
+        <a href="raised-floor-load-calculator.html">Floor Load</a>
+        <a href="ups-runtime-calculator.html">UPS Runtime</a>
+        <a href="pdu-load-balance-calculator.html">PDU Balance</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>PUE Calculator</h1>
+    <p class="subtitle">Free data center Power Usage Effectiveness calculator. Enter total facility power and IT equipment load to calculate PUE, convert it to DCiE, estimate overhead power, and compare the result against common efficiency benchmarks.</p>
+
+    <section class="calculator" aria-labelledby="calculator-heading">
+      <div class="calc-section-title" id="calculator-heading">INPUTS</div>
+
+      <div class="calc-row">
+        <label for="total-facility-power">Total Facility Power</label>
+        <input id="total-facility-power" name="total-facility-power" type="number" inputmode="decimal" value="1500" step="10">
+        <span class="unit power-unit">kW</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="it-equipment-load">IT Equipment Load</label>
+        <input id="it-equipment-load" name="it-equipment-load" type="number" inputmode="decimal" value="1000" step="10">
+        <span class="unit power-unit">kW</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="cooling-power">Cooling Power (optional breakdown)</label>
+        <input id="cooling-power" name="cooling-power" type="number" inputmode="decimal" value="350" step="10">
+        <span class="unit power-unit">kW</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="lighting-other">Lighting &amp; Other (optional)</label>
+        <input id="lighting-other" name="lighting-other" type="number" inputmode="decimal" value="50" step="10">
+        <span class="unit power-unit">kW</span>
+      </div>
+
+      <div class="unit-toggle">
+        <span id="metric-label" class="active">Metric</span>
+        <label class="toggle-switch" for="unit-system">
+          <input id="unit-system" type="checkbox" aria-label="Toggle between Metric and Imperial display">
+          <span class="toggle-slider"></span>
+        </label>
+        <span id="imperial-label">Imperial</span>
+      </div>
+
+      <div class="calc-section-title">RESULTS</div>
+      <div class="calc-results" aria-live="polite">
+        <div class="result-row">
+          <span class="result-label">PUE</span>
+          <span class="result-value" id="pue-result">1.50</span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">DCiE</span>
+          <span class="result-value small" id="dcie-result">66.7<span class="result-unit">%</span></span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Efficiency Rating</span>
+          <span class="result-value small" id="rating-result">Efficient</span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Overhead Power Wasted</span>
+          <span class="result-value small" id="overhead-result">500<span class="result-unit">kW</span></span>
+        </div>
+      </div>
+    </section>
+
+    <article>
+      <h2>What is PUE?</h2>
+      <p>PUE, short for Power Usage Effectiveness, is one of the most widely used infrastructure efficiency metrics in the data center industry. It compares the total power entering the facility with the portion of that power actually consumed by the IT equipment doing useful digital work. The formula is simple: divide total facility power by IT equipment load. A perfect theoretical score would be 1.0, meaning every kilowatt feeds servers, storage, and network gear with no overhead at all. Real facilities always sit above 1.0 because some power is consumed by cooling plants, fans, pumps, UPS losses, transformers, switchgear, lighting, security, and controls.</p>
+      <p>The main value of PUE is that it gives operators a common language for benchmarking site infrastructure. It helps identify whether too much energy is being spent on support systems instead of the compute load. That makes it useful for tracking improvements after airflow changes, cooling upgrades, electrical retrofits, or operational tuning. PUE is not a complete sustainability metric, but it is a fast and practical indicator of how efficiently a facility turns incoming utility power into IT-delivered power.</p>
+
+      <h2>How to Calculate PUE</h2>
+      <p>Calculating PUE starts by defining the measurement boundary correctly. Total facility power should include the entire data center electrical demand within the agreed boundary, not just the cooling system or the white-space load. That usually means utility input or the main switchboard feeding the site, including all electrical losses and support systems. IT equipment load should include the power delivered to servers, storage arrays, network switches, and other computing equipment. Once those two values are measured over the same time period, divide total facility power by IT power.</p>
+      <p>DCiE, or Data Center infrastructure Efficiency, is the inverse form of the same concept. Instead of showing how much total power is required per unit of IT load, it shows what percentage of total incoming power is actually reaching the IT equipment. That can be easier to explain to non-specialists because it reads like an efficiency percentage. If PUE falls, DCiE rises. For that reason, both numbers are often reported together in performance dashboards and executive summaries.</p>
+      <p>This calculator also accepts cooling power and lighting or miscellaneous power as optional breakdown fields. Those entries are not required for the PUE math itself, but they help operators think about where overhead is going. If total facility power is much higher than IT load, the difference is overhead. Cooling is usually the largest share, but auxiliary electrical losses and low IT utilization can also push the ratio upward. Looking at the breakdown next to the headline metric makes the result more actionable because it points toward the systems likely to offer the biggest improvement opportunity.</p>
+      <div class="formula-block">
+        <span class="formula-label">Formula</span>
+        <div>PUE = Total Facility Power / IT Equipment Load</div>
+        <div>DCiE = (1 / PUE) &times; 100</div>
+      </div>
+      <p>Worked example: if a facility draws 1500 kW at the site level and the IT equipment load is 1000 kW, the PUE is 1500 / 1000 = 1.50. The overhead is 500 kW, which represents the energy consumed by cooling, electrical losses, lighting, and other support functions. DCiE is then calculated as 1 / 1.50 &times; 100 = 66.7%. On a practical benchmark scale, that result lands on the efficient-to-average boundary. It is substantially better than older legacy sites above 2.0, but it still leaves room for improvement compared with highly optimized hyperscale or modern free-cooling facilities.</p>
+      <p>When comparing PUE between sites or over time, consistency matters. Measurements should use the same boundary, similar time averaging, and clear treatment of temporary load swings. Otherwise the number can look better or worse for reasons unrelated to actual engineering improvement. The best use of PUE is disciplined internal tracking combined with sound engineering judgment about climate, redundancy level, occupancy, and operational constraints.</p>
+
+      <h2>PUE Benchmark Reference Table</h2>
+      <p>Industry discussions often group PUE values into broad benchmark bands rather than treating every hundredth as strategically different. That is sensible because climate, redundancy architecture, part-load operation, and measurement methodology can all move the metric. The table below reflects common Uptime Institute style benchmarking language used in operations discussions, feasibility studies, and management reporting.</p>
+      <div class="table-wrapper">
+        <table class="reference-table">
+          <thead>
+            <tr>
+              <th>PUE Range</th>
+              <th>Rating</th>
+              <th>Typical Facilities</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>&lt; 1.2</td><td>Ideal</td><td>Hyperscale campuses with highly optimized cooling and electrical distribution.</td></tr>
+            <tr><td>1.2 - 1.5</td><td>Efficient</td><td>Modern colocation and well-tuned enterprise builds.</td></tr>
+            <tr><td>1.5 - 2.0</td><td>Average</td><td>Enterprise data centers with competent but not leading efficiency performance.</td></tr>
+            <tr><td>2.0 - 2.5</td><td>Inefficient</td><td>Legacy facilities with older cooling systems, low utilization, or high fixed overhead.</td></tr>
+            <tr><td>&gt; 2.5</td><td>Very Poor</td><td>Outdated or poorly loaded sites where support energy dominates the IT load.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>These labels are useful shorthand, but they should not be applied without context. A small edge site in a hot climate with N+1 redundancy may never reach the same PUE as a giant hyperscale site in a cool region using economization for much of the year. Even so, the table is helpful for spotting whether a facility is broadly competitive, roughly typical, or clearly in need of engineering attention.</p>
+
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-section">
+        <details>
+          <summary>What is PUE in data centers?</summary>
+          <div class="faq-answer">
+            <p>PUE is the ratio of total facility power to IT equipment power. It shows how much support energy a data center uses for each unit of useful IT load. The closer the number is to 1.0, the less overhead the facility requires.</p>
+          </div>
+        </details>
+        <details>
+          <summary>What is a good PUE value?</summary>
+          <div class="faq-answer">
+            <p>Many operators consider anything below 1.5 to be efficient, while values near 1.2 are considered excellent. A realistic target depends on climate, redundancy, building age, and how heavily the site is loaded.</p>
+          </div>
+        </details>
+        <details>
+          <summary>What is the difference between PUE and DCiE?</summary>
+          <div class="faq-answer">
+            <p>PUE is a ratio where lower is better. DCiE is the inverse shown as a percentage where higher is better. They describe the same relationship from opposite directions, so both are valid ways to communicate infrastructure efficiency.</p>
+          </div>
+        </details>
+        <details>
+          <summary>How can I reduce PUE?</summary>
+          <div class="faq-answer">
+            <p>Common methods include improving airflow management, optimizing temperature setpoints, using more efficient cooling equipment, reducing UPS and transformer losses, and increasing IT utilization so fixed support power is spread across more useful compute work.</p>
+          </div>
+        </details>
+        <details>
+          <summary>What are the limitations of PUE as a metric?</summary>
+          <div class="faq-answer">
+            <p>PUE does not measure compute productivity, renewable energy sourcing, carbon emissions, or water consumption. It can also be distorted by inconsistent measurement boundaries or seasonal conditions, so it should be used as one indicator rather than the whole performance story.</p>
+          </div>
+        </details>
+      </div>
+    </article>
+
+    <section class="related-calculators">
+      <h3>More Data Center Calculators</h3>
+      <ul>
+        <li><a href="rack-power-density-calculator.html">Rack Power Density Calculator</a></li>
+        <li><a href="raised-floor-load-calculator.html">Raised Floor Load Calculator</a></li>
+        <li><a href="ups-runtime-calculator.html">UPS Runtime Calculator</a></li>
+        <li><a href="pdu-load-balance-calculator.html">PDU Load Balance Calculator</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-apps">
+        <a href="https://apps.apple.com/us/app/data-center-engineer-toolkit/id6761987963?utm_source=web&amp;utm_medium=calculator&amp;utm_campaign=pue-calculator">Data Center Engineer Toolkit on App Store</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const totalFacilityPowerInput = document.getElementById("total-facility-power");
+    const itEquipmentLoadInput = document.getElementById("it-equipment-load");
+    const coolingPowerInput = document.getElementById("cooling-power");
+    const lightingOtherInput = document.getElementById("lighting-other");
+    const unitToggle = document.getElementById("unit-system");
+    const metricLabel = document.getElementById("metric-label");
+    const imperialLabel = document.getElementById("imperial-label");
+
+    const pueResult = document.getElementById("pue-result");
+    const dcieResult = document.getElementById("dcie-result");
+    const ratingResult = document.getElementById("rating-result");
+    const overheadResult = document.getElementById("overhead-result");
+
+    const KW_TO_HP = 1.34102209;
+
+    function formatValue(value, decimals) {
+      return Number(value).toFixed(decimals);
+    }
+
+    function kwToHp(value) {
+      return value * KW_TO_HP;
+    }
+
+    function getRating(pue) {
+      if (pue < 1.2) {
+        return "Ideal";
+      }
+
+      if (pue <= 1.5) {
+        return "Efficient";
+      }
+
+      if (pue <= 2.0) {
+        return "Average";
+      }
+
+      return "Inefficient";
+    }
+
+    function buildPowerResult(valueKw) {
+      if (!Number.isFinite(valueKw)) {
+        return "—";
+      }
+
+      if (unitToggle.checked) {
+        return formatValue(valueKw, 0) + '<span class="result-unit">kW</span> (' + formatValue(kwToHp(valueKw), 0) + '<span class="result-unit">hp ref</span>)';
+      }
+
+      return formatValue(valueKw, 0) + '<span class="result-unit">kW</span>';
+    }
+
+    function updateUnitLabels() {
+      const isImperialDisplay = unitToggle.checked;
+
+      document.querySelectorAll(".power-unit").forEach((element) => {
+        element.textContent = isImperialDisplay ? "kW / hp ref" : "kW";
+      });
+
+      metricLabel.classList.toggle("active", !isImperialDisplay);
+      imperialLabel.classList.toggle("active", isImperialDisplay);
+    }
+
+    function calculate() {
+      const totalFacilityPower = parseFloat(totalFacilityPowerInput.value);
+      const itEquipmentLoad = parseFloat(itEquipmentLoadInput.value);
+      if (![totalFacilityPower, itEquipmentLoad].every(Number.isFinite) || totalFacilityPower <= 0 || itEquipmentLoad <= 0) {
+        pueResult.textContent = "—";
+        dcieResult.textContent = "—";
+        ratingResult.textContent = "—";
+        overheadResult.textContent = "—";
+        return;
+      }
+
+      const pue = totalFacilityPower / itEquipmentLoad;
+      const dcie = (1 / pue) * 100;
+      const overheadPower = totalFacilityPower - itEquipmentLoad;
+      const rating = getRating(pue);
+
+      pueResult.textContent = formatValue(pue, 2);
+      dcieResult.innerHTML = formatValue(dcie, 1) + '<span class="result-unit">%</span>';
+      ratingResult.textContent = rating;
+      overheadResult.innerHTML = buildPowerResult(overheadPower);
+    }
+
+    [totalFacilityPowerInput, itEquipmentLoadInput, coolingPowerInput, lightingOtherInput].forEach((input) => {
+      input.addEventListener("input", calculate);
+    });
+
+    unitToggle.addEventListener("change", () => {
+      updateUnitLabels();
+      calculate();
+    });
+
+    updateUnitLabels();
+    calculate();
+  </script>
+</body>
+</html>

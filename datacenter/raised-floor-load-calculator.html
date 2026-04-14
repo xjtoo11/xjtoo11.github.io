@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YB2TFN4NPN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-YB2TFN4NPN');
+  </script>
+  <title>Raised Floor Load Calculator — Free Data Center Tool | EngineerCalc</title>
+  <meta name="description" content="Free raised floor load calculator. Check floor tile loading against equipment weight for data center planning per concentrated load standards.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="canonical" href="https://xjtoo11.github.io/datacenter/raised-floor-load-calculator.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Raised Floor Load Calculator",
+    "url": "https://xjtoo11.github.io/datacenter/raised-floor-load-calculator.html",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": 0,
+      "priceCurrency": "USD"
+    },
+    "description": "Free online raised floor load calculator for checking uniform floor loading, tile utilization, and concentrated load risk for data center equipment placement."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "How to Calculate Raised Floor Loading",
+    "author": {
+      "@type": "Organization",
+      "name": "EngineerCalc"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "EngineerCalc"
+    },
+    "datePublished": "2026-04-14",
+    "dateModified": "2026-04-14",
+    "mainEntityOfPage": "https://xjtoo11.github.io/datacenter/raised-floor-load-calculator.html",
+    "description": "Step-by-step guidance for calculating raised floor uniform loading, estimating tile utilization, and checking point load risk in data center planning."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is raised floor load capacity?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Raised floor load capacity is the amount of uniform and concentrated weight a raised access floor system can safely support. Engineers typically review both the floor's rated uniform load and the point load allowed on tiles and pedestals."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Uniform load vs concentrated load?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Uniform load spreads weight across an area and is usually expressed in psf or kPa. Concentrated load describes force applied at a smaller contact point such as a cabinet foot, caster, or corner transfer point and is typically expressed in pounds or kilograms per point."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is a standard DC floor rating?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A common planning reference for many data centers is about 1000 psf uniform load with a point load capacity around 1250 pounds, although the actual floor system rating depends on tile type, pedestal spacing, stringers, and manufacturer testing."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I stack multiple cabinets side by side?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Multiple adjacent cabinets can be acceptable if the floor system is rated for the combined uniform and point loads and the load path is distributed correctly. Engineers should review row loading, local tile support, and pedestal reactions rather than checking each cabinet in isolation."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What happens if I exceed floor rating?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Exceeding the rated floor load can overstress tiles, pedestals, stringers, anchors, and the structural slab beneath the raised floor. The result may be deflection, cracked tiles, pedestal instability, or a hazardous localized failure."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <span class="logo">EngineerCalc</span>
+      <nav>
+        <a href="pue-calculator.html">PUE</a>
+        <a href="rack-power-density-calculator.html">Rack Density</a>
+        <a href="raised-floor-load-calculator.html" class="active">Floor Load</a>
+        <a href="ups-runtime-calculator.html">UPS Runtime</a>
+        <a href="pdu-load-balance-calculator.html">PDU Balance</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>Raised Floor Load Calculator</h1>
+    <p class="subtitle">Free raised floor load calculator for data center planning. Enter equipment weight, footprint, tile size, floor rating, and point-load capacity to estimate uniform floor loading, utilization, and whether the equipment placement appears acceptable.</p>
+
+    <section class="calculator" aria-labelledby="calculator-heading">
+      <div class="calc-section-title" id="calculator-heading">INPUTS</div>
+
+      <div class="calc-row">
+        <label for="equipment-weight">Equipment Weight</label>
+        <input id="equipment-weight" name="equipment-weight" type="number" inputmode="decimal" value="1500" step="10">
+        <span class="unit weight-unit">lbs</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="footprint-area">Footprint Area</label>
+        <input id="footprint-area" name="footprint-area" type="number" inputmode="decimal" value="6" step="0.5">
+        <span class="unit area-unit">sq ft</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="tile-size">Tile Size</label>
+        <input id="tile-size" name="tile-size" type="number" inputmode="decimal" value="2" step="0.5">
+        <span class="unit tile-unit">ft × ft</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="floor-rating">Floor Rating</label>
+        <select id="floor-rating" name="floor-rating">
+          <option value="500">500 psf light commercial</option>
+          <option value="1000" selected>1000 psf standard DC</option>
+          <option value="1250">1250 psf heavy DC</option>
+          <option value="1500">1500 psf very heavy DC</option>
+        </select>
+        <span class="unit rating-unit">psf</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="point-load-capacity">Point Load Capacity</label>
+        <input id="point-load-capacity" name="point-load-capacity" type="number" inputmode="decimal" value="1250" step="50">
+        <span class="unit point-unit">lbs/point</span>
+      </div>
+
+      <div class="unit-toggle">
+        <span id="metric-label">Metric</span>
+        <label class="toggle-switch" for="unit-system">
+          <input id="unit-system" type="checkbox" aria-label="Toggle between Metric and Imperial display" checked>
+          <span class="toggle-slider"></span>
+        </label>
+        <span id="imperial-label" class="active">Imperial</span>
+      </div>
+
+      <div class="calc-section-title">RESULTS</div>
+      <div class="calc-results" aria-live="polite">
+        <div class="result-row">
+          <span class="result-label">Uniform Load on Floor</span>
+          <span class="result-value ok" id="uniform-load-result">250<span class="result-unit">psf</span></span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Tile Utilization</span>
+          <span class="result-value small" id="utilization-result">25.0<span class="result-unit">%</span></span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Concentrated Load Check</span>
+          <span class="result-value small" id="status-result">PASS</span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Recommended Action</span>
+          <span class="result-value small" id="action-result">Within typical raised-floor limits. Confirm vendor floor and pedestal data before installation.</span>
+        </div>
+      </div>
+    </section>
+
+    <article>
+      <h2>What is Raised Floor Loading?</h2>
+      <p>Raised floor loading describes how much weight a raised access floor system can carry without excessive deflection or structural distress. In data centers, this matters because racks, UPS modules, batteries, storage arrays, and cooling equipment can place large static loads on a relatively small area. A floor system is not judged by one number alone. Engineers usually consider both uniform load, which spreads weight across a footprint, and concentrated load, which reflects the force transferred through cabinet feet, casters, or local tile corners and pedestals.</p>
+      <p>A layout that looks acceptable on average can still be risky if heavy equipment lands on too few tiles or places too much force at a point support. That is why raised floor planning is part structural check, part equipment-placement exercise. The access floor tile, stringer grid, pedestals, anchors, and slab below all matter. This calculator gives a fast first-pass estimate for equipment loading by comparing the applied uniform load with a chosen floor rating and by screening the approximate concentrated corner load against a point-load limit. It is useful for early planning, but final approval should come from the floor manufacturer, structural engineer, or project design documents.</p>
+
+      <h2>How to Calculate Floor Loading</h2>
+      <p>The first step is to calculate uniform load. Divide the equipment weight by the total footprint area touching the floor. In imperial terms, the result is pounds per square foot. In metric mode, the calculator converts the same result to kilopascals, which is another common way to describe distributed floor pressure. Once the uniform load is known, compare it with the rated floor capacity. Utilization is simply the applied load divided by the floor rating. A low utilization value usually means the placement is comfortably within the nominal floor class, while values near or above 100 percent deserve immediate scrutiny.</p>
+      <p>Uniform load is only part of the story. Raised floors can fail locally even when the average pressure looks acceptable. Heavy equipment often loads specific tiles and pedestal corners more severely than the room-average number suggests. Because many planning exercises do not yet have detailed caster or foot geometry, this tool estimates the number of tiles engaged by dividing the footprint area by the tile area. It then approximates the maximum corner reaction as the equipment weight spread across the covered tiles and their four corner supports. This is still a simplification, but it gives a quick screening value for a concentrated load check.</p>
+      <p>When evaluating results, use the worst case rather than the most convenient interpretation. Narrow cabinet bases, battery strings, or equipment that is rolled during installation may create higher local reactions than a simple static footprint estimate suggests. Likewise, adjacent heavy cabinets can combine loads on the same pedestal line or slab region. For that reason, a passing calculator result should be treated as a planning signal, not as a stamped engineering approval. It helps determine whether the concept looks reasonable before more detailed vendor and structural review.</p>
+      <div class="formula-block">
+        <span class="formula-label">Formula</span>
+        <div>Uniform Load (psf) = Equipment Weight (lbs) / Footprint Area (sq ft)</div>
+        <div>Utilization (%) = (Uniform Load / Floor Rating) &times; 100</div>
+        <div>Covered Tiles = Footprint Area / Tile Area</div>
+        <div>Estimated Max Corner Load = Equipment Weight / (Covered Tiles &times; 4)</div>
+      </div>
+      <p>Worked example: assume a 1500 lb equipment load with a 6 sq ft footprint on a floor rated at 1000 psf. Uniform load is 1500 / 6 = 250 psf. Utilization is 250 / 1000 = 25 percent, which is a clear PASS by the screening thresholds used here. If the floor uses 2 ft by 2 ft tiles, each tile covers 4 sq ft, so the footprint engages about 1.5 tiles. The estimated maximum corner load is therefore about 1500 / (1.5 &times; 4) = 250 lb per corner, well below a 1250 lb point-load limit. That combination indicates the placement is likely acceptable from a first-pass raised-floor perspective.</p>
+      <p>The practical value of the calculation is speed. It lets planners compare equipment options, decide whether a row belongs on slab instead of raised floor, and identify where steel spreader plates or alternate equipment orientation may be necessary. Use it early, then verify the final arrangement with project-specific floor shop drawings, manufacturer test data, and the load path down to the structural slab.</p>
+
+      <h2>Data Center Floor Rating Reference Table</h2>
+      <p>The table below summarizes common planning classes used in conceptual data center discussions. These are not universal standards, but they are helpful shorthand when comparing light-duty office-style access floors with heavier data center builds designed for denser equipment.</p>
+      <div class="table-wrapper">
+        <table class="reference-table">
+          <thead>
+            <tr>
+              <th>Rating Class</th>
+              <th>Uniform Load (psf)</th>
+              <th>Point Load (lbs)</th>
+              <th>Typical Use</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Light commercial</td><td>500</td><td>750</td><td>Office-style raised floors, telecom spaces, and light auxiliary equipment areas.</td></tr>
+            <tr><td>Standard DC</td><td>1000</td><td>1250</td><td>General-purpose enterprise data halls with standard cabinets and moderate-density deployments.</td></tr>
+            <tr><td>Heavy DC</td><td>1250</td><td>1500</td><td>Rooms expecting denser racks, heavier storage, or more concentrated equipment clusters.</td></tr>
+            <tr><td>Very Heavy DC</td><td>1500</td><td>2000</td><td>High-load raised floor systems for unusually heavy cabinets, power equipment, or conservative design margins.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>These categories are useful for screening, but floor performance still depends on details the table cannot capture. Tile construction, pedestal spacing, stringer configuration, underfloor height, anchor condition, rolling loads, and slab capacity can all change the real limit. A room with a 1000 psf nominal rating might still need local reinforcement for especially heavy battery cabinets or transformer-fed equipment. Treat the table as a planning reference, then validate the exact floor assembly in design documents.</p>
+
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-section">
+        <details>
+          <summary>What is raised floor load capacity?</summary>
+          <div class="faq-answer">
+            <p>Raised floor load capacity is the amount of distributed and concentrated weight that the access floor system can safely support. In practice, engineers check both the overall floor pressure and the localized loads at tiles, pedestals, and contact points.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Uniform load vs concentrated load?</summary>
+          <div class="faq-answer">
+            <p>Uniform load spreads weight across an area, so it is expressed as psf or kPa. Concentrated load is a local reaction at a point or very small contact area, such as a cabinet foot or pedestal corner, and it often controls the risk for heavy equipment.</p>
+          </div>
+        </details>
+        <details>
+          <summary>What is a standard DC floor rating?</summary>
+          <div class="faq-answer">
+            <p>A common conceptual reference for many enterprise data centers is around 1000 psf with a point load near 1250 lb, but there is no single universal value. The actual rating must come from the installed floor system documentation and manufacturer testing.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Can I stack multiple cabinets side by side?</summary>
+          <div class="faq-answer">
+            <p>Possibly, but the combined load path matters. A row of cabinets can overburden shared tiles, pedestal lines, or the slab below even if each cabinet appears acceptable by itself, so row-level and area-level review is required.</p>
+          </div>
+        </details>
+        <details>
+          <summary>What happens if I exceed floor rating?</summary>
+          <div class="faq-answer">
+            <p>Exceeding the rated load can lead to excessive deflection, cracked tiles, pedestal instability, anchor problems, or localized structural failure. At minimum it creates a safety and reliability risk, and at worst it can damage equipment and force an emergency relocation.</p>
+          </div>
+        </details>
+      </div>
+    </article>
+
+    <section class="related-calculators">
+      <h3>More Data Center Calculators</h3>
+      <ul>
+        <li><a href="pue-calculator.html">PUE Calculator</a></li>
+        <li><a href="rack-power-density-calculator.html">Rack Power Density Calculator</a></li>
+        <li><a href="ups-runtime-calculator.html">UPS Runtime Calculator</a></li>
+        <li><a href="pdu-load-balance-calculator.html">PDU Load Balance Calculator</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-apps">
+        <a href="https://apps.apple.com/us/app/data-center-engineer-toolkit/id6761987963?utm_source=web&amp;utm_medium=calculator&amp;utm_campaign=raised-floor-load-calculator">Data Center Engineer Toolkit on App Store</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const equipmentWeightInput = document.getElementById("equipment-weight");
+    const footprintAreaInput = document.getElementById("footprint-area");
+    const tileSizeInput = document.getElementById("tile-size");
+    const floorRatingSelect = document.getElementById("floor-rating");
+    const pointLoadCapacityInput = document.getElementById("point-load-capacity");
+    const unitToggle = document.getElementById("unit-system");
+    const metricLabel = document.getElementById("metric-label");
+    const imperialLabel = document.getElementById("imperial-label");
+
+    const uniformLoadResult = document.getElementById("uniform-load-result");
+    const utilizationResult = document.getElementById("utilization-result");
+    const statusResult = document.getElementById("status-result");
+    const actionResult = document.getElementById("action-result");
+
+    const LBS_PER_KG = 2.2046226218;
+    const SQFT_PER_SQM = 10.7639104167;
+    const PSF_PER_KPA = 20.885434273;
+    const MM_PER_FT = 304.8;
+
+    const floorRatings = [
+      { value: 500, imperial: "500 psf light commercial", metric: "23.9 kPa light commercial" },
+      { value: 1000, imperial: "1000 psf standard DC", metric: "47.9 kPa standard DC" },
+      { value: 1250, imperial: "1250 psf heavy DC", metric: "59.8 kPa heavy DC" },
+      { value: 1500, imperial: "1500 psf very heavy DC", metric: "71.8 kPa very heavy DC" }
+    ];
+
+    function formatValue(value, decimals) {
+      return Number(value).toFixed(decimals);
+    }
+
+    function setResultTone(element, tone) {
+      element.classList.remove("ok", "warn", "error");
+      if (tone) {
+        element.classList.add(tone);
+      }
+    }
+
+    function getStatusFromPercent(percent) {
+      if (percent < 80) {
+        return "PASS";
+      }
+
+      if (percent <= 100) {
+        return "WARN";
+      }
+
+      return "FAIL";
+    }
+
+    function getToneFromStatus(status) {
+      if (status === "PASS") {
+        return "ok";
+      }
+
+      if (status === "WARN") {
+        return "warn";
+      }
+
+      return "error";
+    }
+
+    function buildAction(uniformStatus, pointStatus) {
+      if (uniformStatus === "FAIL" || pointStatus === "FAIL") {
+        return "Placement exceeds a screening limit. Reduce load, enlarge the footprint, use spreader support, or move the equipment to a slab or higher-rated floor zone.";
+      }
+
+      if (uniformStatus === "WARN" || pointStatus === "WARN") {
+        return "Loading is near the allowable range. Review floor shop drawings, vendor limits, and pedestal reactions before approving the layout.";
+      }
+
+      return "Within typical raised-floor limits. Confirm vendor floor and pedestal data before installation.";
+    }
+
+    function updateFloorRatingLabels() {
+      const isImperial = unitToggle.checked;
+
+      Array.from(floorRatingSelect.options).forEach((option, index) => {
+        option.textContent = isImperial ? floorRatings[index].imperial : floorRatings[index].metric;
+      });
+    }
+
+    function updateUnitLabels() {
+      const isImperial = unitToggle.checked;
+
+      document.querySelector(".weight-unit").textContent = isImperial ? "lbs" : "kg";
+      document.querySelector(".area-unit").textContent = isImperial ? "sq ft" : "m²";
+      document.querySelector(".tile-unit").textContent = isImperial ? "ft × ft" : "mm × mm";
+      document.querySelector(".rating-unit").textContent = isImperial ? "psf" : "kPa";
+      document.querySelector(".point-unit").textContent = isImperial ? "lbs/point" : "kg/point";
+
+      metricLabel.classList.toggle("active", !isImperial);
+      imperialLabel.classList.toggle("active", isImperial);
+
+      updateFloorRatingLabels();
+    }
+
+    function convertDisplayedInputs(toImperial) {
+      const weight = parseFloat(equipmentWeightInput.value);
+      const area = parseFloat(footprintAreaInput.value);
+      const tileSize = parseFloat(tileSizeInput.value);
+      const pointLoad = parseFloat(pointLoadCapacityInput.value);
+
+      if (Number.isFinite(weight) && weight > 0) {
+        equipmentWeightInput.value = toImperial ? formatValue(weight * LBS_PER_KG, 0) : formatValue(weight / LBS_PER_KG, 0);
+      }
+
+      if (Number.isFinite(area) && area > 0) {
+        footprintAreaInput.value = toImperial ? formatValue(area * SQFT_PER_SQM, 1) : formatValue(area / SQFT_PER_SQM, 1);
+      }
+
+      if (Number.isFinite(tileSize) && tileSize > 0) {
+        if (toImperial) {
+          tileSizeInput.value = formatValue(tileSize / MM_PER_FT, 1);
+        } else if (Math.abs(tileSize - 2) < 0.01) {
+          tileSizeInput.value = "600";
+        } else {
+          tileSizeInput.value = formatValue(tileSize * MM_PER_FT, 0);
+        }
+      }
+
+      if (Number.isFinite(pointLoad) && pointLoad > 0) {
+        pointLoadCapacityInput.value = toImperial ? formatValue(pointLoad * LBS_PER_KG, 0) : formatValue(pointLoad / LBS_PER_KG, 0);
+      }
+    }
+
+    function calculate() {
+      const isImperial = unitToggle.checked;
+      const inputWeight = parseFloat(equipmentWeightInput.value);
+      const inputArea = parseFloat(footprintAreaInput.value);
+      const inputTileSize = parseFloat(tileSizeInput.value);
+      const inputFloorRating = parseFloat(floorRatingSelect.value);
+      const inputPointLoad = parseFloat(pointLoadCapacityInput.value);
+
+      if (![inputWeight, inputArea, inputTileSize, inputFloorRating, inputPointLoad].every(Number.isFinite) || inputWeight <= 0 || inputArea <= 0 || inputTileSize <= 0 || inputFloorRating <= 0 || inputPointLoad <= 0) {
+        uniformLoadResult.textContent = "—";
+        utilizationResult.textContent = "—";
+        statusResult.textContent = "—";
+        actionResult.textContent = "—";
+        return;
+      }
+
+      const weightLbs = isImperial ? inputWeight : inputWeight * LBS_PER_KG;
+      const areaSqFt = isImperial ? inputArea : inputArea * SQFT_PER_SQM;
+      const tileSizeFt = isImperial ? inputTileSize : inputTileSize / MM_PER_FT;
+      const floorRatingPsf = inputFloorRating;
+      const pointLoadLbs = isImperial ? inputPointLoad : inputPointLoad * LBS_PER_KG;
+
+      const uniformLoadPsf = weightLbs / areaSqFt;
+      const utilizationPercent = (uniformLoadPsf / floorRatingPsf) * 100;
+      const tileAreaSqFt = tileSizeFt * tileSizeFt;
+      const coveredTiles = Math.max(areaSqFt / tileAreaSqFt, 1);
+      const cornerLoadLbs = weightLbs / (coveredTiles * 4);
+      const pointLoadPercent = (cornerLoadLbs / pointLoadLbs) * 100;
+
+      const uniformStatus = getStatusFromPercent(utilizationPercent);
+      const pointStatus = getStatusFromPercent(pointLoadPercent);
+      const overallStatus = uniformStatus === "FAIL" || pointStatus === "FAIL" ? "FAIL" : (uniformStatus === "WARN" || pointStatus === "WARN" ? "WARN" : "PASS");
+      const tone = getToneFromStatus(overallStatus);
+
+      const uniformDisplayValue = isImperial ? formatValue(uniformLoadPsf, 0) + '<span class="result-unit">psf</span>' : formatValue(uniformLoadPsf / PSF_PER_KPA, 2) + '<span class="result-unit">kPa</span>';
+
+      uniformLoadResult.innerHTML = uniformDisplayValue;
+      utilizationResult.innerHTML = formatValue(utilizationPercent, 1) + '<span class="result-unit">%</span>';
+      statusResult.textContent = pointStatus;
+      actionResult.textContent = buildAction(uniformStatus, pointStatus);
+
+      setResultTone(uniformLoadResult, tone);
+      setResultTone(utilizationResult, getToneFromStatus(uniformStatus));
+      setResultTone(statusResult, getToneFromStatus(pointStatus));
+      setResultTone(actionResult, tone);
+    }
+
+    [equipmentWeightInput, footprintAreaInput, tileSizeInput, pointLoadCapacityInput].forEach((input) => {
+      input.addEventListener("input", calculate);
+    });
+
+    floorRatingSelect.addEventListener("change", calculate);
+
+    unitToggle.addEventListener("change", () => {
+      convertDisplayedInputs(unitToggle.checked);
+      updateUnitLabels();
+      calculate();
+    });
+
+    updateUnitLabels();
+    calculate();
+  </script>
+</body>
+</html>

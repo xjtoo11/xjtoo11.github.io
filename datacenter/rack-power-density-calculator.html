@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YB2TFN4NPN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-YB2TFN4NPN');
+  </script>
+  <title>Rack Power Density Calculator — Free Data Center Tool | EngineerCalc</title>
+  <meta name="description" content="Free rack power density calculator. Calculate kW per rack and watts per square meter for data center cooling and capacity planning.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="canonical" href="https://xjtoo11.github.io/datacenter/rack-power-density-calculator.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Rack Power Density Calculator",
+    "url": "https://xjtoo11.github.io/datacenter/rack-power-density-calculator.html",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": 0,
+      "priceCurrency": "USD"
+    },
+    "description": "Free online rack power density calculator for estimating kW per rack, area power density, density classification, and cooling load in data centers."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "How to Calculate Rack Power Density",
+    "author": {
+      "@type": "Organization",
+      "name": "EngineerCalc"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "EngineerCalc"
+    },
+    "datePublished": "2026-04-14",
+    "dateModified": "2026-04-14",
+    "mainEntityOfPage": "https://xjtoo11.github.io/datacenter/rack-power-density-calculator.html",
+    "description": "Step-by-step guidance for calculating rack power density, interpreting kW per rack, converting between metric and imperial area units, and planning cooling capacity."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is rack power density?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Rack power density describes how much IT load is concentrated in each rack or across a given white-space area. Operators commonly express it as kilowatts per rack and as area density such as kilowatts per square meter or watts per square foot."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is a typical rack density?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Typical enterprise racks often fall in the 3 to 8 kW range, while modern virtualization clusters and colocation deployments may run closer to 8 to 15 kW per rack. AI, HPC, and accelerated compute installations can exceed 20 kW per rack."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does density affect cooling?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "As rack density rises, each row and aisle must reject more heat in less space. Higher density increases airflow demand, raises the risk of hot spots, and may require containment, in-row cooling, rear-door heat exchangers, or liquid cooling."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is high-density computing?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "High-density computing refers to deployments where compute power and heat output are concentrated into relatively few racks. GPU clusters, HPC environments, and blade-heavy designs often qualify because they place far more kilowatts in each cabinet than conventional enterprise rooms."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I plan for density growth?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Plan for density growth by reserving electrical and cooling headroom, validating floor loading, keeping busway and PDU capacity scalable, and designing layouts so a subset of rows can support higher future rack loads without rebuilding the whole room."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <span class="logo">EngineerCalc</span>
+      <nav>
+        <a href="pue-calculator.html">PUE</a>
+        <a href="rack-power-density-calculator.html" class="active">Rack Density</a>
+        <a href="raised-floor-load-calculator.html">Floor Load</a>
+        <a href="ups-runtime-calculator.html">UPS Runtime</a>
+        <a href="pdu-load-balance-calculator.html">PDU Balance</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>Rack Power Density Calculator</h1>
+    <p class="subtitle">Free data center rack density calculator. Enter total IT load, rack count, and floor area to calculate average kW per rack, area power density, density category, and cooling load for capacity planning.</p>
+
+    <section class="calculator" aria-labelledby="calculator-heading">
+      <div class="calc-section-title" id="calculator-heading">INPUTS</div>
+
+      <div class="calc-row">
+        <label for="total-it-load">Total IT Load</label>
+        <input id="total-it-load" name="total-it-load" type="number" inputmode="decimal" value="500" step="10">
+        <span class="unit power-unit">kW</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="number-of-racks">Number of Racks</label>
+        <input id="number-of-racks" name="number-of-racks" type="number" inputmode="numeric" value="50" step="1">
+        <span class="unit">racks</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="floor-area">Floor Area</label>
+        <input id="floor-area" name="floor-area" type="number" inputmode="decimal" value="200" step="5">
+        <span class="unit area-unit">m²</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="rack-type">Rack Type</label>
+        <select id="rack-type" name="rack-type">
+          <option value="42u-standard" selected>42U Standard</option>
+          <option value="48u-high">48U High</option>
+          <option value="half-rack">Half Rack</option>
+          <option value="open-frame">Open Frame</option>
+        </select>
+        <span class="unit">type</span>
+      </div>
+
+      <div class="unit-toggle">
+        <span id="metric-label" class="active">Metric</span>
+        <label class="toggle-switch" for="unit-system">
+          <input id="unit-system" type="checkbox" aria-label="Toggle between Metric and Imperial display">
+          <span class="toggle-slider"></span>
+        </label>
+        <span id="imperial-label">Imperial</span>
+      </div>
+
+      <div class="calc-section-title">RESULTS</div>
+      <div class="calc-results" aria-live="polite">
+        <div class="result-row">
+          <span class="result-label">kW per Rack</span>
+          <span class="result-value" id="kw-per-rack-result">10.0<span class="result-unit">kW</span></span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Power Density</span>
+          <span class="result-value small" id="density-result">2.50<span class="result-unit">kW/m²</span></span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Density Category</span>
+          <span class="result-value small" id="category-result">High</span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Cooling Load (BTU/h)</span>
+          <span class="result-value small" id="cooling-result">1706000<span class="result-unit">BTU/h</span></span>
+        </div>
+      </div>
+    </section>
+
+    <article>
+      <h2>What is Rack Power Density?</h2>
+      <p>Rack power density is a planning metric that describes how much IT power is concentrated into each cabinet and across the white-space floor area. Data center teams usually talk about density in two related ways: kilowatts per rack and area density such as kilowatts per square meter or watts per square foot. The rack-level number helps with cabinet power provisioning, branch circuits, busway tap sizing, and rack-by-rack cooling strategy. The area-based number helps with room-level capacity planning, because it shows how much heat must be rejected from a given footprint.</p>
+      <p>This matters because a 500 kW hall can behave very differently depending on whether that load is spread across 200 lightly loaded racks or concentrated into 25 GPU-heavy cabinets. Higher density increases airflow demand, makes hot spots more likely, and can force changes in containment, CRAC capacity, chilled-water distribution, or liquid cooling adoption. Rack power density does not replace detailed electrical and mechanical design, but it is one of the fastest ways to judge whether a planned deployment fits the intended room, row, and rack infrastructure.</p>
+
+      <h2>How to Calculate Power Density</h2>
+      <p>The basic calculation starts with total IT load. This should represent the real power consumed by servers, storage, network devices, and other computing equipment, usually expressed in kilowatts. Next, divide that IT load by the number of racks to estimate average kilowatts per rack. That average is useful for early planning, even though real rooms almost never load every cabinet equally. It gives a quick sense of whether the design belongs in a low-density, conventional enterprise range or in a higher-density category that may need more specialized cooling.</p>
+      <p>To understand room-level concentration, divide the same IT load by the white-space floor area. In metric projects, the result is kilowatts per square meter. In imperial projects, a common expression is watts per square foot. These two views tell the same story from different unit systems. High kW per rack often correlates with high area density, but not always. A room with generous spacing can have high rack loads while keeping moderate watts per square foot, and a compact room can push area density up even when rack loads are only mid-range.</p>
+      <p>Cooling planning follows directly from electrical load. Nearly all IT power ultimately becomes heat inside the room, so converting kilowatts to BTU per hour is a fast way to estimate the cooling burden that air or liquid systems must remove. For conceptual sizing, multiply kilowatts by 3412. That does not replace detailed sensible-heat analysis, redundancy modeling, or part-load equipment selection, but it does provide a reliable first-pass check when comparing options or scoping an expansion.</p>
+      <div class="formula-block">
+        <span class="formula-label">Formula</span>
+        <div>kW per rack = Total IT Load / Number of Racks</div>
+        <div>Density (kW/m²) = Total IT Load / Floor Area in m²</div>
+        <div>Density (W/sq ft) = (Total IT Load &times; 1000) / Floor Area in sq ft</div>
+        <div>Cooling load (BTU/h) = Total IT Load &times; 3412</div>
+      </div>
+      <p>Worked example: suppose a data hall supports 500 kW of IT load across 50 racks with 200 m² of floor area. Average rack density is 500 / 50 = 10 kW per rack. Area density is 500 / 200 = 2.5 kW/m². Converting the same floor area to imperial terms gives about 2153 sq ft, so the imperial density is approximately 500,000 / 2153 = 232 W/sq ft. Cooling load is 500 &times; 3412 = 1,706,000 BTU/h. That result sits near the upper end of mainstream air-cooled design and may justify tighter airflow control, especially if some racks run well above the average.</p>
+      <p>Average values should always be treated as the starting point, not the finish line. Rack type, cable blockage, blanking discipline, return-air path, containment strategy, and future growth targets all influence whether the average is actually supportable. A room designed for 10 kW average racks may still fail if a subset of cabinets grows to 25 kW without dedicated cooling upgrades. Use the calculator to frame the load, then validate the design at row level and for worst-case rack clusters.</p>
+
+      <h2>Rack Density Classification Reference Table</h2>
+      <p>The classification bands below are practical planning ranges rather than hard industry standards. They help teams map a conceptual load to likely cooling approaches and operational complexity. The watts-per-square-foot values are approximate reference ranges that align with typical spacing and deployment patterns.</p>
+      <div class="table-wrapper">
+        <table class="reference-table">
+          <thead>
+            <tr>
+              <th>Density</th>
+              <th>kW/rack</th>
+              <th>W/sq ft</th>
+              <th>Use Case</th>
+              <th>Cooling Approach</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Low</td><td>&lt; 5</td><td>&lt; 75</td><td>Legacy enterprise rooms, network-heavy spaces, lightly loaded cabinets.</td><td>Perimeter cooling with basic hot/cold aisle discipline.</td></tr>
+            <tr><td>Medium</td><td>5 - 10</td><td>75 - 150</td><td>Typical virtualization clusters, mixed enterprise deployments, many colocation suites.</td><td>Well-managed airflow, blanking panels, improved aisle separation.</td></tr>
+            <tr><td>High</td><td>10 - 20</td><td>150 - 300</td><td>Blade environments, dense storage, modern compute rows.</td><td>Containment, higher airflow capacity, targeted row-level optimization.</td></tr>
+            <tr><td>Very High</td><td>20 - 40</td><td>300 - 600</td><td>GPU clusters, HPC racks, dense accelerated compute.</td><td>In-row cooling, rear-door heat exchangers, or hybrid liquid support.</td></tr>
+            <tr><td>Extreme</td><td>&gt; 40</td><td>&gt; 600</td><td>Advanced AI and supercomputing installations with concentrated thermal loads.</td><td>Direct-to-chip liquid cooling or other purpose-built high-density solutions.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>These ranges are intentionally broad because layout, ambient conditions, and redundancy philosophy change what a room can support. A conservative enterprise facility may struggle above 12 kW per rack, while a purpose-built AI pod may treat 30 kW as normal. The useful planning question is not whether a density band sounds impressive, but whether the electrical path, floor structure, and cooling architecture can support it reliably with growth headroom.</p>
+
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-section">
+        <details>
+          <summary>What is rack power density?</summary>
+          <div class="faq-answer">
+            <p>Rack power density is the amount of IT load concentrated in each rack or across a given data center area. It is commonly expressed as kilowatts per rack and as area density in kW/m² or W/sq ft so engineers can evaluate both cabinet-level and room-level impact.</p>
+          </div>
+        </details>
+        <details>
+          <summary>What is a typical rack density?</summary>
+          <div class="faq-answer">
+            <p>Many traditional enterprise deployments average roughly 3 to 8 kW per rack, while more modern environments often sit in the 8 to 15 kW range. AI, HPC, and GPU-heavy installations can exceed 20 kW per rack and quickly move into specialized cooling territory.</p>
+          </div>
+        </details>
+        <details>
+          <summary>How does density affect cooling?</summary>
+          <div class="faq-answer">
+            <p>Higher density means more heat is released in a smaller footprint. That raises airflow requirements, increases the chance of recirculation and hot spots, and may require containment, in-row systems, rear-door exchangers, or liquid cooling rather than basic perimeter units alone.</p>
+          </div>
+        </details>
+        <details>
+          <summary>What is high-density computing?</summary>
+          <div class="faq-answer">
+            <p>High-density computing refers to deployments that place unusually large electrical and thermal loads into a small number of racks. GPU training clusters, blade platforms, and HPC nodes are common examples because they combine high compute intensity with concentrated cooling demand.</p>
+          </div>
+        </details>
+        <details>
+          <summary>How do I plan for density growth?</summary>
+          <div class="faq-answer">
+            <p>Start with the current average, then model the likely peak rack clusters you may need in the next few years. Preserve spare electrical capacity, validate floor loading, choose scalable distribution equipment, and design cooling so at least part of the room can absorb higher-density rows without a full rebuild.</p>
+          </div>
+        </details>
+      </div>
+    </article>
+
+    <section class="related-calculators">
+      <h3>More Data Center Calculators</h3>
+      <ul>
+        <li><a href="pue-calculator.html">PUE Calculator</a></li>
+        <li><a href="raised-floor-load-calculator.html">Raised Floor Load Calculator</a></li>
+        <li><a href="ups-runtime-calculator.html">UPS Runtime Calculator</a></li>
+        <li><a href="pdu-load-balance-calculator.html">PDU Load Balance Calculator</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-apps">
+        <a href="https://apps.apple.com/us/app/data-center-engineer-toolkit/id6761987963?utm_source=web&amp;utm_medium=calculator&amp;utm_campaign=rack-power-density-calculator">Data Center Engineer Toolkit on App Store</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const totalItLoadInput = document.getElementById("total-it-load");
+    const numberOfRacksInput = document.getElementById("number-of-racks");
+    const floorAreaInput = document.getElementById("floor-area");
+    const rackTypeInput = document.getElementById("rack-type");
+    const unitToggle = document.getElementById("unit-system");
+    const metricLabel = document.getElementById("metric-label");
+    const imperialLabel = document.getElementById("imperial-label");
+
+    const kwPerRackResult = document.getElementById("kw-per-rack-result");
+    const densityResult = document.getElementById("density-result");
+    const categoryResult = document.getElementById("category-result");
+    const coolingResult = document.getElementById("cooling-result");
+
+    const SQFT_PER_SQM = 10.7639;
+
+    function formatValue(value, decimals) {
+      return Number(value).toFixed(decimals);
+    }
+
+    function getDensityCategory(kwPerRack) {
+      if (kwPerRack < 5) {
+        return "Low";
+      }
+
+      if (kwPerRack <= 10) {
+        return "Medium";
+      }
+
+      if (kwPerRack <= 20) {
+        return "High";
+      }
+
+      return "Very High";
+    }
+
+    function convertFloorAreaValue(toImperial) {
+      const currentValue = parseFloat(floorAreaInput.value);
+      if (!Number.isFinite(currentValue) || currentValue <= 0) {
+        return;
+      }
+
+      const convertedValue = toImperial ? currentValue * SQFT_PER_SQM : currentValue / SQFT_PER_SQM;
+      floorAreaInput.value = toImperial ? formatValue(convertedValue, 0) : formatValue(convertedValue, 1);
+    }
+
+    function updateUnitLabels() {
+      const isImperial = unitToggle.checked;
+
+      document.querySelectorAll(".area-unit").forEach((element) => {
+        element.textContent = isImperial ? "sq ft" : "m²";
+      });
+
+      floorAreaInput.step = isImperial ? "50" : "5";
+
+      metricLabel.classList.toggle("active", !isImperial);
+      imperialLabel.classList.toggle("active", isImperial);
+    }
+
+    function buildDensityResult(totalItLoadKw, areaInputValue) {
+      if (!Number.isFinite(totalItLoadKw) || !Number.isFinite(areaInputValue) || areaInputValue <= 0) {
+        return "—";
+      }
+
+      if (unitToggle.checked) {
+        const densityWsqft = (totalItLoadKw * 1000) / areaInputValue;
+        return formatValue(densityWsqft, 0) + '<span class="result-unit">W/sq ft</span>';
+      }
+
+      const densityKwm2 = totalItLoadKw / areaInputValue;
+      return formatValue(densityKwm2, 2) + '<span class="result-unit">kW/m²</span>';
+    }
+
+    function calculate() {
+      const totalItLoadKw = parseFloat(totalItLoadInput.value);
+      const numberOfRacks = parseFloat(numberOfRacksInput.value);
+      const floorAreaValue = parseFloat(floorAreaInput.value);
+
+      if (![totalItLoadKw, numberOfRacks, floorAreaValue].every(Number.isFinite) || totalItLoadKw <= 0 || numberOfRacks <= 0 || floorAreaValue <= 0) {
+        kwPerRackResult.textContent = "—";
+        densityResult.textContent = "—";
+        categoryResult.textContent = "—";
+        coolingResult.textContent = "—";
+        return;
+      }
+
+      const kwPerRack = totalItLoadKw / numberOfRacks;
+      const densityCategory = getDensityCategory(kwPerRack);
+      const coolingLoadBtuh = totalItLoadKw * 3412;
+
+      kwPerRackResult.innerHTML = formatValue(kwPerRack, 1) + '<span class="result-unit">kW</span>';
+      densityResult.innerHTML = buildDensityResult(totalItLoadKw, floorAreaValue);
+      categoryResult.textContent = densityCategory;
+      coolingResult.innerHTML = formatValue(coolingLoadBtuh, 0) + '<span class="result-unit">BTU/h</span>';
+    }
+
+    [totalItLoadInput, numberOfRacksInput, floorAreaInput, rackTypeInput].forEach((input) => {
+      input.addEventListener("input", calculate);
+      input.addEventListener("change", calculate);
+    });
+
+    unitToggle.addEventListener("change", () => {
+      convertFloorAreaValue(unitToggle.checked);
+      updateUnitLabels();
+      calculate();
+    });
+
+    updateUnitLabels();
+    calculate();
+  </script>
+</body>
+</html>

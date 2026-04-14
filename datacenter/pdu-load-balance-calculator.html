@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YB2TFN4NPN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-YB2TFN4NPN');
+  </script>
+  <title>PDU Load Balance Calculator — Free 3-Phase Tool | EngineerCalc</title>
+  <meta name="description" content="Free PDU load balance calculator. Check 3-phase imbalance percentage across data center circuits for safe operation and capacity planning.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="canonical" href="https://xjtoo11.github.io/datacenter/pdu-load-balance-calculator.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "PDU Load Balance Calculator",
+    "url": "https://xjtoo11.github.io/datacenter/pdu-load-balance-calculator.html",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": 0,
+      "priceCurrency": "USD"
+    },
+    "description": "Free online PDU load balance calculator for checking 3-phase current imbalance, apparent power, and breaker utilization in data center power distribution units."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "How to Calculate PDU 3-Phase Load Imbalance",
+    "author": {
+      "@type": "Organization",
+      "name": "EngineerCalc"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "EngineerCalc"
+    },
+    "datePublished": "2026-04-14",
+    "dateModified": "2026-04-14",
+    "mainEntityOfPage": "https://xjtoo11.github.io/datacenter/pdu-load-balance-calculator.html",
+    "description": "Step-by-step guidance for calculating three-phase PDU imbalance, interpreting threshold bands, estimating total kVA, and understanding why load balancing matters in data center operations."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is phase imbalance?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Phase imbalance is the uneven distribution of current across the three phases of a power system. In a PDU, it means one phase is carrying significantly more or less load than the others, which increases losses and reduces usable capacity."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is an acceptable imbalance percentage?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Many operators aim to keep current imbalance below 10 percent, with less than 5 percent considered excellent. Values above 15 percent usually warrant corrective action because the heaviest phase can approach limits while average load still looks acceptable."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why does phase imbalance matter for PDUs?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Phase imbalance matters because protective devices and upstream conductors are limited by the most heavily loaded phase, not the average. A poorly balanced PDU can therefore lose available capacity, run hotter, and increase the risk of nuisance trips or hidden overload conditions."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I rebalance loads across phases?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Rebalancing is done by moving single-phase branch circuits, receptacle loads, or rack feeds from the highest-loaded phase onto lighter phases. The process should be planned carefully so redundancy, cord routing, and rack-level A-B feed strategy are preserved."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What causes 3-phase imbalance in data centers?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Common causes include uneven rack deployment, incremental adds and changes, stranded capacity on one phase, single-phase IT loads being landed without tracking balance, and legacy circuit assignments that no longer reflect the actual equipment mix on the floor."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <span class="logo">EngineerCalc</span>
+      <nav>
+        <a href="pue-calculator.html">PUE</a>
+        <a href="rack-power-density-calculator.html">Rack Density</a>
+        <a href="raised-floor-load-calculator.html">Floor Load</a>
+        <a href="ups-runtime-calculator.html">UPS Runtime</a>
+        <a href="pdu-load-balance-calculator.html" class="active">PDU Balance</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>PDU Load Balance Calculator</h1>
+    <p class="subtitle">Free 3-phase PDU load balance calculator for data center distribution checks. Enter phase currents, line voltage, and breaker rating to calculate imbalance percentage, total apparent power, and whether the circuit is balanced enough for safe operation and capacity planning.</p>
+
+    <section class="calculator" aria-labelledby="calculator-heading">
+      <div class="calc-section-title" id="calculator-heading">INPUTS</div>
+
+      <div class="calc-row">
+        <label for="phase-a-current">Phase A Current</label>
+        <input id="phase-a-current" name="phase-a-current" type="number" inputmode="decimal" value="45" step="0.1">
+        <span class="unit current-unit">A</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="phase-b-current">Phase B Current</label>
+        <input id="phase-b-current" name="phase-b-current" type="number" inputmode="decimal" value="38" step="0.1">
+        <span class="unit current-unit">A</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="phase-c-current">Phase C Current</label>
+        <input id="phase-c-current" name="phase-c-current" type="number" inputmode="decimal" value="52" step="0.1">
+        <span class="unit current-unit">A</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="line-voltage">Line-to-Line Voltage</label>
+        <input id="line-voltage" name="line-voltage" type="number" inputmode="decimal" value="415" step="1">
+        <span class="unit voltage-unit">V</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="breaker-rating">Breaker Rating</label>
+        <input id="breaker-rating" name="breaker-rating" type="number" inputmode="decimal" value="63" step="1">
+        <span class="unit current-unit">A</span>
+      </div>
+
+      <div class="unit-toggle">
+        <span id="metric-label" class="active">Metric</span>
+        <label class="toggle-switch" for="unit-system">
+          <input id="unit-system" type="checkbox" aria-label="Toggle apparent power display between kVA and VA">
+          <span class="toggle-slider"></span>
+        </label>
+        <span id="imperial-label">kVA View</span>
+      </div>
+
+      <div class="calc-section-title">RESULTS</div>
+      <div class="calc-results" aria-live="polite">
+        <div class="result-row">
+          <span class="result-label">Imbalance %</span>
+          <span class="result-value ok" id="imbalance-result">15.6<span class="result-unit">%</span></span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Total kVA</span>
+          <span class="result-value small" id="total-kva-result">32.3<span class="result-unit">kVA</span></span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Phase Max vs Min</span>
+          <span class="result-value small" id="phase-range-result">Max C=52A, Min B=38A</span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Rating</span>
+          <span class="result-value small" id="rating-result">Poor • 82.5% util</span>
+        </div>
+      </div>
+    </section>
+
+    <article>
+      <h2>What is PDU Load Balance?</h2>
+      <p>PDU load balance describes how evenly electrical current is distributed across the three phases feeding a power distribution unit. In a well-balanced 3-phase system, Phase A, Phase B, and Phase C carry roughly the same current. In a real data center, that rarely happens by accident. Cabinet deployments change over time, single-phase branch circuits accumulate unevenly, and capacity gets consumed in small increments instead of neat, symmetrical blocks. The result is that one phase can become the limiting factor even when the average current across the PDU still looks moderate.</p>
+      <p>This matters because upstream breakers, conductors, transformers, and switchgear are constrained by the heaviest-loaded phase, not by the arithmetic average. If one phase is significantly higher than the others, you lose usable headroom, increase resistive losses, and create thermal stress where you least want it. Good balancing helps operators extract more practical capacity from existing infrastructure while reducing the risk of overload alarms, nuisance trips, and avoidable hot spots. In capacity planning terms, balance is a quality metric for how efficiently you are using the electrical distribution path, just as PUE is a quality metric for how efficiently you are using facility power.</p>
+
+      <h2>How to Calculate Phase Imbalance</h2>
+      <p>The simplest field method is to start with the measured current on each phase of the PDU. Add the three phase currents together and divide by three to get the average current. Then find the largest deviation from that average by checking how far each phase sits above or below it. The imbalance percentage is the maximum deviation divided by the average current, expressed as a percent. This approach is easy to apply in a site survey and quickly shows whether one phase is disproportionately loaded.</p>
+      <p>For planning discussions, the imbalance number is usually more useful than raw current difference alone because it normalizes the deviation to the actual load level. A 5 A spread can be trivial on a heavily loaded bus and significant on a lightly loaded one. Once the imbalance is known, you can pair it with the breaker rating to see whether the most heavily loaded phase is also consuming too much of the available current capacity. That is important because a PDU with an acceptable average load can still be operationally constrained if one phase is near its protective limit.</p>
+      <p>This calculator also estimates total 3-phase apparent power using the average current and line-to-line voltage. For a balanced or near-balanced system, the common approximation is kVA = &radic;3 &times; V<sub>LL</sub> &times; I<sub>avg</sub> / 1000. That gives a fast estimate of the total PDU apparent load and is useful when comparing branch measurements with upstream capacity ratings. It is not a harmonic or waveform analysis tool, but it is appropriate for routine planning, balancing checks, and white-space power reviews.</p>
+      <div class="formula-block">
+        <span class="formula-label">Formula</span>
+        <div>Average Current = (A + B + C) / 3</div>
+        <div>Max Deviation = max(|A - Avg|, |B - Avg|, |C - Avg|)</div>
+        <div>Imbalance % = (Max Deviation / Avg) &times; 100</div>
+        <div>Total kVA = (&radic;3 &times; V<sub>LL</sub> &times; I<sub>avg</sub>) / 1000</div>
+      </div>
+      <p>Worked example: assume Phase A = 45 A, Phase B = 38 A, Phase C = 52 A, and line voltage = 415 V. The average current is (45 + 38 + 52) / 3 = 45 A. The phase deviations from average are 0 A, 7 A, and 7 A, so the maximum deviation is 7 A. Imbalance is therefore 7 / 45 &times; 100 = 15.6%. That lands in a poor range and should be treated as an action-needed condition rather than a cosmetic issue. The same example gives total apparent power of &radic;3 &times; 415 &times; 45 / 1000 = 32.3 kVA. If the breaker is rated at 63 A, the most heavily loaded phase is 52 / 63 &times; 100 = 82.5% utilized, which confirms that the imbalance has practical capacity consequences.</p>
+      <p>When reviewing results, remember that acceptable imbalance depends on your operating policy and redundancy margin. A highly utilized environment should usually target tighter balance because the penalty of a single overloaded phase is larger. The calculation is simple, but its value comes from using it consistently after adds, moves, and changes.</p>
+
+      <h2>Imbalance Threshold Reference Table</h2>
+      <p>Threshold bands help turn a raw percentage into an operational decision. The table below is a practical planning reference for routine data center distribution work. It is not a substitute for site standards, but it gives a clear language for deciding when balancing can wait and when it should be scheduled immediately.</p>
+      <div class="table-wrapper">
+        <table class="reference-table">
+          <thead>
+            <tr>
+              <th>Imbalance %</th>
+              <th>Rating</th>
+              <th>Action Required</th>
+              <th>Impact</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>&lt; 5%</td><td>Excellent</td><td>Monitor during normal maintenance only.</td><td>Very efficient use of 3-phase capacity with minimal phase-driven derating.</td></tr>
+            <tr><td>5 - 10%</td><td>Good</td><td>Acceptable for most operations; review during adds and changes.</td><td>Low operational risk, but some headroom is being used unevenly.</td></tr>
+            <tr><td>10 - 15%</td><td>Marginal</td><td>Plan a rebalance when practical.</td><td>Noticeable stranded capacity and higher thermal stress on the highest phase.</td></tr>
+            <tr><td>15 - 20%</td><td>Poor</td><td>Correct soon; treat as action needed.</td><td>Meaningful overload risk on the high phase and reduced usable breaker margin.</td></tr>
+            <tr><td>&gt; 20%</td><td>Critical</td><td>Investigate immediately and rebalance urgently.</td><td>High probability of hidden phase constraint, overheating, or nuisance trip exposure.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>These ranges are intentionally pragmatic. What matters in operations is not whether a PDU is mathematically imperfect, but whether the imbalance is large enough to consume real capacity or create reliability risk. The higher the site loading and the tighter the resilience target, the more aggressively you should respond.</p>
+
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-section">
+        <details>
+          <summary>What is phase imbalance?</summary>
+          <div class="faq-answer">
+            <p>Phase imbalance is the difference in loading between the three phases of a power system. In a PDU, it usually means one phase carries more current than the others because branch circuits or rack loads are not evenly distributed.</p>
+          </div>
+        </details>
+        <details>
+          <summary>What is an acceptable imbalance percentage?</summary>
+          <div class="faq-answer">
+            <p>Many facilities aim for less than 10% imbalance, and less than 5% is generally considered excellent. Once the value moves above 15%, the issue is usually operationally significant and worth correcting.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Why does phase imbalance matter for PDUs?</summary>
+          <div class="faq-answer">
+            <p>PDUs are limited by the most heavily loaded phase. If one phase runs high while the others are light, you strand capacity, increase losses, and can reach breaker or conductor limits earlier than the average current suggests.</p>
+          </div>
+        </details>
+        <details>
+          <summary>How do I rebalance loads across phases?</summary>
+          <div class="faq-answer">
+            <p>Rebalancing usually means moving single-phase circuits or receptacle loads from the highest-loaded phase to the lightest-loaded phase. The work should be coordinated carefully so redundancy, labeling, and rack-level power-path intent stay intact.</p>
+          </div>
+        </details>
+        <details>
+          <summary>What causes 3-phase imbalance in data centers?</summary>
+          <div class="faq-answer">
+            <p>Common causes include organic growth, uneven cabinet population, legacy branch assignments, partial rack decommissions, and adds or moves performed without checking phase loading. Over time, small asymmetries accumulate into measurable imbalance.</p>
+          </div>
+        </details>
+      </div>
+    </article>
+
+    <section class="related-calculators">
+      <h3>More Data Center Calculators</h3>
+      <ul>
+        <li><a href="pue-calculator.html">PUE Calculator</a></li>
+        <li><a href="rack-power-density-calculator.html">Rack Power Density Calculator</a></li>
+        <li><a href="raised-floor-load-calculator.html">Raised Floor Load Calculator</a></li>
+        <li><a href="ups-runtime-calculator.html">UPS Runtime Calculator</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-apps">
+        <a href="https://apps.apple.com/us/app/data-center-engineer-toolkit/id6761987963?utm_source=web&amp;utm_medium=calculator&amp;utm_campaign=pdu-load-balance-calculator">Data Center Engineer Toolkit on App Store</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const phaseACurrentInput = document.getElementById("phase-a-current");
+    const phaseBCurrentInput = document.getElementById("phase-b-current");
+    const phaseCCurrentInput = document.getElementById("phase-c-current");
+    const lineVoltageInput = document.getElementById("line-voltage");
+    const breakerRatingInput = document.getElementById("breaker-rating");
+    const unitToggle = document.getElementById("unit-system");
+    const metricLabel = document.getElementById("metric-label");
+    const imperialLabel = document.getElementById("imperial-label");
+
+    const imbalanceResult = document.getElementById("imbalance-result");
+    const totalKvaResult = document.getElementById("total-kva-result");
+    const phaseRangeResult = document.getElementById("phase-range-result");
+    const ratingResult = document.getElementById("rating-result");
+
+    const PHASE_NAMES = ["A", "B", "C"];
+    const SQRT3 = Math.sqrt(3);
+
+    function formatValue(value, decimals) {
+      return Number(value).toFixed(decimals);
+    }
+
+    function updateUnitLabels() {
+      const isKvaView = unitToggle.checked;
+
+      metricLabel.classList.toggle("active", !isKvaView);
+      imperialLabel.classList.toggle("active", isKvaView);
+    }
+
+    function getSeverity(imbalance) {
+      if (imbalance < 5) {
+        return { rating: "Excellent", className: "ok" };
+      }
+
+      if (imbalance < 10) {
+        return { rating: "Good", className: "ok" };
+      }
+
+      if (imbalance <= 15) {
+        return { rating: "Marginal", className: "warn" };
+      }
+
+      if (imbalance <= 20) {
+        return { rating: "Poor", className: "error" };
+      }
+
+      return { rating: "Critical", className: "error" };
+    }
+
+    function buildApparentPowerResult(totalKva) {
+      if (!Number.isFinite(totalKva)) {
+        return "—";
+      }
+
+      if (unitToggle.checked) {
+        return formatValue(totalKva, 1) + '<span class="result-unit">kVA</span> (' + formatValue(totalKva * 1000, 0) + '<span class="result-unit">VA</span>)';
+      }
+
+      return formatValue(totalKva, 1) + '<span class="result-unit">kVA</span>';
+    }
+
+    function calculate() {
+      const phaseCurrents = [
+        parseFloat(phaseACurrentInput.value),
+        parseFloat(phaseBCurrentInput.value),
+        parseFloat(phaseCCurrentInput.value)
+      ];
+      const lineVoltage = parseFloat(lineVoltageInput.value);
+      const breakerRating = parseFloat(breakerRatingInput.value);
+
+      if (![...phaseCurrents, lineVoltage, breakerRating].every(Number.isFinite) || phaseCurrents.some((value) => value < 0) || lineVoltage <= 0 || breakerRating <= 0) {
+        imbalanceResult.textContent = "—";
+        totalKvaResult.textContent = "—";
+        phaseRangeResult.textContent = "—";
+        ratingResult.textContent = "—";
+        imbalanceResult.className = "result-value";
+        return;
+      }
+
+      const averageCurrent = (phaseCurrents[0] + phaseCurrents[1] + phaseCurrents[2]) / 3;
+      if (averageCurrent <= 0) {
+        imbalanceResult.textContent = "—";
+        totalKvaResult.textContent = "—";
+        phaseRangeResult.textContent = "—";
+        ratingResult.textContent = "—";
+        imbalanceResult.className = "result-value";
+        return;
+      }
+
+      const maxDeviation = Math.max(...phaseCurrents.map((value) => Math.abs(value - averageCurrent)));
+      const imbalance = (maxDeviation / averageCurrent) * 100;
+      const totalKva = (SQRT3 * lineVoltage * averageCurrent) / 1000;
+
+      const maxCurrent = Math.max(...phaseCurrents);
+      const minCurrent = Math.min(...phaseCurrents);
+      const maxPhase = PHASE_NAMES[phaseCurrents.indexOf(maxCurrent)];
+      const minPhase = PHASE_NAMES[phaseCurrents.indexOf(minCurrent)];
+      const utilization = (maxCurrent / breakerRating) * 100;
+      const severity = getSeverity(imbalance);
+
+      imbalanceResult.className = "result-value " + severity.className;
+      imbalanceResult.innerHTML = formatValue(imbalance, 1) + '<span class="result-unit">%</span>';
+      totalKvaResult.innerHTML = buildApparentPowerResult(totalKva);
+      phaseRangeResult.textContent = "Max " + maxPhase + "=" + formatValue(maxCurrent, 1) + "A, Min " + minPhase + "=" + formatValue(minCurrent, 1) + "A";
+      ratingResult.textContent = severity.rating + " • " + formatValue(utilization, 1) + "% util";
+    }
+
+    [phaseACurrentInput, phaseBCurrentInput, phaseCCurrentInput, lineVoltageInput, breakerRatingInput].forEach((input) => {
+      input.addEventListener("input", calculate);
+    });
+
+    unitToggle.addEventListener("change", () => {
+      updateUnitLabels();
+      calculate();
+    });
+
+    updateUnitLabels();
+    calculate();
+  </script>
+</body>
+</html>
