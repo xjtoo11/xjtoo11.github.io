@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YB2TFN4NPN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-YB2TFN4NPN');
+  </script>
+  <title>Drill String Weight Calculator — Free Well Tool | EngineerCalc</title>
+  <meta name="description" content="Free drill string weight calculator. Calculate total drill string weight with buoyancy factor for drill pipe, drill collars, and HWDP.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="canonical" href="https://xjtoo11.github.io/oilgas/drill-string-weight-calculator.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Drill String Weight Calculator",
+    "url": "https://xjtoo11.github.io/oilgas/drill-string-weight-calculator.html",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": 0,
+      "priceCurrency": "USD"
+    },
+    "description": "Free online drill string weight calculator for estimating air weight, buoyancy factor, buoyed string weight, and static hook load for drill pipe, drill collars, and HWDP."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "How to Calculate Drill String Weight",
+    "author": {
+      "@type": "Organization",
+      "name": "EngineerCalc"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "EngineerCalc"
+    },
+    "datePublished": "2026-04-14",
+    "dateModified": "2026-04-14",
+    "mainEntityOfPage": "https://xjtoo11.github.io/oilgas/drill-string-weight-calculator.html",
+    "description": "Step-by-step guidance for calculating drill string weight in air, applying buoyancy factor from mud weight, and estimating effective hook load for common drill string components."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is drill string weight?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Drill string weight is the total weight of the drill pipe, drill collars, and heavy-weight drill pipe in the string. Engineers evaluate both the air weight and the reduced effective weight in mud after buoyancy is applied."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why do we need buoyancy factor?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Buoyancy factor accounts for the reduction in apparent steel weight when the drill string is submerged in drilling fluid. Without it, hook load and downhole weight estimates would be overstated."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is hook load?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Hook load is the load seen at the rig hook while supporting the drill string. In a simple static estimate with no drag or acceleration, it is close to the buoyed string weight."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does mud weight affect string weight?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "As mud weight increases, buoyancy factor decreases and the apparent string weight in fluid becomes lower. Heavier mud therefore reduces the effective suspended load for the same steel string."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is HWDP vs drill pipe?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Heavy-weight drill pipe is thicker and heavier than regular drill pipe but lighter than drill collars. It is often used as a transition section between flexible drill pipe and very stiff drill collars."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <span class="logo">EngineerCalc</span>
+      <nav>
+        <a href="casing-burst-pressure-calculator.html">Casing Burst</a>
+        <a href="drill-string-weight-calculator.html" class="active">Drill String</a>
+        <a href="pit-slope-calculator.html">Pit Slope</a>
+        <a href="weir-flow-calculator.html">Weir Flow</a>
+        <a href="blast-hole-pattern-calculator.html">Blast Pattern</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>Drill String Weight Calculator</h1>
+    <p class="subtitle">Free drill string weight calculator for oil and gas engineering. Enter drill pipe, drill collar, and HWDP lengths and nominal weights, then apply mud-weight buoyancy to estimate total string weight in air, effective weight in fluid, and a simple static hook load.</p>
+
+    <section class="calculator" aria-labelledby="calculator-heading">
+      <div class="calc-section-title" id="calculator-heading">INPUTS</div>
+
+      <div class="calc-row">
+        <label for="dp-length">Drill Pipe Length</label>
+        <input id="dp-length" name="dp-length" type="number" inputmode="decimal" value="8000" step="100">
+        <span class="unit length-unit">ft</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="dp-weight">Drill Pipe Weight</label>
+        <input id="dp-weight" name="dp-weight" type="number" inputmode="decimal" value="19.5" step="0.1">
+        <span class="unit linear-weight-unit">lb/ft</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="dc-length">Drill Collar Length</label>
+        <input id="dc-length" name="dc-length" type="number" inputmode="decimal" value="500" step="10">
+        <span class="unit length-unit">ft</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="dc-weight">Drill Collar Weight</label>
+        <input id="dc-weight" name="dc-weight" type="number" inputmode="decimal" value="147" step="1">
+        <span class="unit linear-weight-unit">lb/ft</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="hwdp-length">HWDP Length</label>
+        <input id="hwdp-length" name="hwdp-length" type="number" inputmode="decimal" value="300" step="10">
+        <span class="unit length-unit">ft</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="hwdp-weight">HWDP Weight</label>
+        <input id="hwdp-weight" name="hwdp-weight" type="number" inputmode="decimal" value="49.7" step="0.1">
+        <span class="unit linear-weight-unit">lb/ft</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="mud-weight">Mud Weight</label>
+        <input id="mud-weight" name="mud-weight" type="number" inputmode="decimal" value="10" step="0.1">
+        <span class="unit mud-unit">ppg</span>
+      </div>
+
+      <div class="unit-toggle">
+        <span id="imperial-label" class="active">Imperial</span>
+        <label class="toggle-switch" for="unit-system">
+          <input id="unit-system" type="checkbox" aria-label="Toggle between Imperial and Metric units">
+          <span class="toggle-slider"></span>
+        </label>
+        <span id="metric-label">Metric</span>
+      </div>
+
+      <div class="calc-section-title">RESULTS</div>
+      <div class="calc-results" aria-live="polite">
+        <div class="result-row">
+          <span class="result-label">Total String Weight in Air</span>
+          <span class="result-value" id="air-weight-result">244,410<span class="result-unit">lbs</span></span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Buoyancy Factor</span>
+          <span class="result-value small" id="buoyancy-factor-result">0.8473</span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Effective Weight (Buoyed)</span>
+          <span class="result-value small" id="buoyed-weight-result">207,089<span class="result-unit">lbs</span></span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Hook Load Estimate</span>
+          <span class="result-value small" id="hook-load-result">207,089<span class="result-unit">lbs</span></span>
+        </div>
+      </div>
+    </section>
+
+    <article>
+      <h2>What is Drill String Weight?</h2>
+      <p>Drill string weight is the combined weight of all suspended tubular components in the drilling assembly, usually dominated by drill pipe, drill collars, and heavy-weight drill pipe. It matters because the rig has to support that load at surface, the bottom-hole assembly has to deliver the right weight on bit, and the string must remain within the tensile limits of the pipe body and tool joints. Even though the concept sounds simple, engineers rarely use only one number. They typically check both the weight in air and the reduced apparent weight when the steel is submerged in drilling fluid.</p>
+      <p>That difference exists because mud provides buoyant support. Steel does not lose mass downhole, but it does behave as if it weighs less while immersed, just as any submerged body experiences an upward fluid force. The practical result is that hook load, overpull planning, and downhole force distribution all depend on mud density. A quick weight estimate is therefore one of the first calculations made when reviewing drill string design, hoisting capacity, weight-on-bit capability, and tubular handling loads. It is not a full torque-and-drag model, but it is a necessary starting point for field decisions and well planning.</p>
+
+      <h2>How to Calculate Drill String Weight</h2>
+      <p>The base calculation is a simple sum of length multiplied by nominal linear weight for each string section. For a typical rotary assembly, that means adding the drill pipe contribution, the drill collar contribution, and any HWDP contribution. If the lengths are in feet and the nominal weights are in pounds per foot, the result comes out directly in pounds. In metric workflows, the same approach works with meters and kilograms per meter. What matters is that the length and linear-weight units are consistent for every component you include.</p>
+      <p>Once the air weight is known, the next step is to apply buoyancy factor. A common oilfield approximation for steel tubulars is BF = 1 - MW / 65.5, where mud weight MW is entered in pounds per gallon and 65.5 ppg represents the equivalent density of steel. The factor stays below 1.0, so the apparent string weight in fluid is always lower than the air weight. Effective string weight in mud is then just air weight multiplied by buoyancy factor. For a simple static estimate with no drag, no buckling, no acceleration, and no contact forces from the wellbore, hook load can be taken as approximately equal to the buoyed suspended weight.</p>
+      <div class="formula-block">
+        <span class="formula-label">Formula</span>
+        <div>BF = 1 - (MW / 65.5)</div>
+        <div>Air Weight = (L<sub>DP</sub> &times; W<sub>DP</sub>) + (L<sub>DC</sub> &times; W<sub>DC</sub>) + (L<sub>HWDP</sub> &times; W<sub>HWDP</sub>)</div>
+        <div>Buoyed Weight = Air Weight &times; BF</div>
+        <div>Hook Load Estimate &asymp; Buoyed Weight</div>
+      </div>
+      <p>Worked example: use 8,000 ft of 5 in drill pipe at 19.5 lb/ft, 500 ft of 8 in drill collars at 147 lb/ft, and 300 ft of 5 in HWDP at 49.7 lb/ft with 10.0 ppg mud. First calculate each section in air: drill pipe = 8,000 &times; 19.5 = 156,000 lb, drill collars = 500 &times; 147 = 73,500 lb, and HWDP = 300 &times; 49.7 = 14,910 lb. Summing those gives an air weight of 244,410 lb. Then calculate buoyancy factor: BF = 1 - 10 / 65.5 = 0.8473. Multiply the total air weight by BF to get the effective suspended weight in fluid: 244,410 &times; 0.8473 = about 207,090 lb. In a vertical well with a simple static assumption, the hook load estimate is also about 207,090 lb.</p>
+      <p>That estimate is intentionally simplified. Real hook load can move above or below the buoyed string weight because of drag, inclination, cuttings beds, acceleration, block efficiency, jar placement, stabilizer contact, and whether some string weight is set down on bottom. The calculator is still useful because it gives a fast screening number for rig capacity checks, trip planning, and drill string comparison before a full torque-and-drag analysis is available.</p>
+
+      <h2>Typical Drill Pipe &amp; Collar Weight Reference Table</h2>
+      <p>Nominal linear weights vary with outside diameter, wall thickness, upset design, and manufacturer specification, but a short field table is useful for sanity checks. The values below are common reference points used in preliminary planning. Always confirm the exact catalog value for the grade, connection, and tool-joint configuration actually being run, because the true suspended weight of the assembled string can differ from nominal pipe-body weight alone.</p>
+      <div class="table-wrapper">
+        <table class="reference-table">
+          <thead>
+            <tr>
+              <th>Component</th>
+              <th>Size</th>
+              <th>Nominal Weight (lb/ft)</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Drill Pipe</td><td>3-1/2 in</td><td>13.30</td><td>Common in lighter and smaller-hole applications.</td></tr>
+            <tr><td>Drill Pipe</td><td>4 in</td><td>14.00</td><td>Used where moderate capacity and flexibility are needed.</td></tr>
+            <tr><td>Drill Pipe</td><td>4-1/2 in</td><td>16.60</td><td>Frequent choice for medium-depth land wells.</td></tr>
+            <tr><td>Drill Pipe</td><td>5 in</td><td>19.50</td><td>Standard heavy-duty choice for many conventional wells.</td></tr>
+            <tr><td>Drill Pipe</td><td>5-1/2 in</td><td>24.70</td><td>Higher tensile capacity and larger circulating ID.</td></tr>
+            <tr><td>Drill Collar</td><td>6 in</td><td>83.00</td><td>Typical collar size for moderate BHA weight needs.</td></tr>
+            <tr><td>Drill Collar</td><td>7 in</td><td>108.00</td><td>Common step-up collar size in many assemblies.</td></tr>
+            <tr><td>Drill Collar</td><td>8 in</td><td>147.00</td><td>Typical heavy collar used to generate weight on bit.</td></tr>
+            <tr><td>Drill Collar</td><td>9-1/2 in</td><td>211.00</td><td>Very heavy collar for large-hole or high WOB service.</td></tr>
+            <tr><td>HWDP</td><td>5 in</td><td>49.70</td><td>Transition member between drill pipe and collars.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-section">
+        <details>
+          <summary>What is drill string weight?</summary>
+          <div class="faq-answer">
+            <p>Drill string weight is the total suspended weight of the drill pipe, drill collars, HWDP, and related tubular components. Engineers usually consider both the air weight and the reduced apparent weight in mud, because the fluid supports part of the steel load.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Why do we need buoyancy factor?</summary>
+          <div class="faq-answer">
+            <p>Buoyancy factor converts air weight into effective weight in fluid. Without it, the calculated hook load would be too high and the estimate of downhole force transfer would not reflect the support provided by the drilling mud.</p>
+          </div>
+        </details>
+        <details>
+          <summary>What is hook load?</summary>
+          <div class="faq-answer">
+            <p>Hook load is the load measured at the hook while the rig is carrying the string. In a basic static vertical-well estimate, it is approximately the buoyed string weight, but actual hook load can change with drag, motion, inclination, and whether the bit is on bottom.</p>
+          </div>
+        </details>
+        <details>
+          <summary>How does mud weight affect string weight?</summary>
+          <div class="faq-answer">
+            <p>Heavier mud reduces buoyancy factor and lowers the apparent suspended weight of the string. That means the same steel assembly will show a smaller effective hook load in 15 ppg mud than it would in 9 ppg mud, all else being equal.</p>
+          </div>
+        </details>
+        <details>
+          <summary>What is HWDP vs drill pipe?</summary>
+          <div class="faq-answer">
+            <p>HWDP, or heavy-weight drill pipe, is thicker and heavier than standard drill pipe but more flexible than drill collars. It is commonly used as a transition section to reduce stress concentration and improve load transfer between the drill pipe and the collar section.</p>
+          </div>
+        </details>
+      </div>
+    </article>
+
+    <section class="related-calculators">
+      <h3>More Oil &amp; Gas Calculators</h3>
+      <ul>
+        <li><a href="casing-burst-pressure-calculator.html">Casing Burst Pressure Calculator</a></li>
+        <li><a href="pit-slope-calculator.html">Pit Slope Calculator</a></li>
+        <li><a href="weir-flow-calculator.html">Weir Flow Calculator</a></li>
+        <li><a href="blast-hole-pattern-calculator.html">Blast Hole Pattern Calculator</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-apps">
+        <a href="https://apps.apple.com/app/id0000000000?utm_source=web&amp;utm_medium=calculator&amp;utm_campaign=oilgas-toolkit">Oil &amp; Gas Toolkit on App Store</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const dpLengthInput = document.getElementById("dp-length");
+    const dpWeightInput = document.getElementById("dp-weight");
+    const dcLengthInput = document.getElementById("dc-length");
+    const dcWeightInput = document.getElementById("dc-weight");
+    const hwdpLengthInput = document.getElementById("hwdp-length");
+    const hwdpWeightInput = document.getElementById("hwdp-weight");
+    const mudWeightInput = document.getElementById("mud-weight");
+    const unitToggle = document.getElementById("unit-system");
+    const metricLabel = document.getElementById("metric-label");
+    const imperialLabel = document.getElementById("imperial-label");
+
+    const airWeightResult = document.getElementById("air-weight-result");
+    const buoyancyFactorResult = document.getElementById("buoyancy-factor-result");
+    const buoyedWeightResult = document.getElementById("buoyed-weight-result");
+    const hookLoadResult = document.getElementById("hook-load-result");
+
+    const FT_TO_M = 0.3048;
+    const LB_TO_KG = 0.45359237;
+    const LB_PER_FT_TO_KG_PER_M = LB_TO_KG / FT_TO_M;
+    const KG_PER_M_TO_LB_PER_FT = 1 / LB_PER_FT_TO_KG_PER_M;
+    const KG_PER_L_TO_PPG = 8.345404452;
+    const PPG_TO_KG_PER_L = 1 / KG_PER_L_TO_PPG;
+    const STEEL_EQUIVALENT_PPG = 65.5;
+
+    function formatFixed(value, decimals) {
+      return Number(value).toFixed(decimals);
+    }
+
+    function formatWhole(value) {
+      return new Intl.NumberFormat("en-US", {
+        maximumFractionDigits: 0
+      }).format(value);
+    }
+
+    function feetToMeters(value) {
+      return value * FT_TO_M;
+    }
+
+    function metersToFeet(value) {
+      return value / FT_TO_M;
+    }
+
+    function lbPerFtToKgPerM(value) {
+      return value * LB_PER_FT_TO_KG_PER_M;
+    }
+
+    function kgPerMToLbPerFt(value) {
+      return value * KG_PER_M_TO_LB_PER_FT;
+    }
+
+    function ppgToKgPerL(value) {
+      return value * PPG_TO_KG_PER_L;
+    }
+
+    function kgPerLToPpg(value) {
+      return value * KG_PER_L_TO_PPG;
+    }
+
+    function setWeightResult(element, value, isMetric) {
+      if (!Number.isFinite(value)) {
+        element.textContent = "—";
+        return;
+      }
+
+      element.innerHTML = formatWhole(value) + '<span class="result-unit">' + (isMetric ? "kg" : "lbs") + "</span>";
+    }
+
+    function updateInputUnits() {
+      const isMetric = unitToggle.checked;
+
+      document.querySelectorAll(".length-unit").forEach((el) => {
+        el.textContent = isMetric ? "m" : "ft";
+      });
+      document.querySelectorAll(".linear-weight-unit").forEach((el) => {
+        el.textContent = isMetric ? "kg/m" : "lb/ft";
+      });
+      document.querySelectorAll(".mud-unit").forEach((el) => {
+        el.textContent = isMetric ? "kg/L" : "ppg";
+      });
+
+      dpLengthInput.step = isMetric ? "10" : "100";
+      dpWeightInput.step = isMetric ? "0.1" : "0.1";
+      dcLengthInput.step = isMetric ? "5" : "10";
+      dcWeightInput.step = isMetric ? "0.1" : "1";
+      hwdpLengthInput.step = isMetric ? "5" : "10";
+      hwdpWeightInput.step = isMetric ? "0.1" : "0.1";
+      mudWeightInput.step = isMetric ? "0.01" : "0.1";
+
+      imperialLabel.classList.toggle("active", !isMetric);
+      metricLabel.classList.toggle("active", isMetric);
+    }
+
+    function syncDisplayedInputs() {
+      const isMetric = unitToggle.checked;
+      const display = [
+        [dpLengthInput, parseFloat(dpLengthInput.dataset.imperialValue), isMetric ? feetToMeters : (value) => value, isMetric ? 1 : 0],
+        [dpWeightInput, parseFloat(dpWeightInput.dataset.imperialValue), isMetric ? lbPerFtToKgPerM : (value) => value, 1],
+        [dcLengthInput, parseFloat(dcLengthInput.dataset.imperialValue), isMetric ? feetToMeters : (value) => value, isMetric ? 1 : 0],
+        [dcWeightInput, parseFloat(dcWeightInput.dataset.imperialValue), isMetric ? lbPerFtToKgPerM : (value) => value, isMetric ? 1 : 0],
+        [hwdpLengthInput, parseFloat(hwdpLengthInput.dataset.imperialValue), isMetric ? feetToMeters : (value) => value, isMetric ? 1 : 0],
+        [hwdpWeightInput, parseFloat(hwdpWeightInput.dataset.imperialValue), isMetric ? lbPerFtToKgPerM : (value) => value, 1],
+        [mudWeightInput, parseFloat(mudWeightInput.dataset.imperialValue), isMetric ? ppgToKgPerL : (value) => value, isMetric ? 2 : 1]
+      ];
+
+      display.forEach(([input, value, converter, decimals]) => {
+        input.value = Number.isFinite(value) ? formatFixed(converter(value), decimals) : "";
+      });
+    }
+
+    function calculate() {
+      const dpLengthFt = parseFloat(dpLengthInput.dataset.imperialValue);
+      const dpWeightLbPerFt = parseFloat(dpWeightInput.dataset.imperialValue);
+      const dcLengthFt = parseFloat(dcLengthInput.dataset.imperialValue);
+      const dcWeightLbPerFt = parseFloat(dcWeightInput.dataset.imperialValue);
+      const hwdpLengthFt = parseFloat(hwdpLengthInput.dataset.imperialValue);
+      const hwdpWeightLbPerFt = parseFloat(hwdpWeightInput.dataset.imperialValue);
+      const mudWeightPpg = parseFloat(mudWeightInput.dataset.imperialValue);
+
+      if (![dpLengthFt, dpWeightLbPerFt, dcLengthFt, dcWeightLbPerFt, hwdpLengthFt, hwdpWeightLbPerFt, mudWeightPpg].every(Number.isFinite) ||
+        [dpLengthFt, dpWeightLbPerFt, dcLengthFt, dcWeightLbPerFt, hwdpLengthFt, hwdpWeightLbPerFt].some((value) => value < 0) ||
+        mudWeightPpg < 0 || mudWeightPpg >= STEEL_EQUIVALENT_PPG) {
+        [airWeightResult, buoyancyFactorResult, buoyedWeightResult, hookLoadResult].forEach((element) => {
+          element.textContent = "—";
+        });
+        return;
+      }
+
+      const airWeightLbs = (dpLengthFt * dpWeightLbPerFt) + (dcLengthFt * dcWeightLbPerFt) + (hwdpLengthFt * hwdpWeightLbPerFt);
+      const buoyancyFactor = Number(formatFixed(1 - (mudWeightPpg / STEEL_EQUIVALENT_PPG), 4));
+      const buoyedWeightLbs = airWeightLbs * buoyancyFactor;
+      const hookLoadLbs = buoyedWeightLbs;
+      const isMetric = unitToggle.checked;
+
+      setWeightResult(airWeightResult, isMetric ? airWeightLbs * LB_TO_KG : airWeightLbs, isMetric);
+      buoyancyFactorResult.textContent = formatFixed(buoyancyFactor, 4);
+      setWeightResult(buoyedWeightResult, isMetric ? buoyedWeightLbs * LB_TO_KG : buoyedWeightLbs, isMetric);
+      setWeightResult(hookLoadResult, isMetric ? hookLoadLbs * LB_TO_KG : hookLoadLbs, isMetric);
+    }
+
+    function bindInput(input, converter) {
+      input.addEventListener("input", () => {
+        const displayedValue = parseFloat(input.value);
+        input.dataset.imperialValue = Number.isFinite(displayedValue) ? String(converter(displayedValue)) : "";
+        calculate();
+      });
+    }
+
+    bindInput(dpLengthInput, (value) => unitToggle.checked ? metersToFeet(value) : value);
+    bindInput(dpWeightInput, (value) => unitToggle.checked ? kgPerMToLbPerFt(value) : value);
+    bindInput(dcLengthInput, (value) => unitToggle.checked ? metersToFeet(value) : value);
+    bindInput(dcWeightInput, (value) => unitToggle.checked ? kgPerMToLbPerFt(value) : value);
+    bindInput(hwdpLengthInput, (value) => unitToggle.checked ? metersToFeet(value) : value);
+    bindInput(hwdpWeightInput, (value) => unitToggle.checked ? kgPerMToLbPerFt(value) : value);
+    bindInput(mudWeightInput, (value) => unitToggle.checked ? kgPerLToPpg(value) : value);
+
+    unitToggle.addEventListener("change", () => {
+      updateInputUnits();
+      syncDisplayedInputs();
+      calculate();
+    });
+
+    dpLengthInput.dataset.imperialValue = dpLengthInput.value;
+    dpWeightInput.dataset.imperialValue = dpWeightInput.value;
+    dcLengthInput.dataset.imperialValue = dcLengthInput.value;
+    dcWeightInput.dataset.imperialValue = dcWeightInput.value;
+    hwdpLengthInput.dataset.imperialValue = hwdpLengthInput.value;
+    hwdpWeightInput.dataset.imperialValue = hwdpWeightInput.value;
+    mudWeightInput.dataset.imperialValue = mudWeightInput.value;
+
+    updateInputUnits();
+    syncDisplayedInputs();
+    calculate();
+  </script>
+</body>
+</html>

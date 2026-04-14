@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YB2TFN4NPN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-YB2TFN4NPN');
+  </script>
+  <title>Blast Hole Pattern Calculator — Free Mining Drill Tool | EngineerCalc</title>
+  <meta name="description" content="Free blast hole pattern calculator. Determine burden, spacing, and subdrill depth for surface mine blasting by hole diameter and rock type.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="canonical" href="https://xjtoo11.github.io/oilgas/blast-hole-pattern-calculator.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Blast Hole Pattern Calculator",
+    "url": "https://xjtoo11.github.io/oilgas/blast-hole-pattern-calculator.html",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": 0,
+      "priceCurrency": "USD"
+    },
+    "description": "Free online blast hole pattern calculator for mining engineers to estimate burden, spacing, subdrill, stemming depth, and hole density from drill diameter and rock type."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "How to Calculate a Blast Hole Pattern",
+    "author": {
+      "@type": "Organization",
+      "name": "EngineerCalc"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "EngineerCalc"
+    },
+    "datePublished": "2026-04-14",
+    "dateModified": "2026-04-14",
+    "mainEntityOfPage": "https://xjtoo11.github.io/oilgas/blast-hole-pattern-calculator.html",
+    "description": "Step-by-step guidance for estimating burden, spacing, subdrill, and stemming for surface mine blasting with common empirical drill pattern rules."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is burden in blasting?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Burden is the distance from a blast hole to the nearest free face. It controls how much rock each hole is expected to break and strongly affects fragmentation, vibration, and toe formation."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why is spacing different from burden?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Spacing is the distance between adjacent holes in the same row, while burden is measured toward the free face. Spacing is usually slightly larger because the burden controls face breakage first, while spacing controls interaction between neighboring holes."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is subdrill and why do you need it?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Subdrill is the extra hole depth drilled below the planned floor elevation. It helps ensure the bench breaks cleanly to grade and reduces the risk of leaving a hard toe at the bottom of the bench."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does rock type affect the pattern?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Harder, denser, or more competent rock usually requires a tighter pattern, which means a lower burden multiplier. Softer rock can often tolerate a larger burden for the same hole diameter."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is stemming in a blast hole?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Stemming is the inert material placed at the top of the blast hole above the explosive column. Its purpose is to confine the explosive gases long enough to improve rock breakage and reduce flyrock or airblast."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <span class="logo">EngineerCalc</span>
+      <nav>
+        <a href="casing-burst-pressure-calculator.html">Casing Burst</a>
+        <a href="drill-string-weight-calculator.html">Drill String</a>
+        <a href="pit-slope-calculator.html">Pit Slope</a>
+        <a href="weir-flow-calculator.html">Weir Flow</a>
+        <a href="blast-hole-pattern-calculator.html" class="active">Blast Pattern</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>Blast Hole Pattern Calculator</h1>
+    <p class="subtitle">Free blast hole pattern calculator for mining and quarry blasting. Enter hole diameter, rock type, bench height, and pattern layout to estimate burden, spacing, subdrill, stemming depth, and hole density for a practical first-pass surface blast design.</p>
+
+    <section class="calculator" aria-labelledby="calculator-heading">
+      <div class="calc-section-title" id="calculator-heading">INPUTS</div>
+
+      <div class="calc-row">
+        <label for="hole-diameter">Hole Diameter D</label>
+        <input id="hole-diameter" name="hole-diameter" type="number" inputmode="decimal" value="6.75" step="0.25">
+        <span class="unit diameter-unit">in</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="rock-type">Rock Type</label>
+        <select id="rock-type" name="rock-type">
+          <option value="30">Soft (sandstone, weak limestone) K=25-30</option>
+          <option value="25" selected>Medium (shale, limestone, granite) K=25</option>
+          <option value="22">Hard (basalt, quartzite, hard granite) K=20-25</option>
+          <option value="18">Very Hard (iron ore, taconite) K=18-22</option>
+        </select>
+        <span class="unit">K factor</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="bench-height">Bench Height H</label>
+        <input id="bench-height" name="bench-height" type="number" inputmode="decimal" value="40" step="1">
+        <span class="unit bench-unit">ft</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="pattern-type">Pattern Type</label>
+        <select id="pattern-type" name="pattern-type">
+          <option value="1">Square (S = B)</option>
+          <option value="1.15" selected>Rectangular (S = 1.15 × B)</option>
+          <option value="1.25">Staggered (S = 1.25 × B)</option>
+        </select>
+        <span class="unit">layout</span>
+      </div>
+
+      <div class="unit-toggle">
+        <span id="imperial-label" class="active">Imperial</span>
+        <label class="toggle-switch" for="unit-system">
+          <input id="unit-system" type="checkbox" aria-label="Toggle between Imperial and Metric units">
+          <span class="toggle-slider"></span>
+        </label>
+        <span id="metric-label">Metric</span>
+      </div>
+
+      <div class="calc-section-title">RESULTS</div>
+      <div class="calc-results" aria-live="polite">
+        <div class="result-row">
+          <span class="result-label">Burden B</span>
+          <span class="result-value" id="burden-result">14.06<span class="result-unit">ft</span></span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Spacing S</span>
+          <span class="result-value small" id="spacing-result">16.17<span class="result-unit">ft</span></span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Subdrill (below grade)</span>
+          <span class="result-value small" id="subdrill-result">4.22<span class="result-unit">ft</span></span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Stemming Depth</span>
+          <span class="result-value small" id="stemming-result">9.84<span class="result-unit">ft</span></span>
+        </div>
+        <div class="result-row">
+          <span class="result-label" id="holes-area-label">Holes per Acre</span>
+          <span class="result-value small" id="holes-area-result">191.06</span>
+        </div>
+      </div>
+    </section>
+
+    <article>
+      <h2>What is a Blast Hole Pattern?</h2>
+      <p>A blast hole pattern is the planned arrangement of drill holes on a bench so the explosive energy is distributed predictably through the rock mass. In surface mining and quarry operations, the pattern determines how much rock each hole is expected to break, how well the bench toes clean up, how uniform the fragmentation becomes, and how efficiently downstream loading and crushing equipment can work. Even a basic pattern choice can noticeably affect powder factor, oversize generation, flyrock risk, vibration levels, and floor control.</p>
+      <p>The two geometric distances that matter most are burden and spacing. Burden is measured from the blast hole toward the nearest free face, and spacing is measured between neighboring holes in the same row. If burden is too large, the explosive may not fully break the rock to the face and a hard toe or backbreak problem can develop. If burden is too small, energy can vent too early and the shot may throw excessively. Spacing works with burden to control interaction between adjacent holes and to spread breakage more evenly across the row.</p>
+      <p>Field engineers often begin with empirical rules tied to hole diameter and rock type, then refine the pattern using bench observations, explosive characteristics, timing, geology, and equipment constraints. That is exactly what this calculator is for: a fast first-pass estimate using a common U.S. surface mining approach before detailed site-specific optimization.</p>
+
+      <h2>How to Calculate Burden and Spacing</h2>
+      <p>A practical way to estimate an initial blast pattern is to start with hole diameter and apply a burden multiplier K that reflects rock competency. Softer or more fractured rock can often carry a larger burden for a given hole size, while very hard or massive rock typically needs a tighter pattern. In Imperial units, the common rule used here is burden in feet equals K times hole diameter in inches divided by 12. This converts the diameter to feet and scales it by a rock-dependent empirical factor.</p>
+      <p>Once burden is known, spacing is set from the selected pattern geometry. A square pattern uses spacing equal to burden. A rectangular pattern uses slightly wider spacing, and a staggered pattern is wider again. These are not universal design constants, but they are common planning values for production bench blasting. The calculator also estimates subdrill and stemming from burden because both are usually tied to the scale of the pattern. Subdrill helps carry breakage below grade so the bench floor pulls cleanly, while stemming provides confinement at the collar so the explosive gases work on the rock instead of venting immediately to the atmosphere.</p>
+      <p>Bench height is included because it remains part of real blast design even when the quick burden formula does not directly use it. In practice, engineers compare the resulting burden, spacing, stemming, and total hole depth against bench height to make sure the pattern is realistic for the drill fleet, charge length, and desired floor control. The output here is therefore a fast geometry check, not a final blast design approval.</p>
+      <div class="formula-block">
+        <span class="formula-label">Formula</span>
+        <div>B = K × D<sub>in</sub> / 12</div>
+        <div>S = B × pattern multiplier</div>
+        <div>Subdrill = 0.3 × B</div>
+        <div>Stemming = 0.7 × B</div>
+        <div>Holes per acre = 43,560 / (B × S)</div>
+      </div>
+      <p>Worked example: use D = 6.75 in, Medium rock, and a rectangular pattern. The medium-rock burden multiplier is K = 25, so burden is 25 × 6.75 / 12 = 14.06 ft. Rectangular spacing uses 1.15 times burden, so spacing is 14.06 × 1.15 = 16.17 ft. Subdrill is 0.3 × 14.06 = 4.2 ft, and stemming is 0.7 × 14.06 = 9.8 ft. The plan area controlled by one hole is approximately 14.06 × 16.17 = 227.95 square feet, which means the pattern density is about 43,560 / 227.95 = 191 holes per acre. With a 40 ft bench height, the total drilled depth would be bench height plus subdrill, or roughly 44.2 ft, which is a reasonable cross-check when comparing drill capability and explosive column length.</p>
+      <p>These values should always be adjusted for geology, jointing, dip, explosive energy, timing sequence, desired fragmentation, wall control needs, and local operating experience. Empirical rules are intentionally simple, but they are useful because they give crews a stable starting point that can then be tuned with real blast results.</p>
+
+      <h2>Rock Type to Burden Multiplier Reference Table</h2>
+      <p>The K multiplier is a shorthand way to reflect how easily the bench should break for a given hole diameter. Lower K means a tighter pattern and more closely spaced energy. Higher K means the rock can usually tolerate a wider burden. The density range shown below is only a general field reference; actual blast response also depends on structure, weathering, moisture, confinement, and explosive selection.</p>
+      <div class="table-wrapper">
+        <table class="reference-table">
+          <thead>
+            <tr>
+              <th>Rock Classification</th>
+              <th>Examples</th>
+              <th>K Multiplier</th>
+              <th>Density Range</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Soft</td><td>Sandstone, weak limestone, weathered sedimentary rock</td><td>30</td><td>140-160 lb/ft³ (2.24-2.56 t/m³)</td></tr>
+            <tr><td>Medium</td><td>Shale, competent limestone, general granite</td><td>25</td><td>150-170 lb/ft³ (2.40-2.72 t/m³)</td></tr>
+            <tr><td>Hard</td><td>Basalt, quartzite, hard granite</td><td>22</td><td>165-185 lb/ft³ (2.64-2.96 t/m³)</td></tr>
+            <tr><td>Very Hard</td><td>Iron ore, taconite, very dense competent ore rock</td><td>18</td><td>180-210 lb/ft³ (2.88-3.36 t/m³)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-section">
+        <details>
+          <summary>What is burden in blasting?</summary>
+          <div class="faq-answer">
+            <p>Burden is the distance from a blast hole to the nearest free face. It represents the thickness of rock the hole must break in the forward direction. If burden is too large, the face may not pull cleanly; if it is too small, the shot can vent early and throw rock excessively.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Why is spacing different from burden?</summary>
+          <div class="faq-answer">
+            <p>Burden governs breakage toward the free face, while spacing governs interaction between adjacent holes in the same row. Because those mechanisms are different, spacing is often set equal to or slightly greater than burden depending on whether the pattern is square, rectangular, or staggered.</p>
+          </div>
+        </details>
+        <details>
+          <summary>What is subdrill and why do you need it?</summary>
+          <div class="faq-answer">
+            <p>Subdrill is the extra drilled depth below the final floor elevation. It helps the explosive energy break the toe area fully so the bench comes down to grade instead of leaving a hard ridge at the bottom that would require secondary breakage or extra cleanup.</p>
+          </div>
+        </details>
+        <details>
+          <summary>How does rock type affect the pattern?</summary>
+          <div class="faq-answer">
+            <p>Harder or more massive rock usually needs a smaller burden multiplier, which tightens the pattern. Softer, more fractured, or easier-breaking rock can often be blasted with a wider burden and spacing for the same hole diameter, improving drill efficiency without sacrificing breakage.</p>
+          </div>
+        </details>
+        <details>
+          <summary>What is stemming in a blast hole?</summary>
+          <div class="faq-answer">
+            <p>Stemming is the inert crushed rock or similar material placed at the top of a loaded hole. It acts like a plug, trapping explosive gases in the hole long enough to transfer more energy into the bench and reducing early venting, airblast, and flyrock risk.</p>
+          </div>
+        </details>
+      </div>
+    </article>
+
+    <section class="related-calculators">
+      <h3>More Oil &amp; Gas Calculators</h3>
+      <ul>
+        <li><a href="casing-burst-pressure-calculator.html">Casing Burst Pressure Calculator</a></li>
+        <li><a href="drill-string-weight-calculator.html">Drill String Weight Calculator</a></li>
+        <li><a href="pit-slope-calculator.html">Pit Slope Calculator</a></li>
+        <li><a href="weir-flow-calculator.html">Weir Flow Calculator</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-apps">
+        <a href="https://apps.apple.com/app/id0000000000?utm_source=web&amp;utm_medium=calculator&amp;utm_campaign=oilgas-toolkit">Oil &amp; Gas Toolkit on App Store</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const holeDiameterInput = document.getElementById("hole-diameter");
+    const rockTypeSelect = document.getElementById("rock-type");
+    const benchHeightInput = document.getElementById("bench-height");
+    const patternTypeSelect = document.getElementById("pattern-type");
+    const unitToggle = document.getElementById("unit-system");
+    const metricLabel = document.getElementById("metric-label");
+    const imperialLabel = document.getElementById("imperial-label");
+
+    const burdenResult = document.getElementById("burden-result");
+    const spacingResult = document.getElementById("spacing-result");
+    const subdrillResult = document.getElementById("subdrill-result");
+    const stemmingResult = document.getElementById("stemming-result");
+    const holesAreaLabel = document.getElementById("holes-area-label");
+    const holesAreaResult = document.getElementById("holes-area-result");
+
+    const INCH_TO_MM = 25.4;
+    const FT_TO_M = 0.3048;
+    const SQFT_PER_ACRE = 43560;
+    const SQM_PER_HECTARE = 10000;
+
+    function inchesToMm(value) {
+      return value * INCH_TO_MM;
+    }
+
+    function mmToInches(value) {
+      return value / INCH_TO_MM;
+    }
+
+    function ftToM(value) {
+      return value * FT_TO_M;
+    }
+
+    function mToFt(value) {
+      return value / FT_TO_M;
+    }
+
+    function formatValue(value, decimals) {
+      return Number(value).toLocaleString(undefined, {
+        minimumFractionDigits: decimals,
+        maximumFractionDigits: decimals
+      });
+    }
+
+    function setLengthResult(element, value, unitSymbol) {
+      if (!Number.isFinite(value)) {
+        element.textContent = "—";
+        return;
+      }
+
+      element.innerHTML = formatValue(value, 2) + '<span class="result-unit">' + unitSymbol + "</span>";
+    }
+
+    function updateInputUnits() {
+      const isMetric = unitToggle.checked;
+      document.querySelectorAll(".diameter-unit").forEach((el) => {
+        el.textContent = isMetric ? "mm" : "in";
+      });
+      document.querySelectorAll(".bench-unit").forEach((el) => {
+        el.textContent = isMetric ? "m" : "ft";
+      });
+      imperialLabel.classList.toggle("active", !isMetric);
+      metricLabel.classList.toggle("active", isMetric);
+    }
+
+    function syncDisplayedInputs() {
+      const isMetric = unitToggle.checked;
+      const holeDiameterInches = parseFloat(holeDiameterInput.dataset.imperialValue);
+      const benchHeightFeet = parseFloat(benchHeightInput.dataset.imperialValue);
+
+      holeDiameterInput.value = Number.isFinite(holeDiameterInches)
+        ? formatValue(isMetric ? inchesToMm(holeDiameterInches) : holeDiameterInches, isMetric ? 1 : 2)
+        : "";
+      benchHeightInput.value = Number.isFinite(benchHeightFeet)
+        ? formatValue(isMetric ? ftToM(benchHeightFeet) : benchHeightFeet, isMetric ? 2 : 0)
+        : "";
+    }
+
+    function calculate() {
+      const holeDiameterInches = parseFloat(holeDiameterInput.dataset.imperialValue);
+      const benchHeightFeet = parseFloat(benchHeightInput.dataset.imperialValue);
+      const burdenMultiplier = parseFloat(rockTypeSelect.value);
+      const spacingMultiplier = parseFloat(patternTypeSelect.value);
+
+      const inputs = [holeDiameterInches, benchHeightFeet, burdenMultiplier, spacingMultiplier];
+      const isValid = inputs.every(Number.isFinite)
+        && holeDiameterInches > 0
+        && benchHeightFeet > 0
+        && burdenMultiplier > 0
+        && spacingMultiplier > 0;
+
+      if (!isValid) {
+        [burdenResult, spacingResult, subdrillResult, stemmingResult, holesAreaResult].forEach((element) => {
+          element.textContent = "—";
+        });
+        return;
+      }
+
+      const burdenFeet = burdenMultiplier * holeDiameterInches / 12;
+      const spacingFeet = burdenFeet * spacingMultiplier;
+      const subdrillFeet = 0.3 * burdenFeet;
+      const stemmingFeet = 0.7 * burdenFeet;
+      const areaPerHoleSquareFeet = burdenFeet * spacingFeet;
+      const holesPerAcre = SQFT_PER_ACRE / areaPerHoleSquareFeet;
+      const isMetric = unitToggle.checked;
+
+      setLengthResult(burdenResult, isMetric ? ftToM(burdenFeet) : burdenFeet, isMetric ? "m" : "ft");
+      setLengthResult(spacingResult, isMetric ? ftToM(spacingFeet) : spacingFeet, isMetric ? "m" : "ft");
+      setLengthResult(subdrillResult, isMetric ? ftToM(subdrillFeet) : subdrillFeet, isMetric ? "m" : "ft");
+      setLengthResult(stemmingResult, isMetric ? ftToM(stemmingFeet) : stemmingFeet, isMetric ? "m" : "ft");
+      holesAreaResult.textContent = formatValue(
+        isMetric ? SQM_PER_HECTARE / (ftToM(burdenFeet) * ftToM(spacingFeet)) : holesPerAcre,
+        2
+      );
+    }
+
+    holeDiameterInput.addEventListener("input", () => {
+      const displayedValue = parseFloat(holeDiameterInput.value);
+      holeDiameterInput.dataset.imperialValue = Number.isFinite(displayedValue)
+        ? String(unitToggle.checked ? mmToInches(displayedValue) : displayedValue)
+        : "";
+      calculate();
+    });
+
+    benchHeightInput.addEventListener("input", () => {
+      const displayedValue = parseFloat(benchHeightInput.value);
+      benchHeightInput.dataset.imperialValue = Number.isFinite(displayedValue)
+        ? String(unitToggle.checked ? mToFt(displayedValue) : displayedValue)
+        : "";
+      calculate();
+    });
+
+    [rockTypeSelect, patternTypeSelect].forEach((element) => {
+      element.addEventListener("change", calculate);
+    });
+
+    unitToggle.addEventListener("change", () => {
+      updateInputUnits();
+      syncDisplayedInputs();
+      holesAreaLabel.textContent = unitToggle.checked ? "Holes per Hectare" : "Holes per Acre";
+      calculate();
+    });
+
+    holeDiameterInput.dataset.imperialValue = holeDiameterInput.value;
+    benchHeightInput.dataset.imperialValue = benchHeightInput.value;
+
+    updateInputUnits();
+    syncDisplayedInputs();
+    calculate();
+  </script>
+</body>
+</html>

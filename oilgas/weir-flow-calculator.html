@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YB2TFN4NPN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-YB2TFN4NPN');
+  </script>
+  <title>Weir Flow Calculator — Free V-Notch Rectangular Tool | EngineerCalc</title>
+  <meta name="description" content="Free weir flow calculator. Calculate flow rate over V-notch and rectangular weirs from head height and crest width for open channel measurement.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="canonical" href="https://xjtoo11.github.io/oilgas/weir-flow-calculator.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Weir Flow Calculator",
+    "url": "https://xjtoo11.github.io/oilgas/weir-flow-calculator.html",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": 0,
+      "priceCurrency": "USD"
+    },
+    "description": "Free online weir flow calculator for V-notch and rectangular weirs using head height, crest width, and discharge coefficient inputs."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "How to Calculate Weir Flow",
+    "author": {
+      "@type": "Organization",
+      "name": "EngineerCalc"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "EngineerCalc"
+    },
+    "datePublished": "2026-04-14",
+    "dateModified": "2026-04-14",
+    "mainEntityOfPage": "https://xjtoo11.github.io/oilgas/weir-flow-calculator.html",
+    "description": "Step-by-step guidance for calculating weir flow with V-notch and rectangular equations, head measurement practice, and common installation considerations."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is a weir used for?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A weir is used to measure or control open-channel flow by forcing water or produced fluid to pass over a known crest geometry. By measuring the upstream head above the crest, engineers can estimate discharge with standard empirical equations."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "When should I use a V-notch vs rectangular weir?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "V-notch weirs are preferred for lower flows because the triangular opening gives better sensitivity to small changes in head. Rectangular weirs are often preferred for higher flows where a broader crest is practical and sediment or debris handling is easier."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the discharge coefficient?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The discharge coefficient accounts for real-world effects such as viscosity, crest geometry, approach velocity, aeration, and contraction that make actual flow differ from ideal theoretical flow. It is usually determined from calibration, standards, or published test data."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How accurate is weir flow measurement?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Weir flow measurement can be very accurate when the crest is sharp, level, fully aerated, and installed with adequate upstream stilling distance. Accuracy drops if head is measured poorly or if the crest is submerged, worn, leaking, or affected by debris."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What are the installation requirements for a weir?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A weir should be installed plumb and level with a clean sharp crest, free discharge, a calm upstream approach, and a head measurement point located upstream far enough to avoid drawdown near the plate. Side leakage, submergence, and sediment buildup should be minimized."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <span class="logo">EngineerCalc</span>
+      <nav>
+        <a href="casing-burst-pressure-calculator.html">Casing Burst</a>
+        <a href="drill-string-weight-calculator.html">Drill String</a>
+        <a href="pit-slope-calculator.html">Pit Slope</a>
+        <a href="weir-flow-calculator.html" class="active">Weir Flow</a>
+        <a href="blast-hole-pattern-calculator.html">Blast Pattern</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>Weir Flow Calculator</h1>
+    <p class="subtitle">Free weir flow calculator for open-channel measurement. Estimate discharge over V-notch and rectangular weirs from measured head above crest, apply the appropriate field formula, and convert results between Imperial and Metric units.</p>
+
+    <section class="calculator" aria-labelledby="calculator-heading">
+      <div class="calc-section-title" id="calculator-heading">INPUTS</div>
+
+      <div class="calc-row">
+        <label for="weir-type">Weir Type</label>
+        <select id="weir-type" name="weir-type">
+          <option value="v-notch" selected>V-Notch</option>
+          <option value="rectangular-contracted">Rectangular Contracted</option>
+          <option value="rectangular-suppressed">Rectangular Suppressed (Francis)</option>
+        </select>
+        <span class="unit">type</span>
+      </div>
+
+      <div class="calc-row" id="angle-row">
+        <label for="notch-angle">Notch Angle</label>
+        <input id="notch-angle" name="notch-angle" type="number" inputmode="decimal" value="90" step="1">
+        <span class="unit">deg</span>
+      </div>
+
+      <div class="calc-row" id="crest-width-row" hidden>
+        <label for="crest-width">Crest Width L</label>
+        <input id="crest-width" name="crest-width" type="number" inputmode="decimal" value="4" step="0.1">
+        <span class="unit length-unit">ft</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="head-height">Head H</label>
+        <input id="head-height" name="head-height" type="number" inputmode="decimal" value="0.5" step="0.01">
+        <span class="unit length-unit">ft</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="discharge-coefficient">Discharge Coefficient Cd</label>
+        <input id="discharge-coefficient" name="discharge-coefficient" type="number" inputmode="decimal" value="0.58" step="0.01">
+        <span class="unit">Cd</span>
+      </div>
+
+      <div class="unit-toggle">
+        <span id="imperial-label" class="active">Imperial</span>
+        <label class="toggle-switch" for="unit-system">
+          <input id="unit-system" type="checkbox" aria-label="Toggle between Imperial and Metric units">
+          <span class="toggle-slider"></span>
+        </label>
+        <span id="metric-label">Metric</span>
+      </div>
+
+      <div class="calc-section-title">RESULTS</div>
+      <div class="calc-results" aria-live="polite">
+        <div class="result-row">
+          <span class="result-label">Flow Rate Q</span>
+          <span class="result-value" id="flow-rate-result">0.44<span class="result-unit">cfs</span></span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Flow in GPM</span>
+          <span class="result-value small" id="secondary-flow-result">198<span class="result-unit">GPM</span></span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Weir Type Used</span>
+          <span class="result-value small" id="weir-type-result">V-Notch</span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Formula Applied</span>
+          <span class="result-value small" id="formula-result">Q = 2.49 tan(&theta;/2) H^2.5</span>
+        </div>
+      </div>
+    </section>
+
+    <article>
+      <h2>What is a Weir?</h2>
+      <p>A weir is a simple open-channel flow measuring device built around a shaped crest or opening that forces liquid to pass through a known geometry. Once the crest is installed level and the upstream flow settles, the head above the crest becomes a practical indicator of discharge. Engineers use that relationship in irrigation channels, produced-water systems, treatment plants, mine dewatering systems, and field test setups because it converts a difficult flow measurement problem into a direct level measurement problem.</p>
+      <p>The most common sharp-crested types are V-notch and rectangular weirs. A V-notch weir narrows the opening to a triangular notch, which makes small changes in low flow easier to detect because discharge rises with head to the 2.5 power. Rectangular weirs use a straight crest and are often chosen when flows are larger or when a broader opening is easier to fabricate and maintain. Contracted rectangular weirs allow side contractions, while suppressed rectangular weirs span the full channel width so the side contractions are removed from the standard field equation.</p>
+      <p>Although a weir is mechanically simple, accuracy depends on installation quality. The crest must be sharp, clean, and fully aerated. The upstream head must be measured at a proper distance from the plate, not right at the nappe where drawdown occurs. Submergence, debris, leakage, sediment, and approach velocity effects can all distort the result if they are ignored.</p>
+
+      <h2>How to Calculate Weir Flow</h2>
+      <p>Weir flow calculations begin with one field measurement: the head H above the crest. That head is measured vertically from the crest elevation to the upstream water surface at a point far enough upstream that the local surface is not pulled down by acceleration over the opening. Once H is known, the correct equation depends on the geometry. A V-notch weir uses the notch angle, while a rectangular weir uses the crest width. In practice, most handbooks publish simple Imperial equations for routine field use and more general coefficient-based equations for Metric work and calibration-based analysis.</p>
+      <p>For Imperial calculations in this calculator, the standard empirical forms are used directly. A fully contracted V-notch follows Q = 2.49 tan(&theta;/2) H<sup>2.5</sup>, with H in feet and Q in cubic feet per second. A suppressed rectangular weir follows Francis&rsquo; equation Q = 3.33 L H<sup>1.5</sup>. A contracted rectangular weir uses Q = 3.33 (L - 0.2H) H<sup>1.5</sup>, which reduces the effective crest width to account for end contractions. In those field equations, the empirical coefficient is already embedded in the constant, so the user-entered discharge coefficient is mainly relevant when switching to the Metric theoretical form.</p>
+      <p>For Metric calculations, this page uses the coefficient-based sharp-crested equations with g = 9.81 m/s<sup>2</sup>. The V-notch form is Q = (8/15) C<sub>d</sub> &radic;(2g) tan(&theta;/2) H<sup>2.5</sup>. The rectangular form is Q = (2/3) C<sub>d</sub> &radic;(2g) L H<sup>1.5</sup>. Those expressions make the role of C<sub>d</sub> explicit, which is useful when test data, standards, or site calibration require an adjusted coefficient rather than a built-in empirical constant. If you do not have a calibrated value, use the coefficient conservatively and confirm it against the governing standard for your installation.</p>
+      <div class="formula-block">
+        <span class="formula-label">V-Notch</span>
+        <div>Imperial: Q = 2.49 tan(&theta;/2) H<sup>2.5</sup></div>
+        <div>Metric: Q = (8/15) C<sub>d</sub> &radic;(2g) tan(&theta;/2) H<sup>2.5</sup></div>
+      </div>
+      <div class="formula-block">
+        <span class="formula-label">Rectangular Weirs</span>
+        <div>Suppressed: Q = 3.33 L H<sup>1.5</sup></div>
+        <div>Contracted: Q = 3.33 (L - 0.2H) H<sup>1.5</sup></div>
+        <div>Metric: Q = (2/3) C<sub>d</sub> &radic;(2g) L H<sup>1.5</sup></div>
+      </div>
+      <p>Worked example: for a 90 degree V-notch with head H = 0.5 ft, first evaluate the angle term. Because &theta;/2 = 45 degrees, tan(45 degrees) = 1. Next evaluate the head term: 0.5<sup>2.5</sup> = 0.1768. Multiply through: Q = 2.49 &times; 1 &times; 0.1768 = 0.44 cfs. Converting to gallons per minute gives about 198 GPM. That is the default example shown in the calculator and is a useful reference point for checking the math in the field.</p>
+
+      <h2>Weir Formula Comparison Table</h2>
+      <p>Different weirs are chosen for different hydraulic ranges and field conditions. The comparison below is a practical summary of how the most common forms are used. The formulas shown are the standard shorthand equations engineers often recognize first, but actual accuracy still depends on crest geometry, head measurement location, approach conditions, and calibration discipline.</p>
+      <div class="table-wrapper">
+        <table class="reference-table">
+          <thead>
+            <tr>
+              <th>Weir Type</th>
+              <th>Formula</th>
+              <th>Typical Range</th>
+              <th>Accuracy</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>V-Notch 90&deg;</td><td>Q = 2.49 tan(45&deg;) H<sup>2.5</sup></td><td>Low to moderate flows, field testing, drainage checks</td><td>High sensitivity at low head when installed correctly</td></tr>
+            <tr><td>V-Notch 60&deg;</td><td>Q = 2.49 tan(30&deg;) H<sup>2.5</sup></td><td>Very low flows where resolution matters most</td><td>Very good low-flow resolution but more sensitive to clogging</td></tr>
+            <tr><td>Rectangular Suppressed (Francis)</td><td>Q = 3.33 L H<sup>1.5</sup></td><td>Moderate to high flows in full-width channels</td><td>Reliable when crest spans channel and nappe is ventilated</td></tr>
+            <tr><td>Rectangular Contracted</td><td>Q = 3.33 (L - 0.2H) H<sup>1.5</sup></td><td>Moderate flows with side contractions at crest ends</td><td>Good if end contractions are clean and geometry is known</td></tr>
+            <tr><td>Cipolletti</td><td>Q = 3.367 L H<sup>1.5</sup></td><td>Moderate flows where side contraction correction is built in</td><td>Good field performance when trapezoidal notch is fabricated accurately</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-section">
+        <details>
+          <summary>What is a weir used for?</summary>
+          <div class="faq-answer">
+            <p>A weir is used to measure or regulate open-channel flow. By forcing liquid over a known crest shape and measuring the upstream head, engineers can estimate discharge without inserting a mechanical flowmeter into the stream.</p>
+          </div>
+        </details>
+        <details>
+          <summary>When should I use a V-notch vs rectangular weir?</summary>
+          <div class="faq-answer">
+            <p>Use a V-notch when the expected flow is low or when you need better sensitivity to small changes in head. Use a rectangular weir when the flow is higher, when a wider opening is practical, or when the channel geometry suits a straight crest more naturally.</p>
+          </div>
+        </details>
+        <details>
+          <summary>What is the discharge coefficient?</summary>
+          <div class="faq-answer">
+            <p>The discharge coefficient C<sub>d</sub> corrects the ideal theoretical equation so it matches real flow. It captures effects from crest sharpness, contraction, aeration, viscosity, and approach conditions, and it is often set from calibration data or published standards.</p>
+          </div>
+        </details>
+        <details>
+          <summary>How accurate is weir flow measurement?</summary>
+          <div class="faq-answer">
+            <p>Weirs can be very accurate, but only when installation and operation are controlled. Poor head measurement, submergence, debris, sediment deposition, leakage around the plate, and an unventilated nappe can introduce large errors even if the formula itself is correct.</p>
+          </div>
+        </details>
+        <details>
+          <summary>What are the installation requirements for a weir?</summary>
+          <div class="faq-answer">
+            <p>The plate should be level, plumb, sharp-crested, and sealed against leakage. The upstream section should be straight and calm, the head gauge should be located upstream away from drawdown, and the downstream side should allow free, aerated discharge rather than drowned flow.</p>
+          </div>
+        </details>
+      </div>
+    </article>
+
+    <section class="related-calculators">
+      <h3>More Oil &amp; Gas Calculators</h3>
+      <ul>
+        <li><a href="casing-burst-pressure-calculator.html">Casing Burst Pressure Calculator</a></li>
+        <li><a href="drill-string-weight-calculator.html">Drill String Weight Calculator</a></li>
+        <li><a href="pit-slope-calculator.html">Pit Slope Calculator</a></li>
+        <li><a href="blast-hole-pattern-calculator.html">Blast Hole Pattern Calculator</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-apps">
+        <a href="https://apps.apple.com/app/id0000000000?utm_source=web&amp;utm_medium=calculator&amp;utm_campaign=oilgas-toolkit">Oil &amp; Gas Toolkit on App Store</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const weirTypeSelect = document.getElementById("weir-type");
+    const notchAngleInput = document.getElementById("notch-angle");
+    const crestWidthInput = document.getElementById("crest-width");
+    const headHeightInput = document.getElementById("head-height");
+    const dischargeCoefficientInput = document.getElementById("discharge-coefficient");
+    const angleRow = document.getElementById("angle-row");
+    const crestWidthRow = document.getElementById("crest-width-row");
+    const unitToggle = document.getElementById("unit-system");
+    const metricLabel = document.getElementById("metric-label");
+    const imperialLabel = document.getElementById("imperial-label");
+
+    const flowRateResult = document.getElementById("flow-rate-result");
+    const secondaryFlowResult = document.getElementById("secondary-flow-result");
+    const weirTypeResult = document.getElementById("weir-type-result");
+    const formulaResult = document.getElementById("formula-result");
+
+    const FEET_TO_METERS = 0.3048;
+    const CFS_TO_GPM = 448.831;
+    const CUBIC_METERS_PER_SECOND_TO_HOUR = 3600;
+    const GRAVITY = 9.81;
+
+    function feetToMeters(value) {
+      return value * FEET_TO_METERS;
+    }
+
+    function metersToFeet(value) {
+      return value / FEET_TO_METERS;
+    }
+
+    function formatValue(value, decimals) {
+      return Number(value).toFixed(decimals);
+    }
+
+    function setResultWithUnit(element, value, unitSymbol, decimals) {
+      if (!Number.isFinite(value)) {
+        element.textContent = "—";
+        return;
+      }
+
+      element.innerHTML = formatValue(value, decimals) + '<span class="result-unit">' + unitSymbol + "</span>";
+    }
+
+    function updateInputUnits() {
+      const isMetric = unitToggle.checked;
+      document.querySelectorAll(".length-unit").forEach((el) => {
+        el.textContent = isMetric ? "m" : "ft";
+      });
+      imperialLabel.classList.toggle("active", !isMetric);
+      metricLabel.classList.toggle("active", isMetric);
+    }
+
+    function syncDisplayedInputs() {
+      const isMetric = unitToggle.checked;
+      const crestWidthFeet = parseFloat(crestWidthInput.dataset.imperialValue);
+      const headHeightFeet = parseFloat(headHeightInput.dataset.imperialValue);
+
+      crestWidthInput.value = Number.isFinite(crestWidthFeet)
+        ? formatValue(isMetric ? feetToMeters(crestWidthFeet) : crestWidthFeet, isMetric ? 3 : 2)
+        : "";
+      headHeightInput.value = Number.isFinite(headHeightFeet)
+        ? formatValue(isMetric ? feetToMeters(headHeightFeet) : headHeightFeet, isMetric ? 3 : 2)
+        : "";
+    }
+
+    function updateVisibleInputs() {
+      const isVNotch = weirTypeSelect.value === "v-notch";
+      angleRow.hidden = !isVNotch;
+      crestWidthRow.hidden = isVNotch;
+    }
+
+    function getWeirTypeLabel() {
+      if (weirTypeSelect.value === "v-notch") {
+        return "V-Notch";
+      }
+
+      if (weirTypeSelect.value === "rectangular-contracted") {
+        return "Rectangular Contracted";
+      }
+
+      return "Rectangular Suppressed (Francis)";
+    }
+
+    function getFormulaLabel(isMetric) {
+      if (!isMetric && weirTypeSelect.value === "v-notch") {
+        return "Q = 2.49 tan(\u03b8/2) H^2.5";
+      }
+
+      if (!isMetric && weirTypeSelect.value === "rectangular-contracted") {
+        return "Q = 3.33 (L - 0.2H) H^1.5";
+      }
+
+      if (!isMetric) {
+        return "Q = 3.33 L H^1.5";
+      }
+
+      if (weirTypeSelect.value === "v-notch") {
+        return "Q = (8/15) Cd \u221a(2g) tan(\u03b8/2) H^2.5";
+      }
+
+      return "Q = (2/3) Cd \u221a(2g) L H^1.5";
+    }
+
+    function calculateFlowImperial(weirType, angleDegrees, crestWidthFeet, headFeet) {
+      if (weirType === "v-notch") {
+        return 2.49 * Math.tan((angleDegrees * Math.PI) / 360) * Math.pow(headFeet, 2.5);
+      }
+
+      if (weirType === "rectangular-contracted") {
+        const effectiveWidth = crestWidthFeet - (0.2 * headFeet);
+        if (effectiveWidth <= 0) {
+          return NaN;
+        }
+        return 3.33 * effectiveWidth * Math.pow(headFeet, 1.5);
+      }
+
+      return 3.33 * crestWidthFeet * Math.pow(headFeet, 1.5);
+    }
+
+    function calculateFlowMetric(weirType, angleDegrees, crestWidthMeters, headMeters, dischargeCoefficient) {
+      const velocityTerm = Math.sqrt(2 * GRAVITY);
+
+      if (weirType === "v-notch") {
+        return (8 / 15) * dischargeCoefficient * velocityTerm * Math.tan((angleDegrees * Math.PI) / 360) * Math.pow(headMeters, 2.5);
+      }
+
+      return (2 / 3) * dischargeCoefficient * velocityTerm * crestWidthMeters * Math.pow(headMeters, 1.5);
+    }
+
+    function calculate() {
+      const weirType = weirTypeSelect.value;
+      const angleDegrees = parseFloat(notchAngleInput.value);
+      const crestWidthFeet = parseFloat(crestWidthInput.dataset.imperialValue);
+      const headFeet = parseFloat(headHeightInput.dataset.imperialValue);
+      const dischargeCoefficient = parseFloat(dischargeCoefficientInput.value);
+      const isMetric = unitToggle.checked;
+
+      const angleValid = weirType !== "v-notch" || (Number.isFinite(angleDegrees) && angleDegrees > 0 && angleDegrees < 180);
+      const widthValid = weirType === "v-notch" || (Number.isFinite(crestWidthFeet) && crestWidthFeet > 0);
+
+      if (!angleValid || !widthValid || !Number.isFinite(headFeet) || headFeet <= 0 || !Number.isFinite(dischargeCoefficient) || dischargeCoefficient <= 0) {
+        [flowRateResult, secondaryFlowResult, weirTypeResult, formulaResult].forEach((element) => {
+          element.textContent = "—";
+        });
+        return;
+      }
+
+      const flowRate = isMetric
+        ? calculateFlowMetric(weirType, angleDegrees, feetToMeters(crestWidthFeet), feetToMeters(headFeet), dischargeCoefficient)
+        : calculateFlowImperial(weirType, angleDegrees, crestWidthFeet, headFeet);
+
+      if (!Number.isFinite(flowRate) || flowRate <= 0) {
+        [flowRateResult, secondaryFlowResult].forEach((element) => {
+          element.textContent = "—";
+        });
+        weirTypeResult.textContent = getWeirTypeLabel();
+        formulaResult.textContent = getFormulaLabel(isMetric);
+        return;
+      }
+
+      setResultWithUnit(flowRateResult, flowRate, isMetric ? "m\u00b3/s" : "cfs", isMetric ? 3 : 2);
+      setResultWithUnit(
+        secondaryFlowResult,
+        isMetric ? flowRate * CUBIC_METERS_PER_SECOND_TO_HOUR : flowRate * CFS_TO_GPM,
+        isMetric ? "m\u00b3/h" : "GPM",
+        isMetric ? 1 : 0
+      );
+      weirTypeResult.textContent = getWeirTypeLabel();
+      formulaResult.textContent = getFormulaLabel(isMetric);
+    }
+
+    crestWidthInput.addEventListener("input", () => {
+      const displayedValue = parseFloat(crestWidthInput.value);
+      crestWidthInput.dataset.imperialValue = Number.isFinite(displayedValue)
+        ? String(unitToggle.checked ? metersToFeet(displayedValue) : displayedValue)
+        : "";
+      calculate();
+    });
+
+    headHeightInput.addEventListener("input", () => {
+      const displayedValue = parseFloat(headHeightInput.value);
+      headHeightInput.dataset.imperialValue = Number.isFinite(displayedValue)
+        ? String(unitToggle.checked ? metersToFeet(displayedValue) : displayedValue)
+        : "";
+      calculate();
+    });
+
+    [weirTypeSelect, notchAngleInput, dischargeCoefficientInput].forEach((element) => {
+      element.addEventListener("input", calculate);
+      element.addEventListener("change", () => {
+        updateVisibleInputs();
+        calculate();
+      });
+    });
+
+    unitToggle.addEventListener("change", () => {
+      updateInputUnits();
+      syncDisplayedInputs();
+      calculate();
+    });
+
+    crestWidthInput.dataset.imperialValue = crestWidthInput.value;
+    headHeightInput.dataset.imperialValue = headHeightInput.value;
+
+    updateInputUnits();
+    updateVisibleInputs();
+    syncDisplayedInputs();
+    calculate();
+  </script>
+</body>
+</html>

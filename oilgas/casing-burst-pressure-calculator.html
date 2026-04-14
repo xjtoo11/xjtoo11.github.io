@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YB2TFN4NPN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-YB2TFN4NPN');
+  </script>
+  <title>Casing Burst Pressure Calculator — Free API 5CT Tool | EngineerCalc</title>
+  <meta name="description" content="Free casing burst pressure calculator. Calculate internal yield pressure for oil and gas well casing per Barlow's formula and API 5CT standards.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="canonical" href="https://xjtoo11.github.io/oilgas/casing-burst-pressure-calculator.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Casing Burst Pressure Calculator",
+    "url": "https://xjtoo11.github.io/oilgas/casing-burst-pressure-calculator.html",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": 0,
+      "priceCurrency": "USD"
+    },
+    "description": "Free online casing burst pressure calculator for oil and gas well casing using Barlow's formula, API wall tolerance factor, and API 5CT grade inputs."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "How to Calculate Casing Burst Pressure",
+    "author": {
+      "@type": "Organization",
+      "name": "EngineerCalc"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "EngineerCalc"
+    },
+    "datePublished": "2026-04-15",
+    "dateModified": "2026-04-15",
+    "mainEntityOfPage": "https://xjtoo11.github.io/oilgas/casing-burst-pressure-calculator.html",
+    "description": "Step-by-step guidance for calculating casing burst pressure with Barlow's formula, understanding API 5CT grades, and comparing burst, collapse, and D over t behavior."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is casing burst pressure?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Casing burst pressure is the internal pressure that causes the casing wall to reach yield in hoop stress. It is commonly estimated with Barlow's formula using outside diameter, wall thickness, yield strength, and an API wall tolerance factor."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why 0.875 in the Barlow formula?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The 0.875 factor represents the API wall tolerance allowance often applied in casing burst calculations. It reduces the nominal wall thickness contribution to reflect manufacturing tolerance and provide a more conservative internal yield estimate."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the difference between burst and collapse pressure?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Burst pressure is driven by internal pressure pushing outward, while collapse pressure is driven by external pressure pushing inward. Burst is governed mainly by hoop stress from inside pressure, whereas collapse depends on diameter-to-thickness ratio, yield strength, ovality, and collapse regime."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which API 5CT grade should I choose?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Grade selection depends on the required burst, collapse, tensile load, sour service conditions, and economics of the well design. Higher grades provide higher strength, but they must be matched to the operating environment, connection design, and regulatory requirements."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much safety factor should I apply?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The right safety factor depends on company standards, regulatory expectations, uncertainty in loads, and the consequence of failure. Engineers commonly apply a design margin above the theoretical burst estimate rather than treating calculated yield pressure as an allowable operating pressure."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <span class="logo">EngineerCalc</span>
+      <nav>
+        <a href="casing-burst-pressure-calculator.html" class="active">Casing Burst</a>
+        <a href="drill-string-weight-calculator.html">Drill String</a>
+        <a href="pit-slope-calculator.html">Pit Slope</a>
+        <a href="weir-flow-calculator.html">Weir Flow</a>
+        <a href="blast-hole-pattern-calculator.html">Blast Pattern</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>Casing Burst Pressure Calculator</h1>
+    <p class="subtitle">Free API 5CT casing burst pressure calculator for oil and gas engineering. Enter casing outside diameter, wall thickness, yield strength, and grade to estimate internal yield pressure with Barlow&rsquo;s formula, review D/t ratio, and compare a rough collapse indicator.</p>
+
+    <section class="calculator" aria-labelledby="calculator-heading">
+      <div class="calc-section-title" id="calculator-heading">INPUTS</div>
+
+      <div class="calc-row">
+        <label for="od">Outside Diameter OD</label>
+        <input id="od" name="od" type="number" inputmode="decimal" value="9.625" step="0.001">
+        <span class="unit dimension-unit">in</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="wall-thickness">Wall Thickness t</label>
+        <input id="wall-thickness" name="wall-thickness" type="number" inputmode="decimal" value="0.545" step="0.001">
+        <span class="unit dimension-unit">in</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="yield-strength">Yield Strength Y</label>
+        <input id="yield-strength" name="yield-strength" type="number" inputmode="decimal" value="80000" step="1000">
+        <span class="unit strength-unit">psi</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="grade">Grade</label>
+        <select id="grade" name="grade">
+          <option value="H-40">H-40</option>
+          <option value="J-55">J-55</option>
+          <option value="K-55">K-55</option>
+          <option value="N-80" selected>N-80</option>
+          <option value="L-80">L-80</option>
+          <option value="C-90">C-90</option>
+          <option value="T-95">T-95</option>
+          <option value="P-110">P-110</option>
+          <option value="Q-125">Q-125</option>
+        </select>
+        <span class="unit">API 5CT</span>
+      </div>
+
+      <div class="unit-toggle">
+        <span id="imperial-label" class="active">Imperial</span>
+        <label class="toggle-switch" for="unit-system">
+          <input id="unit-system" type="checkbox" aria-label="Toggle between Imperial and Metric units">
+          <span class="toggle-slider"></span>
+        </label>
+        <span id="metric-label">Metric</span>
+      </div>
+
+      <div class="calc-section-title">RESULTS</div>
+      <div class="calc-results" aria-live="polite">
+        <div class="result-row">
+          <span class="result-label">Burst Pressure (Internal Yield)</span>
+          <span class="result-value" id="burst-pressure-result">7927<span class="result-unit">psi</span></span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Collapse Pressure (approximate)</span>
+          <span class="result-value small" id="collapse-pressure-result">11970<span class="result-unit">psi</span></span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">D/t Ratio</span>
+          <span class="result-value small" id="dt-ratio-result">17.66</span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Grade &amp; Yield Used</span>
+          <span class="result-value small" id="grade-yield-result">N-80 (80000 psi)</span>
+        </div>
+      </div>
+    </section>
+
+    <article>
+      <h2>What is Casing Burst Pressure?</h2>
+      <p>Casing burst pressure is the internal pressure at which the casing wall is expected to reach yield in hoop stress. In oil and gas well design, this is one of the basic pressure-containment checks used to confirm that production casing, intermediate casing, or liners can tolerate expected internal loads during drilling, cementing, stimulation, production, shut-in, and well-control events. The calculation is not the whole design basis by itself, but it is a fast first-pass screen that helps engineers compare sizes, weights, and grades before running a more complete design review.</p>
+      <p>The most common hand calculation uses Barlow&rsquo;s formula. It relates burst capacity to outside diameter, wall thickness, and material yield strength. For API 5CT casing, engineers often include a wall tolerance factor of 0.875 so the calculation reflects a conservative portion of nominal wall thickness rather than assuming the pipe is exactly at catalog thickness everywhere around the circumference. That makes the result more practical for preliminary sizing, field checks, and quick engineering estimates.</p>
+      <p>Burst pressure should not be confused with allowable working pressure. Real design must also consider connection efficiency, temperature effects, corrosion allowance, wear, collapse, axial load, biaxial or triaxial stress interaction, and company safety policy. Still, the burst estimate remains a useful and widely recognized starting point because it shows how much hoop-stress resistance the selected casing body can theoretically provide.</p>
+
+      <h2>How to Calculate Burst Pressure</h2>
+      <p>The API-style burst estimate for casing starts with Barlow&rsquo;s formula. In its practical oilfield form, the equation multiplies yield strength by twice the wall thickness, applies the API wall tolerance factor of 0.875, and divides by outside diameter. The result is the internal pressure that would bring the pipe body to yield in hoop stress based on nominal geometry and specified minimum yield strength. Higher strength grades increase burst pressure directly, while larger diameter lowers it if wall thickness and grade stay the same.</p>
+      <p>Because the equation is ratio-based, unit consistency is all that matters. If you enter OD and wall thickness in inches and yield strength in psi, the burst result comes out in psi. If you switch to millimeters and MPa, the same formula still works and returns MPa. That makes the calculator easy to use across field reports, tubing and casing data sheets, and international design workflows.</p>
+      <p>D over t is also important because geometry changes how the pipe behaves under pressure. A low D/t ratio means a relatively thick wall for the size, which generally improves structural resistance. A high D/t ratio indicates a thinner wall section and makes the pipe more sensitive to collapse and instability effects. That is why the calculator reports D/t next to burst pressure instead of treating pressure capacity as only a material-strength problem.</p>
+      <div class="formula-block">
+        <span class="formula-label">Formula</span>
+        <div>P<sub>b</sub> = (2 &times; Y &times; t &times; 0.875) / OD</div>
+        <div>D/t = OD / t</div>
+      </div>
+      <p>Worked example: use OD = 9.625 in, wall thickness t = 0.545 in, and API 5CT grade N-80 with minimum yield strength Y = 80,000 psi. First multiply the material and wall terms: 2 &times; 80,000 &times; 0.545 = 87,200. Then apply the wall tolerance factor: 87,200 &times; 0.875 = 76,300. Finally divide by outside diameter: 76,300 / 9.625 = about 7,930 psi. Using the exact decimals shown in the calculator gives about 7,927 psi, which is the same result with normal rounding differences.</p>
+      <p>The page also shows an approximate collapse pressure as a secondary indicator. That number uses a simplified elastic-shell estimate, not the full API collapse equations. It is useful for quick comparison only and should not be treated as an API-rated collapse value for well design. For casing programs, final selection should always be checked against the applicable collapse regime, connection limits, burst-load case, and any load interaction rules required by the operator or governing standard.</p>
+
+      <h2>API 5CT Casing Grade Reference Table</h2>
+      <p>API 5CT casing grades define minimum mechanical properties for common oilfield tubulars. The yield values below are the minimum specified yield strengths typically used as a starting point in burst calculations, while minimum tensile strength helps indicate overall body strength and handling capacity. The right grade depends on pressure requirements, anticipated loads, corrosive service, sour service restrictions, and cost. The table is a practical comparison aid rather than a substitute for a complete casing design sheet or procurement specification.</p>
+      <div class="table-wrapper">
+        <table class="reference-table">
+          <thead>
+            <tr>
+              <th>Grade</th>
+              <th>Min Yield (psi)</th>
+              <th>Min Tensile (psi)</th>
+              <th>Typical Use</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>H-40</td><td>40,000</td><td>60,000</td><td>Legacy low-strength applications and shallow service where loads are modest.</td></tr>
+            <tr><td>J-55</td><td>55,000</td><td>75,000</td><td>General-purpose casing and tubing in moderate-depth wells.</td></tr>
+            <tr><td>K-55</td><td>55,000</td><td>95,000</td><td>Similar yield to J-55 with higher tensile requirements in some casing strings.</td></tr>
+            <tr><td>N-80</td><td>80,000</td><td>100,000</td><td>Common higher-strength casing for deeper wells and higher pressure service.</td></tr>
+            <tr><td>L-80</td><td>80,000</td><td>95,000</td><td>Used where corrosion resistance or sour-service compatibility is important.</td></tr>
+            <tr><td>C-90</td><td>90,000</td><td>105,000</td><td>Higher-strength sour-service capable applications under tighter metallurgical control.</td></tr>
+            <tr><td>T-95</td><td>95,000</td><td>105,000</td><td>Sour-service and high-strength service where SSC resistance is required.</td></tr>
+            <tr><td>P-110</td><td>110,000</td><td>125,000</td><td>High-pressure and deeper well designs requiring strong burst and tensile capacity.</td></tr>
+            <tr><td>Q-125</td><td>125,000</td><td>135,000</td><td>Very high-strength casing for demanding deep or high-load programs.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-section">
+        <details>
+          <summary>What is casing burst pressure?</summary>
+          <div class="faq-answer">
+            <p>Casing burst pressure is the internal pressure level that causes the casing body to reach yield in hoop stress. It is a pipe-body pressure rating estimate, not automatically the allowable operating pressure for the full string.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Why 0.875 in the Barlow formula?</summary>
+          <div class="faq-answer">
+            <p>The 0.875 factor is a conservative API wall tolerance allowance. It reduces the effective contribution of nominal wall thickness so the burst estimate reflects manufacturing tolerance instead of assuming the pipe wall is at nominal thickness everywhere.</p>
+          </div>
+        </details>
+        <details>
+          <summary>What is the difference between burst and collapse pressure?</summary>
+          <div class="faq-answer">
+            <p>Burst pressure is resistance to internal pressure pushing the pipe outward. Collapse pressure is resistance to external pressure squeezing the pipe inward. Burst is largely a hoop-yield problem, while collapse is strongly influenced by D/t ratio, ovality, residual stress, and collapse regime.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Which API 5CT grade should I choose?</summary>
+          <div class="faq-answer">
+            <p>Choose the grade that satisfies burst, collapse, tensile, environment, and cost requirements for the actual load cases in your well. N-80 is common for stronger general service, while L-80, C-90, and T-95 are often considered when sour-service or corrosion constraints matter.</p>
+          </div>
+        </details>
+        <details>
+          <summary>How much safety factor should I apply?</summary>
+          <div class="faq-answer">
+            <p>There is no single universal factor. Operators usually set design factors based on company standards, uncertainty in predicted loads, and the consequence of failure. Theoretical burst pressure should be treated as a capacity estimate, then reduced by the required design margin for actual operation.</p>
+          </div>
+        </details>
+      </div>
+    </article>
+
+    <section class="related-calculators">
+      <h3>More Oil &amp; Gas Calculators</h3>
+      <ul>
+        <li><a href="drill-string-weight-calculator.html">Drill String Weight Calculator</a></li>
+        <li><a href="pit-slope-calculator.html">Pit Slope Calculator</a></li>
+        <li><a href="weir-flow-calculator.html">Weir Flow Calculator</a></li>
+        <li><a href="blast-hole-pattern-calculator.html">Blast Hole Pattern Calculator</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-apps">
+        <a href="https://apps.apple.com/app/id0000000000?utm_source=web&amp;utm_medium=calculator&amp;utm_campaign=oilgas-toolkit">Oil &amp; Gas Toolkit on App Store</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const odInput = document.getElementById("od");
+    const wallThicknessInput = document.getElementById("wall-thickness");
+    const yieldStrengthInput = document.getElementById("yield-strength");
+    const gradeSelect = document.getElementById("grade");
+    const unitToggle = document.getElementById("unit-system");
+    const metricLabel = document.getElementById("metric-label");
+    const imperialLabel = document.getElementById("imperial-label");
+
+    const burstPressureResult = document.getElementById("burst-pressure-result");
+    const collapsePressureResult = document.getElementById("collapse-pressure-result");
+    const dtRatioResult = document.getElementById("dt-ratio-result");
+    const gradeYieldResult = document.getElementById("grade-yield-result");
+
+    const gradeStrengths = {
+      "H-40": 40000,
+      "J-55": 55000,
+      "K-55": 55000,
+      "N-80": 80000,
+      "L-80": 80000,
+      "C-90": 90000,
+      "T-95": 95000,
+      "P-110": 110000,
+      "Q-125": 125000
+    };
+
+    const INCH_TO_MM = 25.4;
+    const PSI_TO_MPA = 0.00689476;
+    const API_WALL_TOLERANCE = 0.875;
+    const ELASTIC_MODULUS_PSI = 30000000;
+    const POISSON_RATIO = 0.3;
+
+    function inchesToMm(value) {
+      return value * INCH_TO_MM;
+    }
+
+    function mmToInches(value) {
+      return value / INCH_TO_MM;
+    }
+
+    function psiToMpa(value) {
+      return value * PSI_TO_MPA;
+    }
+
+    function mpaToPsi(value) {
+      return value / PSI_TO_MPA;
+    }
+
+    function formatValue(value, decimals) {
+      return Number(value).toFixed(decimals);
+    }
+
+    function setPressureResult(element, value, unitSymbol, decimals) {
+      if (!Number.isFinite(value)) {
+        element.textContent = "—";
+        return;
+      }
+
+      element.innerHTML = formatValue(value, decimals) + '<span class="result-unit">' + unitSymbol + "</span>";
+    }
+
+    function updateInputUnits() {
+      const isMetric = unitToggle.checked;
+      document.querySelectorAll(".dimension-unit").forEach((el) => {
+        el.textContent = isMetric ? "mm" : "in";
+      });
+      document.querySelectorAll(".strength-unit").forEach((el) => {
+        el.textContent = isMetric ? "MPa" : "psi";
+      });
+      imperialLabel.classList.toggle("active", !isMetric);
+      metricLabel.classList.toggle("active", isMetric);
+    }
+
+    function syncDisplayedInputs() {
+      const isMetric = unitToggle.checked;
+      const odInches = parseFloat(odInput.dataset.imperialValue);
+      const wallThicknessInches = parseFloat(wallThicknessInput.dataset.imperialValue);
+      const yieldStrengthPsi = parseFloat(yieldStrengthInput.dataset.imperialValue);
+
+      odInput.value = Number.isFinite(odInches)
+        ? formatValue(isMetric ? inchesToMm(odInches) : odInches, 3)
+        : "";
+      wallThicknessInput.value = Number.isFinite(wallThicknessInches)
+        ? formatValue(isMetric ? inchesToMm(wallThicknessInches) : wallThicknessInches, 3)
+        : "";
+      yieldStrengthInput.value = Number.isFinite(yieldStrengthPsi)
+        ? formatValue(isMetric ? psiToMpa(yieldStrengthPsi) : yieldStrengthPsi, isMetric ? 2 : 0)
+        : "";
+    }
+
+    function syncGradeFromStrength() {
+      const yieldStrengthPsi = Math.round(parseFloat(yieldStrengthInput.dataset.imperialValue));
+
+      Object.entries(gradeStrengths).forEach(([grade, strength]) => {
+        if (yieldStrengthPsi === strength) {
+          gradeSelect.value = grade;
+        }
+      });
+    }
+
+    function buildGradeYieldLabel(yieldStrengthPsi, isMetric) {
+      const selectedGrade = gradeSelect.value;
+      const selectedStrength = gradeStrengths[selectedGrade];
+      const matchesSelected = Math.round(yieldStrengthPsi) === selectedStrength;
+      const displayStrength = isMetric
+        ? formatValue(psiToMpa(yieldStrengthPsi), 2) + " MPa"
+        : formatValue(yieldStrengthPsi, 0) + " psi";
+
+      if (matchesSelected) {
+        return selectedGrade + " (" + displayStrength + ")";
+      }
+
+      return selectedGrade + " selected, " + displayStrength + " used";
+    }
+
+    function calculate() {
+      const odInches = parseFloat(odInput.dataset.imperialValue);
+      const wallThicknessInches = parseFloat(wallThicknessInput.dataset.imperialValue);
+      const yieldStrengthPsi = parseFloat(yieldStrengthInput.dataset.imperialValue);
+
+      if (![odInches, wallThicknessInches, yieldStrengthPsi].every(Number.isFinite) || odInches <= 0 || wallThicknessInches <= 0 || yieldStrengthPsi <= 0) {
+        [burstPressureResult, collapsePressureResult, dtRatioResult, gradeYieldResult].forEach((element) => {
+          element.textContent = "—";
+        });
+        return;
+      }
+
+      const burstPressurePsi = (2 * yieldStrengthPsi * wallThicknessInches * API_WALL_TOLERANCE) / odInches;
+      const collapsePressurePsi = (2 * ELASTIC_MODULUS_PSI / (1 - Math.pow(POISSON_RATIO, 2))) * Math.pow(wallThicknessInches / odInches, 3);
+      const dtRatio = odInches / wallThicknessInches;
+      const isMetric = unitToggle.checked;
+
+      setPressureResult(burstPressureResult, isMetric ? psiToMpa(burstPressurePsi) : burstPressurePsi, isMetric ? "MPa" : "psi", isMetric ? 2 : 0);
+      setPressureResult(collapsePressureResult, isMetric ? psiToMpa(collapsePressurePsi) : collapsePressurePsi, isMetric ? "MPa" : "psi", isMetric ? 2 : 0);
+      dtRatioResult.textContent = formatValue(dtRatio, 2);
+      gradeYieldResult.textContent = buildGradeYieldLabel(yieldStrengthPsi, isMetric);
+    }
+
+    odInput.addEventListener("input", () => {
+      const displayedValue = parseFloat(odInput.value);
+      odInput.dataset.imperialValue = Number.isFinite(displayedValue)
+        ? String(unitToggle.checked ? mmToInches(displayedValue) : displayedValue)
+        : "";
+      calculate();
+    });
+
+    wallThicknessInput.addEventListener("input", () => {
+      const displayedValue = parseFloat(wallThicknessInput.value);
+      wallThicknessInput.dataset.imperialValue = Number.isFinite(displayedValue)
+        ? String(unitToggle.checked ? mmToInches(displayedValue) : displayedValue)
+        : "";
+      calculate();
+    });
+
+    yieldStrengthInput.addEventListener("input", () => {
+      const displayedValue = parseFloat(yieldStrengthInput.value);
+      yieldStrengthInput.dataset.imperialValue = Number.isFinite(displayedValue)
+        ? String(unitToggle.checked ? mpaToPsi(displayedValue) : displayedValue)
+        : "";
+      syncGradeFromStrength();
+      calculate();
+    });
+
+    gradeSelect.addEventListener("change", () => {
+      const selectedStrength = gradeStrengths[gradeSelect.value];
+      yieldStrengthInput.dataset.imperialValue = String(selectedStrength);
+      syncDisplayedInputs();
+      calculate();
+    });
+
+    unitToggle.addEventListener("change", () => {
+      updateInputUnits();
+      syncDisplayedInputs();
+      calculate();
+    });
+
+    odInput.dataset.imperialValue = odInput.value;
+    wallThicknessInput.dataset.imperialValue = wallThicknessInput.value;
+    yieldStrengthInput.dataset.imperialValue = yieldStrengthInput.value;
+
+    updateInputUnits();
+    syncDisplayedInputs();
+    calculate();
+  </script>
+</body>
+</html>

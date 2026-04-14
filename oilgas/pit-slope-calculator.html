@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YB2TFN4NPN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-YB2TFN4NPN');
+  </script>
+  <title>Pit Slope Stability Calculator — Free Mining Tool | EngineerCalc</title>
+  <meta name="description" content="Free open pit slope stability calculator. Compute factor of safety from cohesion, friction angle, slope angle, and height for mine planning.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="canonical" href="https://xjtoo11.github.io/oilgas/pit-slope-calculator.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Pit Slope Stability Calculator",
+    "url": "https://xjtoo11.github.io/oilgas/pit-slope-calculator.html",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": 0,
+      "priceCurrency": "USD"
+    },
+    "description": "Free online pit slope stability calculator for estimating slope factor of safety, stability rating, critical angle, and effective normal stress for mine planning."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "How to Calculate Pit Slope Factor of Safety",
+    "author": {
+      "@type": "Organization",
+      "name": "EngineerCalc"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "EngineerCalc"
+    },
+    "datePublished": "2026-04-14",
+    "dateModified": "2026-04-14",
+    "mainEntityOfPage": "https://xjtoo11.github.io/oilgas/pit-slope-calculator.html",
+    "description": "Step-by-step guidance for estimating open pit slope factor of safety from cohesion, friction angle, slope geometry, unit weight, and pore pressure ratio."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is factor of safety in slope stability?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Factor of safety in slope stability is the ratio of resisting shear strength to driving shear stress. Values above 1.0 indicate the slope has more resistance than load in the simplified calculation, while values below 1.0 indicate likely failure."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What FOS is required for mine slopes?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Required factor of safety depends on slope scale, consequence of failure, groundwater conditions, uncertainty, and company or regulator criteria. Many mine planning references treat about 1.3 as a minimum screening target for operational slopes, with higher values preferred where uncertainty or consequence is higher."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does pore pressure affect stability?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Higher pore pressure reduces effective normal stress acting across the potential failure surface. That lowers frictional resistance and reduces factor of safety, which is why dewatering and drainage often improve slope stability."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is this calculator suitable for design?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. This calculator is a preliminary screening tool based on a simplified infinite slope style equation. Final design should use site-specific geotechnical data, structural mapping, groundwater analysis, and rigorous limit-equilibrium or numerical modeling."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What causes pit slope failure?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Pit slope failure can be caused by steep slope geometry, weak rock or soil, adverse structures, blasting damage, water pressure, weathering, seismic loading, toe erosion, and poor drainage. Many failures involve several of these factors acting together."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <span class="logo">EngineerCalc</span>
+      <nav>
+        <a href="casing-burst-pressure-calculator.html">Casing Burst</a>
+        <a href="drill-string-weight-calculator.html">Drill String</a>
+        <a href="pit-slope-calculator.html" class="active">Pit Slope</a>
+        <a href="weir-flow-calculator.html">Weir Flow</a>
+        <a href="blast-hole-pattern-calculator.html">Blast Pattern</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>Pit Slope Stability Calculator</h1>
+    <p class="subtitle">Free pit slope stability calculator for mining and geotechnical screening. Enter slope height, slope angle, cohesion, friction angle, unit weight, and pore pressure ratio to estimate factor of safety, stability rating, critical angle, and effective normal stress.</p>
+
+    <section class="calculator" aria-labelledby="calculator-heading">
+      <div class="calc-section-title" id="calculator-heading">INPUTS</div>
+
+      <div class="calc-row">
+        <label for="slope-height">Slope Height H</label>
+        <input id="slope-height" name="slope-height" type="number" inputmode="decimal" value="150" step="5">
+        <span class="unit height-unit">ft</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="slope-angle">Slope Angle β</label>
+        <input id="slope-angle" name="slope-angle" type="number" inputmode="decimal" value="45" step="1">
+        <span class="unit angle-unit">degrees</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="cohesion">Cohesion c</label>
+        <input id="cohesion" name="cohesion" type="number" inputmode="decimal" value="1500" step="50">
+        <span class="unit cohesion-unit">psf</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="friction-angle">Friction Angle φ</label>
+        <input id="friction-angle" name="friction-angle" type="number" inputmode="decimal" value="35" step="1">
+        <span class="unit angle-unit">degrees</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="unit-weight">Unit Weight γ</label>
+        <input id="unit-weight" name="unit-weight" type="number" inputmode="decimal" value="165" step="1">
+        <span class="unit density-unit">pcf</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="pore-pressure-ratio">Pore Pressure Ratio r<sub>u</sub></label>
+        <input id="pore-pressure-ratio" name="pore-pressure-ratio" type="number" inputmode="decimal" value="0.1" step="0.05">
+        <span class="unit">ratio</span>
+      </div>
+
+      <div class="unit-toggle">
+        <span id="imperial-label" class="active">Imperial</span>
+        <label class="toggle-switch" for="unit-system">
+          <input id="unit-system" type="checkbox" aria-label="Toggle between Imperial and Metric units">
+          <span class="toggle-slider"></span>
+        </label>
+        <span id="metric-label">Metric</span>
+      </div>
+
+      <div class="calc-section-title">RESULTS</div>
+      <div class="calc-results" aria-live="polite">
+        <div class="result-row">
+          <span class="result-label">Factor of Safety</span>
+          <span class="result-value" id="fos-result">0.75</span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Stability Rating</span>
+          <span class="result-value small" id="stability-rating-result">Unstable</span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Critical Angle</span>
+          <span class="result-value small" id="critical-angle-result">28.6<span class="result-unit">deg</span></span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Effective Normal Stress</span>
+          <span class="result-value small" id="effective-normal-stress-result">11,138<span class="result-unit">psf</span></span>
+        </div>
+      </div>
+    </section>
+
+    <article>
+      <h2>What is Pit Slope Stability?</h2>
+      <p>Pit slope stability describes how safely the walls of an open pit mine can stand at a given height and angle without sliding or collapsing along a potential failure surface. In day-to-day mine planning, slope stability affects stripping ratio, ore access, haul-road placement, catch-bench width, and the overall economics of the excavation. A steeper wall usually reduces waste removal and can improve project value, but every increase in angle also increases the driving forces that push rock or soil downslope. The geotechnical engineer therefore has to balance production goals against an acceptable level of risk.</p>
+      <p>The behavior of a slope depends on material strength, groundwater conditions, discontinuities, blasting disturbance, weathering, and geometry. Strong dry rock with favorable structure can support much steeper walls than weak saturated material. Even in competent rock, however, water pressure and adverse joints can sharply reduce the available shear resistance. Because of that, mine slopes are usually assessed with a combination of field mapping, laboratory testing, hydrogeology, and engineering analysis rather than by geometry alone.</p>
+      <p>This calculator uses a simplified infinite-slope style equation to give a quick screening estimate of factor of safety. It is useful for comparing scenarios early in planning, checking sensitivity to pore pressure, and understanding how cohesion and friction interact. It is not a substitute for a detailed design study, but it helps translate basic geotechnical inputs into an understandable stability metric.</p>
+
+      <h2>How to Calculate Factor of Safety</h2>
+      <p>In slope engineering, factor of safety is the ratio of resisting shear strength to driving shear stress along a possible sliding surface. If the resisting forces equal the driving forces, the factor of safety is 1.0. Values above 1.0 indicate some reserve capacity, while values below 1.0 imply that the slope would be expected to fail under the assumptions used in the model. For mine planning, engineers often prefer a factor of safety comfortably above unity because real slopes contain uncertainty in strength, water conditions, and geologic structure.</p>
+      <p>The simplified method on this page starts by estimating the total normal stress on a plane parallel to the slope using the unit weight of the material, the slope height, and the cosine of the slope angle. Driving shear stress is estimated from the same unit weight and height terms, multiplied by the sine and cosine of the slope angle. Shear resistance is then taken as the sum of cohesion plus the frictional component derived from effective normal stress. Pore pressure enters through the pore pressure ratio r<sub>u</sub>, which reduces the effective normal stress available for friction. As r<sub>u</sub> rises, the frictional resistance falls and the factor of safety drops.</p>
+      <p>This approach is intentionally compact. It does not model circular failure surfaces explicitly, bench geometry, anisotropy, structural wedges, or nonuniform groundwater. Still, it captures the first-order relationships that matter most in a screening check: taller and steeper slopes tend to be less stable, while higher cohesion and friction angle tend to improve stability. That makes it useful for quick tradeoff studies when you want to understand the direction and rough magnitude of a design change before moving to full limit-equilibrium software.</p>
+      <div class="formula-block">
+        <span class="formula-label">Formula</span>
+        <div>σ = γ &times; H &times; cos<sup>2</sup>(β)</div>
+        <div>τ<sub>driving</sub> = γ &times; H &times; sin(β) &times; cos(β)</div>
+        <div>τ<sub>resisting</sub> = c + σ &times; (1 - r<sub>u</sub>) &times; tan(φ)</div>
+        <div>FOS = τ<sub>resisting</sub> / τ<sub>driving</sub></div>
+      </div>
+      <p>Worked example: use H = 150 ft, β = 45 degrees, c = 1,500 psf, φ = 35 degrees, γ = 165 pcf, and r<sub>u</sub> = 0.1. First compute normal stress: σ = 165 &times; 150 &times; cos<sup>2</sup>(45 degrees). Since cos<sup>2</sup>(45 degrees) = 0.5, σ = 12,375 psf. Next compute driving shear stress: τ<sub>driving</sub> = 165 &times; 150 &times; sin(45 degrees) &times; cos(45 degrees) = 12,375 psf. Then reduce the normal stress for pore pressure and apply friction: τ<sub>resisting</sub> = 1,500 + 12,375 &times; 0.9 &times; tan(35 degrees), which is about 1,500 + 7,795 = 9,295 psf. Finally divide resisting by driving stress: FOS = 9,295 / 12,375 = 0.75. Under this simplified check, the slope is unstable, which tells the planner that the angle is too aggressive unless the material properties or drainage conditions improve.</p>
+      <p>The calculator also reports a critical angle corresponding to FOS = 1.3. That is a useful screening number because it shows the steepest slope angle that still achieves a commonly referenced minimum planning threshold in many operating contexts. The value should be treated as an indicative limit, not a final design angle, because real mine slopes are controlled by structure, groundwater, scale effects, and bench configuration that this simplified method does not represent.</p>
+
+      <h2>FOS Standards Reference Table</h2>
+      <p>Different projects and guidance documents use different target safety factors depending on risk tolerance, operating life, uncertainty, and consequence of failure. In practice, open pit slopes are often categorized into broad bands so engineers and planners can quickly see whether a geometry is clearly unsafe, borderline, or likely acceptable for further evaluation. The table below is a practical screening reference based on common geotechnical practice and the general approach reflected in guidance from bodies such as SME and ICOLD, not a binding design code by itself.</p>
+      <div class="table-wrapper">
+        <table class="reference-table">
+          <thead>
+            <tr>
+              <th>FOS Range</th>
+              <th>Classification</th>
+              <th>Recommendation</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>&lt; 1.0</td><td>Failure</td><td>Expected to fail under assumed conditions. Flatten the slope, reduce height, improve drainage, or reassess input parameters immediately.</td></tr>
+            <tr><td>1.0 - 1.3</td><td>Marginal</td><td>Borderline condition. Usually requires caution, tighter monitoring, and often design changes before acceptance.</td></tr>
+            <tr><td>1.3 - 1.5</td><td>Acceptable</td><td>Often used as a preliminary planning range for operational slopes, subject to site-specific review and uncertainty checks.</td></tr>
+            <tr><td>1.5 - 2.0</td><td>Stable</td><td>Provides additional reserve against uncertainty. Commonly preferred where groundwater, variability, or consequence of failure is significant.</td></tr>
+            <tr><td>&gt; 2.0</td><td>Very Stable</td><td>High margin in the simplified model. May indicate conservative geometry, strong material, or conditions suitable for optimization review.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-section">
+        <details>
+          <summary>What is factor of safety in slope stability?</summary>
+          <div class="faq-answer">
+            <p>Factor of safety is the ratio of available shear resistance to the shear stress trying to cause movement. A value above 1.0 means resistance exceeds driving stress in the model, while a value below 1.0 indicates likely failure.</p>
+          </div>
+        </details>
+        <details>
+          <summary>What FOS is required for mine slopes?</summary>
+          <div class="faq-answer">
+            <p>There is no single universal value. Many preliminary mining assessments use about 1.3 as a minimum screening target for operational slopes, but the required value depends on uncertainty, groundwater, scale, failure consequence, and company or regulator standards.</p>
+          </div>
+        </details>
+        <details>
+          <summary>How does pore pressure affect stability?</summary>
+          <div class="faq-answer">
+            <p>Pore pressure reduces effective normal stress along the potential failure plane. Because frictional resistance depends on effective normal stress, higher pore pressure lowers resistance and pushes factor of safety downward.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Is this calculator suitable for design?</summary>
+          <div class="faq-answer">
+            <p>No. This tool is for education and preliminary screening only. Final mine slope design should use site investigation data, structural interpretation, groundwater modeling, and rigorous limit-equilibrium or numerical analysis.</p>
+          </div>
+        </details>
+        <details>
+          <summary>What causes pit slope failure?</summary>
+          <div class="faq-answer">
+            <p>Typical causes include steep geometry, weak or weathered material, adverse joints or bedding, high pore pressure, poor drainage, toe erosion, blast damage, and seismic or operational disturbance. Failures often result from several factors acting together rather than a single cause.</p>
+          </div>
+        </details>
+      </div>
+    </article>
+
+    <section class="related-calculators">
+      <h3>More Oil &amp; Gas Calculators</h3>
+      <ul>
+        <li><a href="casing-burst-pressure-calculator.html">Casing Burst Pressure Calculator</a></li>
+        <li><a href="drill-string-weight-calculator.html">Drill String Weight Calculator</a></li>
+        <li><a href="weir-flow-calculator.html">Weir Flow Calculator</a></li>
+        <li><a href="blast-hole-pattern-calculator.html">Blast Hole Pattern Calculator</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-apps">
+        <a href="https://apps.apple.com/app/id0000000000?utm_source=web&amp;utm_medium=calculator&amp;utm_campaign=oilgas-toolkit">Oil &amp; Gas Toolkit on App Store</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const slopeHeightInput = document.getElementById("slope-height");
+    const slopeAngleInput = document.getElementById("slope-angle");
+    const cohesionInput = document.getElementById("cohesion");
+    const frictionAngleInput = document.getElementById("friction-angle");
+    const unitWeightInput = document.getElementById("unit-weight");
+    const porePressureRatioInput = document.getElementById("pore-pressure-ratio");
+    const unitToggle = document.getElementById("unit-system");
+    const metricLabel = document.getElementById("metric-label");
+    const imperialLabel = document.getElementById("imperial-label");
+
+    const fosResult = document.getElementById("fos-result");
+    const stabilityRatingResult = document.getElementById("stability-rating-result");
+    const criticalAngleResult = document.getElementById("critical-angle-result");
+    const effectiveNormalStressResult = document.getElementById("effective-normal-stress-result");
+
+    const FT_TO_M = 0.3048;
+    const PSF_TO_KPA = 0.04788025898;
+    const PCF_TO_KNM3 = 0.1570874639;
+
+    function ftToM(value) {
+      return value * FT_TO_M;
+    }
+
+    function mToFt(value) {
+      return value / FT_TO_M;
+    }
+
+    function psfToKpa(value) {
+      return value * PSF_TO_KPA;
+    }
+
+    function kpaToPsf(value) {
+      return value / PSF_TO_KPA;
+    }
+
+    function pcfToKnm3(value) {
+      return value * PCF_TO_KNM3;
+    }
+
+    function knm3ToPcf(value) {
+      return value / PCF_TO_KNM3;
+    }
+
+    function formatValue(value, decimals) {
+      return Number(value).toLocaleString(undefined, {
+        minimumFractionDigits: decimals,
+        maximumFractionDigits: decimals
+      });
+    }
+
+    function setStressResult(element, value, unitSymbol, decimals) {
+      if (!Number.isFinite(value)) {
+        element.textContent = "—";
+        return;
+      }
+
+      element.innerHTML = formatValue(value, decimals) + '<span class="result-unit">' + unitSymbol + "</span>";
+    }
+
+    function updateInputUnits() {
+      const isMetric = unitToggle.checked;
+      document.querySelectorAll(".height-unit").forEach((el) => {
+        el.textContent = isMetric ? "m" : "ft";
+      });
+      document.querySelectorAll(".cohesion-unit").forEach((el) => {
+        el.textContent = isMetric ? "kPa" : "psf";
+      });
+      document.querySelectorAll(".density-unit").forEach((el) => {
+        el.textContent = isMetric ? "kN/m³" : "pcf";
+      });
+      document.querySelectorAll(".angle-unit").forEach((el) => {
+        el.textContent = "degrees";
+      });
+      imperialLabel.classList.toggle("active", !isMetric);
+      metricLabel.classList.toggle("active", isMetric);
+    }
+
+    function syncDisplayedInputs() {
+      const isMetric = unitToggle.checked;
+      const slopeHeightFt = parseFloat(slopeHeightInput.dataset.imperialValue);
+      const cohesionPsf = parseFloat(cohesionInput.dataset.imperialValue);
+      const unitWeightPcf = parseFloat(unitWeightInput.dataset.imperialValue);
+
+      slopeHeightInput.value = Number.isFinite(slopeHeightFt)
+        ? formatValue(isMetric ? ftToM(slopeHeightFt) : slopeHeightFt, isMetric ? 2 : 0)
+        : "";
+      cohesionInput.value = Number.isFinite(cohesionPsf)
+        ? formatValue(isMetric ? psfToKpa(cohesionPsf) : cohesionPsf, isMetric ? 2 : 0)
+        : "";
+      unitWeightInput.value = Number.isFinite(unitWeightPcf)
+        ? formatValue(isMetric ? pcfToKnm3(unitWeightPcf) : unitWeightPcf, isMetric ? 2 : 0)
+        : "";
+    }
+
+    function calculateFosAtAngle(heightFt, slopeAngleDeg, cohesionPsf, frictionAngleDeg, unitWeightPcf, porePressureRatio) {
+      const betaRad = slopeAngleDeg * Math.PI / 180;
+      const phiRad = frictionAngleDeg * Math.PI / 180;
+      const sigma = unitWeightPcf * heightFt * Math.pow(Math.cos(betaRad), 2);
+      const tauDriving = unitWeightPcf * heightFt * Math.sin(betaRad) * Math.cos(betaRad);
+      const tauResisting = cohesionPsf + sigma * (1 - porePressureRatio) * Math.tan(phiRad);
+
+      if (!Number.isFinite(tauDriving) || tauDriving <= 0) {
+        return NaN;
+      }
+
+      return tauResisting / tauDriving;
+    }
+
+    function getStabilityRating(fos) {
+      if (!Number.isFinite(fos)) {
+        return "—";
+      }
+      if (fos < 1.0) {
+        return "Unstable";
+      }
+      if (fos < 1.3) {
+        return "Marginal";
+      }
+      if (fos <= 1.5) {
+        return "Stable";
+      }
+      return "Very Stable";
+    }
+
+    function findCriticalAngle(heightFt, cohesionPsf, frictionAngleDeg, unitWeightPcf, porePressureRatio, targetFos) {
+      const minAngle = 0.1;
+      const maxAngle = 89.9;
+      const step = 0.25;
+      let previousAngle = minAngle;
+      let previousFos = calculateFosAtAngle(heightFt, previousAngle, cohesionPsf, frictionAngleDeg, unitWeightPcf, porePressureRatio);
+
+      if (!Number.isFinite(previousFos)) {
+        return null;
+      }
+      if (previousFos < targetFos) {
+        return "<0.1 deg";
+      }
+
+      for (let angle = minAngle + step; angle <= maxAngle; angle += step) {
+        const currentFos = calculateFosAtAngle(heightFt, angle, cohesionPsf, frictionAngleDeg, unitWeightPcf, porePressureRatio);
+
+        if (!Number.isFinite(currentFos)) {
+          return null;
+        }
+        if (currentFos <= targetFos) {
+          let low = previousAngle;
+          let high = angle;
+
+          for (let index = 0; index < 50; index += 1) {
+            const mid = (low + high) / 2;
+            const fosAtMid = calculateFosAtAngle(heightFt, mid, cohesionPsf, frictionAngleDeg, unitWeightPcf, porePressureRatio);
+
+            if (fosAtMid > targetFos) {
+              low = mid;
+            } else {
+              high = mid;
+            }
+          }
+
+          return (low + high) / 2;
+        }
+
+        previousAngle = angle;
+        previousFos = currentFos;
+      }
+
+      return ">89.9 deg";
+    }
+
+    function calculate() {
+      const slopeHeightFt = parseFloat(slopeHeightInput.dataset.imperialValue);
+      const slopeAngleDeg = parseFloat(slopeAngleInput.value);
+      const cohesionPsf = parseFloat(cohesionInput.dataset.imperialValue);
+      const frictionAngleDeg = parseFloat(frictionAngleInput.value);
+      const unitWeightPcf = parseFloat(unitWeightInput.dataset.imperialValue);
+      const porePressureRatio = parseFloat(porePressureRatioInput.value);
+
+      const inputs = [slopeHeightFt, slopeAngleDeg, cohesionPsf, frictionAngleDeg, unitWeightPcf, porePressureRatio];
+      const isValid = inputs.every(Number.isFinite)
+        && slopeHeightFt > 0
+        && slopeAngleDeg > 0
+        && slopeAngleDeg < 90
+        && cohesionPsf >= 0
+        && frictionAngleDeg > 0
+        && frictionAngleDeg < 90
+        && unitWeightPcf > 0
+        && porePressureRatio >= 0
+        && porePressureRatio <= 1;
+
+      if (!isValid) {
+        [fosResult, stabilityRatingResult, criticalAngleResult, effectiveNormalStressResult].forEach((element) => {
+          element.textContent = "—";
+        });
+        return;
+      }
+
+      const betaRad = slopeAngleDeg * Math.PI / 180;
+      const phiRad = frictionAngleDeg * Math.PI / 180;
+      const sigma = unitWeightPcf * slopeHeightFt * Math.pow(Math.cos(betaRad), 2);
+      const tauDriving = unitWeightPcf * slopeHeightFt * Math.sin(betaRad) * Math.cos(betaRad);
+      const effectiveNormalStressPsf = sigma * (1 - porePressureRatio);
+      const tauResisting = cohesionPsf + effectiveNormalStressPsf * Math.tan(phiRad);
+      const fos = tauResisting / tauDriving;
+      const criticalAngle = findCriticalAngle(slopeHeightFt, cohesionPsf, frictionAngleDeg, unitWeightPcf, porePressureRatio, 1.3);
+      const isMetric = unitToggle.checked;
+
+      fosResult.textContent = formatValue(fos, 2);
+      stabilityRatingResult.textContent = getStabilityRating(fos);
+
+      if (typeof criticalAngle === "string") {
+        criticalAngleResult.textContent = criticalAngle;
+      } else if (Number.isFinite(criticalAngle)) {
+        criticalAngleResult.innerHTML = formatValue(criticalAngle, 1) + '<span class="result-unit">deg</span>';
+      } else {
+        criticalAngleResult.textContent = "—";
+      }
+
+      setStressResult(
+        effectiveNormalStressResult,
+        isMetric ? psfToKpa(effectiveNormalStressPsf) : effectiveNormalStressPsf,
+        isMetric ? "kPa" : "psf",
+        isMetric ? 2 : 0
+      );
+    }
+
+    slopeHeightInput.addEventListener("input", () => {
+      const displayedValue = parseFloat(slopeHeightInput.value);
+      slopeHeightInput.dataset.imperialValue = Number.isFinite(displayedValue)
+        ? String(unitToggle.checked ? mToFt(displayedValue) : displayedValue)
+        : "";
+      calculate();
+    });
+
+    cohesionInput.addEventListener("input", () => {
+      const displayedValue = parseFloat(cohesionInput.value);
+      cohesionInput.dataset.imperialValue = Number.isFinite(displayedValue)
+        ? String(unitToggle.checked ? kpaToPsf(displayedValue) : displayedValue)
+        : "";
+      calculate();
+    });
+
+    unitWeightInput.addEventListener("input", () => {
+      const displayedValue = parseFloat(unitWeightInput.value);
+      unitWeightInput.dataset.imperialValue = Number.isFinite(displayedValue)
+        ? String(unitToggle.checked ? knm3ToPcf(displayedValue) : displayedValue)
+        : "";
+      calculate();
+    });
+
+    [slopeAngleInput, frictionAngleInput, porePressureRatioInput].forEach((input) => {
+      input.addEventListener("input", calculate);
+    });
+
+    unitToggle.addEventListener("change", () => {
+      updateInputUnits();
+      syncDisplayedInputs();
+      calculate();
+    });
+
+    slopeHeightInput.dataset.imperialValue = slopeHeightInput.value;
+    cohesionInput.dataset.imperialValue = cohesionInput.value;
+    unitWeightInput.dataset.imperialValue = unitWeightInput.value;
+
+    updateInputUnits();
+    syncDisplayedInputs();
+    calculate();
+  </script>
+</body>
+</html>
