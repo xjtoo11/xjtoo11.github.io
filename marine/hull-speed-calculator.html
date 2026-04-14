@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YB2TFN4NPN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-YB2TFN4NPN');
+  </script>
+  <title>Hull Speed Calculator — Free Online Boat Speed Tool | EngineerCalc</title>
+  <meta name="description" content="Free hull speed calculator. Enter waterline length to calculate theoretical maximum hull speed for displacement boats and sailboats.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="canonical" href="https://xjtoo11.github.io/marine/hull-speed-calculator.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Hull Speed Calculator",
+    "url": "https://xjtoo11.github.io/marine/hull-speed-calculator.html",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": 0,
+      "priceCurrency": "USD"
+    },
+    "description": "Free online hull speed calculator for estimating theoretical displacement boat speed from waterline length, speed-length ratio, and Froude number."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "How to Calculate Hull Speed",
+    "author": {
+      "@type": "Organization",
+      "name": "EngineerCalc"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "EngineerCalc"
+    },
+    "datePublished": "2026-04-15",
+    "dateModified": "2026-04-15",
+    "mainEntityOfPage": "https://xjtoo11.github.io/marine/hull-speed-calculator.html",
+    "description": "Step-by-step guidance for calculating hull speed, understanding speed-length ratio, and using Froude number to interpret displacement, semi-displacement, and planing behavior."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is hull speed for a boat?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Hull speed is the traditional theoretical maximum efficient speed for a displacement hull. It is commonly estimated by multiplying the speed-length ratio by the square root of waterline length in feet."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can a boat go faster than hull speed?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Light hulls, high-power hulls, multihulls, and planing craft can exceed traditional hull speed. Doing so usually requires more power, less displacement, or a hull form that can climb over or reduce its bow wave pattern."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why does waterline length matter more than overall length?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Waterline length matters because the dominant wave system created by a displacement hull depends on the length of the hull that is actually in contact with the water. Overall length can include overhangs that do not contribute much to wave-making behavior."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the theoretical basis for hull speed?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The rule comes from wave-making resistance and the relationship between hull speed, waterline length, and gravity waves. Froude number provides a more fundamental dimensionless way to compare speed and hull length across boats."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does hull shape affect hull speed?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Hull shape changes resistance, wake pattern, wetted surface, and the ability to transition into semi-displacement or planing behavior. Slender or lightweight hulls often exceed classic displacement limits more easily than beamy heavy hulls."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <span class="logo">EngineerCalc</span>
+      <nav>
+        <a href="hull-speed-calculator.html" class="active">Hull Speed</a>
+        <a href="anchor-scope-calculator.html">Anchor Scope</a>
+        <a href="bilge-pump-calculator.html">Bilge Pump</a>
+        <a href="propeller-slip-calculator.html">Propeller Slip</a>
+        <a href="bollard-pull-calculator.html">Bollard Pull</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>Hull Speed Calculator</h1>
+    <p class="subtitle">Free online hull speed calculator for sailboats and displacement boats. Enter waterline length and an optional speed-length ratio to estimate theoretical maximum hull speed, review Froude number, and compare displacement versus planing behavior.</p>
+
+    <section class="calculator" aria-labelledby="calculator-heading">
+      <div class="calc-section-title" id="calculator-heading">INPUTS</div>
+
+      <div class="calc-row">
+        <label for="lwl">Waterline Length LWL</label>
+        <input id="lwl" name="lwl" type="number" inputmode="decimal" value="30" step="0.1">
+        <span class="unit length-unit">ft</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="sl-ratio">S/L Ratio</label>
+        <input id="sl-ratio" name="sl-ratio" type="number" inputmode="decimal" value="1.34" step="0.01">
+        <span class="unit">default</span>
+      </div>
+
+      <div class="unit-toggle">
+        <span id="imperial-label" class="active">Imperial</span>
+        <label class="toggle-switch" for="unit-system">
+          <input id="unit-system" type="checkbox" aria-label="Toggle between Imperial and Metric units">
+          <span class="toggle-slider"></span>
+        </label>
+        <span id="metric-label">Metric</span>
+      </div>
+
+      <div class="calc-section-title">RESULTS</div>
+      <div class="calc-results" aria-live="polite">
+        <div class="result-row">
+          <span class="result-label">Hull Speed</span>
+          <span class="result-value" id="hull-speed-result">7.34<span class="result-unit">kn</span></span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">S/L Ratio Used</span>
+          <span class="result-value small" id="sl-ratio-result">1.34</span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Froude Number</span>
+          <span class="result-value small" id="froude-result">0.40</span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Hull Type</span>
+          <span class="result-value small" id="hull-type-result">Displacement</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="app-cta" aria-label="Mobile app promotion">
+      <p>Get marine calculators on your iPhone for fast on-board and dockside reference.</p>
+      <a href="https://apps.apple.com/app/id0000000000?utm_source=web&amp;utm_medium=calculator&amp;utm_campaign=marine-toolkit">
+        <img src="../assets/app-store-badge.svg" alt="Download Marine Toolkit on the App Store" width="120" height="40">
+      </a>
+    </section>
+
+    <article>
+      <h2>What is Hull Speed?</h2>
+      <p>Hull speed is the traditional rule-of-thumb estimate for the maximum efficient speed of a displacement boat. It is not a hard physical speed limit in the same sense as a mechanical governor, but it does mark the range where wave-making resistance begins to rise rapidly for conventional monohulls. As a displacement hull moves through the water, it creates a bow wave and a stern wave. At low and moderate speeds the boat fits comfortably between those waves, but as speed increases the wavelength grows. Eventually the distance between wave crests approaches the boat&rsquo;s waterline length, and the hull starts to climb its own bow wave.</p>
+      <p>That is why waterline length matters so much. A longer boat can support a longer wave pattern and therefore reach a higher efficient speed before resistance rises sharply. Sailors, naval architects, and boat owners use hull speed to estimate cruising potential, compare designs, and understand why adding power to a heavy displacement hull may produce only a small speed gain. The classic displacement value uses a speed-length ratio of about 1.34, which works well for many traditional sailboats and full-displacement craft, while faster semi-displacement and planing boats can operate above that range.</p>
+
+      <h2>How to Calculate Hull Speed</h2>
+      <p>The classic hull speed equation is simple: multiply the speed-length ratio by the square root of waterline length. When waterline length is entered in feet, the result is in knots. For metric users, the calculator converts the knot value into kilometers per hour after performing the same underlying speed-length calculation. The default S/L ratio of 1.34 represents a common displacement-hull assumption. If you enter a higher value, you can explore semi-displacement or planing behavior; if you use a lower value, you can model a more conservative operating condition.</p>
+      <p>Because the formula is based on waterline length rather than overall length, it is important to enter the portion of the hull that is actually in contact with the water in normal loading condition. Boats with long overhangs may have a noticeably shorter waterline than their advertised overall length. Conversely, some modern designs carry waterline length far forward and aft, which increases their potential displacement speed for a given LOA. Once the speed is calculated, Froude number provides a more physics-based check. It compares boat speed with the wave speed associated with hull length and gravity, making it useful for comparing boats of different sizes on the same nondimensional basis.</p>
+      <div class="formula-block">
+        <span class="formula-label">Formulas</span>
+        <div>Hull Speed (knots) = S/L &times; &radic;LWL<sub>ft</sub></div>
+        <div>Hull Speed (km/h) = 1.852 &times; Hull Speed (knots)</div>
+        <div>Froude Number = V / &radic;(g &times; LWL<sub>m</sub>)</div>
+      </div>
+      <p>Worked example: let waterline length equal 30 ft and use the standard displacement S/L ratio of 1.34. First calculate the square root of waterline length: &radic;30 = 5.477. Then multiply by the ratio: 1.34 &times; 5.477 = 7.34 knots. If you want the equivalent metric speed, multiply 7.34 by 1.852 to get 13.59 km/h. To estimate Froude number, convert 30 ft to 9.144 m and convert 7.34 knots to 3.78 m/s. Then divide 3.78 by &radic;(9.81 &times; 9.144), which gives approximately 0.40.</p>
+      <p>That last value is useful because it connects the old hull-speed rule to a broader hydrodynamic framework. Displacement craft often operate in the lower Froude range, semi-displacement boats extend higher with more power and suitable hull form, and planing hulls break into a different regime altogether. The calculator therefore shows both the traditional speed result and the supporting indicators that help interpret what the number means in practice rather than treating it as an absolute cap.</p>
+
+      <h2>S/L Ratio Reference Table</h2>
+      <p>Speed-length ratio is a practical shorthand for how aggressively a boat is moving relative to its waterline length. Traditional heavy cruisers and displacement sailboats usually remain near the lower range, while lighter powerboats and advanced hull forms operate well above it. Use the table below as a quick interpretation guide rather than a strict classification rule, since actual behavior also depends on displacement, trim, hull slenderness, and available power.</p>
+      <p>In day-to-day use, the table is most helpful when you are setting expectations rather than predicting exact performance. A cruising sailboat operating around 1.2 to 1.34 S/L is typically near its comfortable displacement limit, while a patrol craft or fast trawler may be designed to spend long periods in the semi-displacement range with enough installed power to push past the classic bow-wave hump. Once S/L rises well above 2.5, the boat is generally relying on dynamic lift, trim control, and hull geometry in ways that the simple displacement formula alone cannot fully describe.</p>
+      <div class="table-wrapper">
+        <table class="reference-table">
+          <thead>
+            <tr>
+              <th>Hull Type</th>
+              <th>Typical S/L</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Displacement</td><td>1.10-1.34</td><td>Efficient at lower speeds, supported mainly by buoyancy, with wave-making resistance rising quickly near classic hull speed.</td></tr>
+            <tr><td>Semi-displacement</td><td>1.34-2.5</td><td>Uses additional power and favorable hull form to exceed classic displacement limits without fully riding on top of the water.</td></tr>
+            <tr><td>Planing</td><td>2.5+</td><td>Develops dynamic lift at speed so the hull rides higher, reducing wetted area and operating beyond displacement-wave limits.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-section">
+        <details>
+          <summary>What is hull speed for a boat?</summary>
+          <div class="faq-answer">
+            <p>Hull speed is the traditional theoretical maximum efficient speed for a displacement boat. It is estimated from waterline length because longer boats generate longer wave patterns and can travel faster before wave-making resistance rises sharply.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Can a boat go faster than hull speed?</summary>
+          <div class="faq-answer">
+            <p>Yes. Hull speed is a rule-of-thumb for displacement behavior, not an absolute barrier. Boats can exceed it if they have enough power, a light enough displacement, a slender enough hull, or a hull shape capable of semi-planing or planing operation.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Why does waterline length matter more than overall length?</summary>
+          <div class="faq-answer">
+            <p>Waterline length is what interacts directly with the water to create the dominant wave system. Overall length may include bow or stern overhangs that add little to displacement-wave behavior, so LWL is the more useful number for hull speed estimates.</p>
+          </div>
+        </details>
+        <details>
+          <summary>What is the theoretical basis for hull speed?</summary>
+          <div class="faq-answer">
+            <p>The concept comes from wave-making resistance. As speed increases, the wavelength associated with the hull&rsquo;s wake increases until it becomes comparable to the boat&rsquo;s waterline length. Froude number expresses that same relationship in a dimensionless hydrodynamic form.</p>
+          </div>
+        </details>
+        <details>
+          <summary>How does hull shape affect hull speed?</summary>
+          <div class="faq-answer">
+            <p>Hull shape affects drag, trim, wake formation, and the boat&rsquo;s ability to transition into higher-speed regimes. A narrow lightweight hull may exceed classic displacement limits more easily than a broad heavy hull with similar waterline length.</p>
+          </div>
+        </details>
+      </div>
+    </article>
+
+    <section class="related-calculators">
+      <h3>More Marine Calculators</h3>
+      <ul>
+        <li><a href="anchor-scope-calculator.html">Anchor Scope Calculator</a></li>
+        <li><a href="bilge-pump-calculator.html">Bilge Pump Calculator</a></li>
+        <li><a href="propeller-slip-calculator.html">Propeller Slip Calculator</a></li>
+        <li><a href="bollard-pull-calculator.html">Bollard Pull Calculator</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-apps">
+        <a href="https://apps.apple.com/app/id0000000000?utm_source=web&amp;utm_medium=calculator&amp;utm_campaign=marine-toolkit">Marine Toolkit on App Store</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const lwlInput = document.getElementById("lwl");
+    const slRatioInput = document.getElementById("sl-ratio");
+    const unitToggle = document.getElementById("unit-system");
+    const metricLabel = document.getElementById("metric-label");
+    const imperialLabel = document.getElementById("imperial-label");
+
+    const hullSpeedResult = document.getElementById("hull-speed-result");
+    const slRatioResult = document.getElementById("sl-ratio-result");
+    const froudeResult = document.getElementById("froude-result");
+    const hullTypeResult = document.getElementById("hull-type-result");
+
+    const FEET_TO_METERS = 0.3048;
+    const KNOT_TO_KMH = 1.852;
+    const KNOT_TO_MPS = 0.514444;
+    const GRAVITY = 9.81;
+
+    function feetToMeters(value) {
+      return value * FEET_TO_METERS;
+    }
+
+    function metersToFeet(value) {
+      return value / FEET_TO_METERS;
+    }
+
+    function formatValue(value) {
+      return Number(value).toFixed(2);
+    }
+
+    function setSpeedResult(value, unitSymbol) {
+      if (!Number.isFinite(value)) {
+        hullSpeedResult.textContent = "—";
+        return;
+      }
+
+      hullSpeedResult.innerHTML = formatValue(value) + '<span class="result-unit">' + unitSymbol + "</span>";
+    }
+
+    function getHullType(slRatio) {
+      if (slRatio < 1.34) {
+        return "Displacement";
+      }
+
+      if (slRatio < 2.5) {
+        return "Semi-displacement";
+      }
+
+      return "Planing";
+    }
+
+    function updateInputUnits() {
+      const isMetric = unitToggle.checked;
+      document.querySelectorAll(".length-unit").forEach((el) => {
+        el.textContent = isMetric ? "m" : "ft";
+      });
+      imperialLabel.classList.toggle("active", !isMetric);
+      metricLabel.classList.toggle("active", isMetric);
+    }
+
+    function syncDisplayedLength() {
+      const lwlFeet = parseFloat(lwlInput.dataset.imperialValue);
+      const isMetric = unitToggle.checked;
+
+      lwlInput.value = Number.isFinite(lwlFeet)
+        ? formatValue(isMetric ? feetToMeters(lwlFeet) : lwlFeet)
+        : "";
+    }
+
+    function calculate() {
+      const lwlFeet = parseFloat(lwlInput.dataset.imperialValue);
+      const slRatio = parseFloat(slRatioInput.value);
+
+      if (![lwlFeet, slRatio].every(Number.isFinite) || lwlFeet <= 0 || slRatio <= 0) {
+        [hullSpeedResult, slRatioResult, froudeResult, hullTypeResult].forEach((element) => {
+          element.textContent = "—";
+        });
+        return;
+      }
+
+      const hullSpeedKnots = slRatio * Math.sqrt(lwlFeet);
+      const hullSpeedKmh = hullSpeedKnots * KNOT_TO_KMH;
+      const lwlMeters = feetToMeters(lwlFeet);
+      const speedMetersPerSecond = hullSpeedKnots * KNOT_TO_MPS;
+      const froudeNumber = speedMetersPerSecond / Math.sqrt(GRAVITY * lwlMeters);
+      const isMetric = unitToggle.checked;
+
+      setSpeedResult(isMetric ? hullSpeedKmh : hullSpeedKnots, isMetric ? "km/h" : "kn");
+      slRatioResult.textContent = formatValue(slRatio);
+      froudeResult.textContent = formatValue(froudeNumber);
+      hullTypeResult.textContent = getHullType(slRatio);
+    }
+
+    lwlInput.addEventListener("input", () => {
+      const displayedValue = parseFloat(lwlInput.value);
+      lwlInput.dataset.imperialValue = Number.isFinite(displayedValue)
+        ? String(unitToggle.checked ? metersToFeet(displayedValue) : displayedValue)
+        : "";
+      calculate();
+    });
+
+    slRatioInput.addEventListener("input", calculate);
+
+    unitToggle.addEventListener("change", () => {
+      updateInputUnits();
+      syncDisplayedLength();
+      calculate();
+    });
+
+    lwlInput.dataset.imperialValue = lwlInput.value;
+    updateInputUnits();
+    syncDisplayedLength();
+    calculate();
+  </script>
+</body>
+</html>

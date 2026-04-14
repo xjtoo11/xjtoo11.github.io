@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YB2TFN4NPN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-YB2TFN4NPN');
+  </script>
+  <title>Propeller Slip Calculator — Free Boat Prop Tool | EngineerCalc</title>
+  <meta name="description" content="Free propeller slip calculator. Calculate prop slip percentage from pitch, RPM, gear ratio, and actual boat speed. Covers typical slip ranges.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="canonical" href="https://xjtoo11.github.io/marine/propeller-slip-calculator.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Propeller Slip Calculator",
+    "url": "https://xjtoo11.github.io/marine/propeller-slip-calculator.html",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": 0,
+      "priceCurrency": "USD"
+    },
+    "description": "Free online propeller slip calculator for estimating prop slip percentage from propeller pitch, engine RPM, gear ratio, and measured boat speed."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "How to Calculate Propeller Slip",
+    "author": {
+      "@type": "Organization",
+      "name": "EngineerCalc"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "EngineerCalc"
+    },
+    "datePublished": "2026-04-14",
+    "dateModified": "2026-04-14",
+    "mainEntityOfPage": "https://xjtoo11.github.io/marine/propeller-slip-calculator.html",
+    "description": "Step-by-step guidance for calculating propeller slip, comparing theoretical and actual boat speed, and interpreting normal slip ranges by boat type."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is propeller slip?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Propeller slip is the percentage difference between the theoretical speed a propeller would produce with no losses and the actual boat speed measured on the water."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is propeller slip bad?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Not necessarily. Some propeller slip is normal and necessary because propellers work by accelerating water rather than moving through a solid medium. Excessively high slip can indicate setup or loading issues."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is a normal slip percentage?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Normal slip depends on hull type and operating condition. Fast performance boats may run near 5 to 10 percent, many runabouts around 10 to 15 percent, and heavier boats often run much higher."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does prop pitch affect slip?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Higher pitch increases theoretical distance traveled per revolution, which can reduce or increase measured slip depending on power, load, hull drag, and whether the engine can still reach proper RPM."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does slip change with throttle position?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Slip changes with speed, hull trim, load, sea state, and engine operating point, so it often differs between acceleration, cruising, and wide-open-throttle conditions."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <span class="logo">EngineerCalc</span>
+      <nav>
+        <a href="hull-speed-calculator.html">Hull Speed</a>
+        <a href="anchor-scope-calculator.html">Anchor Scope</a>
+        <a href="bilge-pump-calculator.html">Bilge Pump</a>
+        <a href="propeller-slip-calculator.html" class="active">Propeller Slip</a>
+        <a href="bollard-pull-calculator.html">Bollard Pull</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>Propeller Slip Calculator</h1>
+    <p class="subtitle">Free propeller slip calculator for comparing theoretical prop-driven speed with real measured boat speed. Enter prop pitch, engine RPM, gear ratio, and actual speed to estimate slip percentage, prop shaft RPM, and whether the result falls in a low, normal, or high range.</p>
+
+    <section class="calculator" aria-labelledby="calculator-heading">
+      <div class="calc-section-title" id="calculator-heading">INPUTS</div>
+
+      <div class="calc-row">
+        <label for="prop-pitch">Propeller Pitch</label>
+        <input id="prop-pitch" name="prop-pitch" type="number" inputmode="decimal" value="19" step="0.5">
+        <span class="unit pitch-unit">in</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="engine-rpm">Engine RPM</label>
+        <input id="engine-rpm" name="engine-rpm" type="number" inputmode="decimal" value="4500" step="50">
+        <span class="unit">rpm</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="gear-ratio">Gear Ratio</label>
+        <input id="gear-ratio" name="gear-ratio" type="number" inputmode="decimal" value="1.81" step="0.01">
+        <span class="unit">ratio</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="actual-speed">Actual Boat Speed</label>
+        <input id="actual-speed" name="actual-speed" type="number" inputmode="decimal" value="38" step="0.1">
+        <span class="unit speed-unit">mph</span>
+      </div>
+
+      <div class="unit-toggle">
+        <span id="imperial-label" class="active">Imperial</span>
+        <label class="toggle-switch" for="unit-system">
+          <input id="unit-system" type="checkbox" aria-label="Toggle between Imperial and Metric units">
+          <span class="toggle-slider"></span>
+        </label>
+        <span id="metric-label">Metric</span>
+      </div>
+
+      <div class="calc-section-title">RESULTS</div>
+      <div class="calc-results" aria-live="polite">
+        <div class="result-row">
+          <span class="result-label">Propeller Slip</span>
+          <span class="result-value" id="slip-result">15.1<span class="result-unit">%</span></span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Theoretical Speed</span>
+          <span class="result-value small" id="theoretical-speed-result">44.73 mph</span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Prop Shaft RPM</span>
+          <span class="result-value small" id="prop-rpm-result">2486 rpm</span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Slip Category</span>
+          <span class="result-value small" id="slip-category-result">Normal</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="app-cta" aria-label="Mobile app promotion">
+      <p>Get marine calculators on your iPhone for fast on-board and dockside reference.</p>
+      <a href="https://apps.apple.com/app/id0000000000?utm_source=web&amp;utm_medium=calculator&amp;utm_campaign=marine-toolkit">
+        <img src="../assets/app-store-badge.svg" alt="Download Marine Toolkit on the App Store" width="120" height="40">
+      </a>
+    </section>
+
+    <article>
+      <h2>What is Propeller Slip?</h2>
+      <p>Propeller slip is the difference between how far a propeller would move forward in one revolution if it were cutting through a solid material and how far the boat actually travels through water. A propeller with 19 inches of pitch does not push the boat forward exactly 19 inches every turn because water is a fluid, the hull creates drag, and the propeller must accelerate water backward to produce thrust. That gap between ideal travel and real travel is called slip, and it is usually expressed as a percentage.</p>
+      <p>Slip is not automatically a sign of a bad setup. In fact, some slip is normal and unavoidable because marine propellers are hydrodynamic devices, not screws threading through wood. What matters is whether the measured value makes sense for the hull type, loading, trim, sea state, and operating condition. Very low slip can show an efficient high-speed setup, while moderate slip is common on recreational runabouts and cruisers. High slip may indicate ventilation, cavitation, prop damage, excess weight, poor engine height, mismatched pitch, or simply a heavy displacement hull working in its normal range. Used correctly, slip is a useful diagnostic number for comparing props, setup changes, and on-water performance claims.</p>
+
+      <h2>How to Calculate Prop Slip</h2>
+      <p>Start with prop shaft RPM, not engine RPM. Because the lower unit or transmission reduces engine speed before it reaches the propeller, you divide engine RPM by gear ratio. A 1.81:1 ratio means the engine turns 1.81 times for each one propeller revolution, so 4500 engine RPM becomes about 2486 prop RPM. Once you know prop RPM, multiply it by propeller pitch to find the theoretical forward travel per minute. Then convert inches per minute into miles per hour. This calculator uses the common simplified formula based on pitch in inches and speed in miles per hour. For metric mode, it performs the same underlying calculation in imperial units and then converts the displayed values to millimeters and kilometers per hour.</p>
+      <p>After theoretical speed is known, compare it with the actual measured boat speed. The percentage difference is the slip value. If actual speed is much lower than theoretical speed, slip is high. If actual speed is close to theoretical speed, slip is low. The key point is that slip should be interpreted in context. A lightly loaded performance hull running wide open may show single-digit slip, while a heavier cruiser at the same prop pitch and shaft RPM may produce a much larger percentage because the hull requires more thrust and experiences more drag. That does not necessarily mean the cruiser is malfunctioning; it means the propeller is working in a different operating envelope.</p>
+      <div class="formula-block">
+        <span class="formula-label">Formulas</span>
+        <div>Prop RPM = Engine RPM / Gear Ratio</div>
+        <div>Theoretical Speed (mph) = (Prop Pitch<sub>in</sub> &times; Prop RPM &times; 60) / (12 &times; 5280)</div>
+        <div>Slip % = (1 - Actual Speed / Theoretical Speed) &times; 100</div>
+      </div>
+      <p>Worked example: use a 19 inch pitch propeller, 4500 engine RPM, a 1.81 gear ratio, and an actual measured boat speed of 38 mph. First calculate prop shaft speed: 4500 / 1.81 = 2486 RPM. Next calculate theoretical speed: (19 &times; 2486 &times; 60) / (12 &times; 5280) = 44.75 mph. Finally calculate slip: (1 - 38 / 44.75) &times; 100 = 15.1%. That falls in a normal recreational range. If the same setup produced only 30 mph, slip would rise sharply and you would start checking loading, trim, tachometer accuracy, prop condition, and whether the engine is reaching the right operating band.</p>
+      <p>Because the calculation depends on measured speed and RPM, data quality matters. GPS speed is usually better than paddle-wheel or pitot values for this purpose, and tachometer error can distort the result more than many boaters expect. Slip is therefore best used as a repeatable comparison tool: test the same boat with consistent load, fuel state, water conditions, and trim, then compare numbers across propeller or setup changes.</p>
+
+      <h2>Typical Prop Slip Range Reference Table</h2>
+      <p>Slip percentage varies widely by hull form and duty cycle, so there is no single universal target. The table below is a quick reality check. A value outside these ranges does not prove something is wrong, but it is a signal to look harder at prop selection, setup height, trim angle, hull cleanliness, and whether you are evaluating the boat at acceleration, cruise, or wide-open throttle. Use the ranges as field guidance, not as a strict pass-or-fail rule.</p>
+      <div class="table-wrapper">
+        <table class="reference-table">
+          <thead>
+            <tr>
+              <th>Boat Type</th>
+              <th>Typical Slip %</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Performance boats</td><td>5-10%</td><td>Low slip is common with efficient high-speed hulls, good setup, and optimized prop selection near top-end operation.</td></tr>
+            <tr><td>Runabouts</td><td>10-15%</td><td>Typical recreational planing boats often fall here when lightly to moderately loaded and trimmed reasonably well.</td></tr>
+            <tr><td>Cruisers</td><td>15-25%</td><td>Heavier hulls and greater wetted area usually raise slip, especially at cruise loads with passengers, fuel, and gear aboard.</td></tr>
+            <tr><td>Heavy displacement</td><td>25-40%</td><td>Workboats and heavy hulls can show much higher slip because prop thrust is overcoming substantial hull resistance rather than chasing speed.</td></tr>
+            <tr><td>Sailboats auxiliary</td><td>40-60%</td><td>Auxiliary propulsion on displacement sailboats often runs at very high slip because the prop is optimized for thrust and maneuvering, not high speed.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>It also helps to remember that slip is not fixed across the whole speed range. During hole-shot or heavy acceleration, slip can be much higher because the boat has not yet climbed onto plane and the propeller is working against a large drag peak. Once the hull settles into an efficient running attitude, the number often improves. That is why propeller comparisons should be made at clearly defined conditions rather than from random readings taken at different throttle settings.</p>
+
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-section">
+        <details>
+          <summary>What is propeller slip?</summary>
+          <div class="faq-answer">
+            <p>Propeller slip is the percentage difference between theoretical no-loss propeller speed and the actual measured speed of the boat. It describes how much of the ideal pitch-based advance is not converted into forward boat motion.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Is propeller slip bad?</summary>
+          <div class="faq-answer">
+            <p>No. Some slip is normal and necessary because a propeller must accelerate water to create thrust. The concern is not slip itself, but unusually high slip relative to the boat type and operating condition.</p>
+          </div>
+        </details>
+        <details>
+          <summary>What is a normal slip percentage?</summary>
+          <div class="faq-answer">
+            <p>Many recreational runabouts fall around 10 to 15 percent, performance boats may be closer to 5 to 10 percent, and heavier cruisers or displacement hulls can run much higher. Normal depends on hull type, load, and throttle setting.</p>
+          </div>
+        </details>
+        <details>
+          <summary>How does prop pitch affect slip?</summary>
+          <div class="faq-answer">
+            <p>Pitch changes the theoretical distance advanced per prop revolution. Increasing pitch raises theoretical speed, but if the engine can no longer reach proper RPM or the hull is over-propped, measured slip may actually worsen instead of improving.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Does slip change with throttle position?</summary>
+          <div class="faq-answer">
+            <p>Yes. Slip often changes substantially between acceleration, cruising, and full-throttle operation because hull drag, trim, and propeller loading are different at each point. Compare slip numbers only at consistent test conditions.</p>
+          </div>
+        </details>
+      </div>
+    </article>
+
+    <section class="related-calculators">
+      <h3>More Marine Calculators</h3>
+      <ul>
+        <li><a href="hull-speed-calculator.html">Hull Speed Calculator</a></li>
+        <li><a href="anchor-scope-calculator.html">Anchor Scope Calculator</a></li>
+        <li><a href="bilge-pump-calculator.html">Bilge Pump Calculator</a></li>
+        <li><a href="bollard-pull-calculator.html">Bollard Pull Calculator</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-apps">
+        <a href="https://apps.apple.com/app/id0000000000?utm_source=web&amp;utm_medium=calculator&amp;utm_campaign=marine-toolkit">Marine Toolkit on App Store</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const propPitchInput = document.getElementById("prop-pitch");
+    const engineRpmInput = document.getElementById("engine-rpm");
+    const gearRatioInput = document.getElementById("gear-ratio");
+    const actualSpeedInput = document.getElementById("actual-speed");
+    const unitToggle = document.getElementById("unit-system");
+    const metricLabel = document.getElementById("metric-label");
+    const imperialLabel = document.getElementById("imperial-label");
+
+    const slipResult = document.getElementById("slip-result");
+    const theoreticalSpeedResult = document.getElementById("theoretical-speed-result");
+    const propRpmResult = document.getElementById("prop-rpm-result");
+    const slipCategoryResult = document.getElementById("slip-category-result");
+
+    const INCH_TO_MM = 25.4;
+    const MPH_TO_KMH = 1.609344;
+
+    function inchesToMillimeters(value) {
+      return value * INCH_TO_MM;
+    }
+
+    function millimetersToInches(value) {
+      return value / INCH_TO_MM;
+    }
+
+    function mphToKmh(value) {
+      return value * MPH_TO_KMH;
+    }
+
+    function kmhToMph(value) {
+      return value / MPH_TO_KMH;
+    }
+
+    function formatValue(value, decimals = 2) {
+      return Number(value).toFixed(decimals);
+    }
+
+    function getSlipCategory(slipPercent) {
+      if (slipPercent < 10) {
+        return "Low";
+      }
+
+      if (slipPercent <= 25) {
+        return "Normal";
+      }
+
+      return "High";
+    }
+
+    function updateInputUnits() {
+      const isMetric = unitToggle.checked;
+      document.querySelectorAll(".pitch-unit").forEach((el) => {
+        el.textContent = isMetric ? "mm" : "in";
+      });
+      document.querySelectorAll(".speed-unit").forEach((el) => {
+        el.textContent = isMetric ? "km/h" : "mph";
+      });
+      imperialLabel.classList.toggle("active", !isMetric);
+      metricLabel.classList.toggle("active", isMetric);
+    }
+
+    function syncDisplayedInputs() {
+      const pitchInches = parseFloat(propPitchInput.dataset.imperialValue);
+      const speedMph = parseFloat(actualSpeedInput.dataset.imperialValue);
+      const isMetric = unitToggle.checked;
+
+      propPitchInput.value = Number.isFinite(pitchInches)
+        ? formatValue(isMetric ? inchesToMillimeters(pitchInches) : pitchInches, isMetric ? 1 : 1)
+        : "";
+
+      actualSpeedInput.value = Number.isFinite(speedMph)
+        ? formatValue(isMetric ? mphToKmh(speedMph) : speedMph, 1)
+        : "";
+    }
+
+    function clearResults() {
+      [slipResult, theoreticalSpeedResult, propRpmResult, slipCategoryResult].forEach((element) => {
+        element.textContent = "—";
+      });
+    }
+
+    function calculate() {
+      const pitchInches = parseFloat(propPitchInput.dataset.imperialValue);
+      const engineRpm = parseFloat(engineRpmInput.value);
+      const gearRatio = parseFloat(gearRatioInput.value);
+      const actualSpeedMph = parseFloat(actualSpeedInput.dataset.imperialValue);
+
+      if (![pitchInches, engineRpm, gearRatio, actualSpeedMph].every(Number.isFinite) || pitchInches <= 0 || engineRpm <= 0 || gearRatio <= 0 || actualSpeedMph < 0) {
+        clearResults();
+        return;
+      }
+
+      const propRpm = engineRpm / gearRatio;
+      const theoreticalSpeedMph = (pitchInches * propRpm * 60) / (12 * 5280);
+
+      if (!Number.isFinite(theoreticalSpeedMph) || theoreticalSpeedMph <= 0) {
+        clearResults();
+        return;
+      }
+
+      const slipPercent = (1 - (actualSpeedMph / theoreticalSpeedMph)) * 100;
+      const isMetric = unitToggle.checked;
+      const displayedTheoreticalSpeed = isMetric ? mphToKmh(theoreticalSpeedMph) : theoreticalSpeedMph;
+      const displayedSpeedUnit = isMetric ? "km/h" : "mph";
+
+      slipResult.innerHTML = formatValue(slipPercent, 1) + '<span class="result-unit">%</span>';
+      theoreticalSpeedResult.textContent = formatValue(displayedTheoreticalSpeed, 2) + " " + displayedSpeedUnit;
+      propRpmResult.textContent = formatValue(propRpm, 0) + " rpm";
+      slipCategoryResult.textContent = getSlipCategory(slipPercent);
+    }
+
+    propPitchInput.addEventListener("input", () => {
+      const displayedValue = parseFloat(propPitchInput.value);
+      propPitchInput.dataset.imperialValue = Number.isFinite(displayedValue)
+        ? String(unitToggle.checked ? millimetersToInches(displayedValue) : displayedValue)
+        : "";
+      calculate();
+    });
+
+    actualSpeedInput.addEventListener("input", () => {
+      const displayedValue = parseFloat(actualSpeedInput.value);
+      actualSpeedInput.dataset.imperialValue = Number.isFinite(displayedValue)
+        ? String(unitToggle.checked ? kmhToMph(displayedValue) : displayedValue)
+        : "";
+      calculate();
+    });
+
+    engineRpmInput.addEventListener("input", calculate);
+    gearRatioInput.addEventListener("input", calculate);
+
+    unitToggle.addEventListener("change", () => {
+      updateInputUnits();
+      syncDisplayedInputs();
+      calculate();
+    });
+
+    propPitchInput.dataset.imperialValue = propPitchInput.value;
+    actualSpeedInput.dataset.imperialValue = actualSpeedInput.value;
+    updateInputUnits();
+    syncDisplayedInputs();
+    calculate();
+  </script>
+</body>
+</html>

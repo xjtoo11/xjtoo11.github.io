@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YB2TFN4NPN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-YB2TFN4NPN');
+  </script>
+  <title>Anchor Scope Calculator — Free Online Rode Length Tool | EngineerCalc</title>
+  <meta name="description" content="Free anchor scope calculator. Enter water depth, tide, and bow height to find anchor rode length for safe holding in any conditions.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="canonical" href="https://xjtoo11.github.io/marine/anchor-scope-calculator.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Anchor Scope Calculator",
+    "url": "https://xjtoo11.github.io/marine/anchor-scope-calculator.html",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": 0,
+      "priceCurrency": "USD"
+    },
+    "description": "Free online anchor scope calculator for estimating anchor rode length from water depth, tide rise, bow height, sea conditions, and rode type."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "How to Calculate Anchor Scope",
+    "author": {
+      "@type": "Organization",
+      "name": "EngineerCalc"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "EngineerCalc"
+    },
+    "datePublished": "2026-04-14",
+    "dateModified": "2026-04-14",
+    "mainEntityOfPage": "https://xjtoo11.github.io/marine/anchor-scope-calculator.html",
+    "description": "Step-by-step guidance for calculating anchor scope, selecting a rode ratio, and accounting for tide, bow height, and weather conditions."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is anchor scope ratio?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Anchor scope ratio is the relationship between the total length of rode deployed and the effective vertical depth from the bow chock to the seabed. A 5:1 ratio means five units of rode for every one unit of effective depth."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why does scope matter for holding power?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "More scope lowers the pulling angle on the anchor, helping it stay buried and resist dragging. If the angle becomes too steep, the anchor is more likely to break free or skip across the bottom."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Chain vs rope rode — does the ratio change?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. All-chain rode generally works with a slightly shorter effective length because the chain weight helps keep the pull horizontal. Rope rodes usually benefit from extra length, especially in wind or chop."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much extra rode for tide and waves?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You should include maximum expected tide rise and the boat's bow height above the waterline in your effective depth. In rough conditions, many boaters also choose a higher scope ratio to account for pitching and snatch loads."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the minimum recommended scope?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A short 3:1 scope may be acceptable in very calm conditions with good holding and close monitoring, but 5:1 is a common general-purpose starting point. Stronger conditions often call for 7:1 or more."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <span class="logo">EngineerCalc</span>
+      <nav>
+        <a href="hull-speed-calculator.html">Hull Speed</a>
+        <a href="anchor-scope-calculator.html" class="active">Anchor Scope</a>
+        <a href="bilge-pump-calculator.html">Bilge Pump</a>
+        <a href="propeller-slip-calculator.html">Propeller Slip</a>
+        <a href="bollard-pull-calculator.html">Bollard Pull</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>Anchor Scope Calculator</h1>
+    <p class="subtitle">Free online anchor scope calculator for estimating safe anchor rode length. Enter water depth, expected tide rise, bow height, anchoring conditions, and rode type to size your scope for calm nights or heavy weather.</p>
+
+    <section class="calculator" aria-labelledby="calculator-heading">
+      <div class="calc-section-title" id="calculator-heading">INPUTS</div>
+
+      <div class="calc-row">
+        <label for="water-depth">Water Depth</label>
+        <input id="water-depth" name="water-depth" type="number" inputmode="decimal" value="20" step="1">
+        <span class="unit length-unit">ft</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="tide-rise">Tide Rise (max expected)</label>
+        <input id="tide-rise" name="tide-rise" type="number" inputmode="decimal" value="4" step="0.5">
+        <span class="unit length-unit">ft</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="bow-height">Bow Height (freeboard)</label>
+        <input id="bow-height" name="bow-height" type="number" inputmode="decimal" value="4" step="0.5">
+        <span class="unit length-unit">ft</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="conditions">Conditions</label>
+        <select id="conditions" name="conditions">
+          <option value="3">Calm (3:1 scope)</option>
+          <option value="5" selected>Normal (5:1 scope)</option>
+          <option value="7">Heavy Wind (7:1 scope)</option>
+          <option value="10">Storm (10:1 scope)</option>
+        </select>
+        <span class="unit">ratio</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="rode-type">Rode Type</label>
+        <select id="rode-type" name="rode-type">
+          <option value="1">All Chain</option>
+          <option value="1.1">Mixed Chain+Rope</option>
+          <option value="1.25">All Rope</option>
+        </select>
+        <span class="unit">type</span>
+      </div>
+
+      <div class="unit-toggle">
+        <span id="imperial-label" class="active">Imperial</span>
+        <label class="toggle-switch" for="unit-system">
+          <input id="unit-system" type="checkbox" aria-label="Toggle between Imperial and Metric units">
+          <span class="toggle-slider"></span>
+        </label>
+        <span id="metric-label">Metric</span>
+      </div>
+
+      <div class="calc-section-title">RESULTS</div>
+      <div class="calc-results" aria-live="polite">
+        <div class="result-row">
+          <span class="result-label">Total Rode Length Needed</span>
+          <span class="result-value" id="rode-result">140<span class="result-unit">ft</span></span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Effective Depth</span>
+          <span class="result-value small" id="effective-depth-result">28 ft</span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Scope Used</span>
+          <span class="result-value small" id="scope-result">5:1</span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Beaufort Range</span>
+          <span class="result-value small" id="beaufort-result">4-5 (11-21 kn)</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="app-cta" aria-label="Mobile app promotion">
+      <p>Get marine calculators on your iPhone for fast on-board and dockside reference.</p>
+      <a href="https://apps.apple.com/app/id0000000000?utm_source=web&amp;utm_medium=calculator&amp;utm_campaign=marine-toolkit">
+        <img src="../assets/app-store-badge.svg" alt="Download Marine Toolkit on the App Store" width="120" height="40">
+      </a>
+    </section>
+
+    <article>
+      <h2>What is Anchor Scope?</h2>
+      <p>Anchor scope is the ratio between the length of anchor rode you put out and the effective depth from your bow roller or chock down to the seabed. It is usually written as a simple ratio such as 3:1, 5:1, or 7:1. If your effective depth is 20 ft and you deploy 100 ft of rode, your scope is 5:1. That ratio matters because anchors hold best when the pull stays as horizontal as possible. A shallow pulling angle helps the anchor dig in and stay buried, while a steep angle tends to pry it upward and reduce holding power.</p>
+      <p>Many new boaters focus only on charted water depth, but that misses two important contributors: tide rise and the height of the bow above the water. At anchor, the rode does not leave from the waterline; it leaves from the bow. If tide rises overnight, the effective depth increases again. That is why a conservative anchor-scope calculation includes all three vertical components before applying the chosen ratio. In protected anchorages with all-chain rode you may accept a shorter scope, while open roadsteads, mixed rode systems, or stronger winds usually justify more length. Scope is therefore one of the simplest and most important anchoring safety checks you can make before settling in for the night.</p>
+
+      <h2>How to Calculate Anchor Rode</h2>
+      <p>Start by calculating effective depth. Add the current water depth to the maximum expected tide rise, then add the bow height or freeboard where the rode leaves the boat. That gives the true vertical distance the rode must span when the tide is highest. Next, choose a scope ratio based on the expected conditions. Calm anchorages may permit 3:1, but 5:1 is a common all-purpose baseline, 7:1 is often used for fresh to strong winds, and 10:1 is a prudent storm setup when swinging room allows. Finally, adjust for rode type. All-chain rode tends to maintain a flatter pull because of its weight, so it can use the base ratio directly. Mixed chain-and-rope or all-rope systems typically benefit from extra deployed length, especially when the boat surges in gusts or chop.</p>
+      <p>The calculator uses a simple three-step method. First, compute effective depth. Second, multiply by the selected scope ratio. Third, multiply again by the rode-type factor. This produces a practical rode length target rather than an overly optimistic minimum. It is still a planning estimate, not a substitute for seamanship. Bottom type, anchor design, current, swinging room, nearby hazards, and local weather all matter. If you expect wind shifts, poor holding ground, or significant wave action, erring on the long side is usually the safer choice provided you have room to swing.</p>
+      <div class="formula-block">
+        <span class="formula-label">Formulas</span>
+        <div>Effective Depth = Water Depth + Tide Rise + Bow Height</div>
+        <div>Rode Base = Effective Depth &times; Scope</div>
+        <div>Rode Length Needed = Rode Base &times; Rode Type Multiplier</div>
+      </div>
+      <p>Worked example: assume 20 ft of water depth, 4 ft of maximum tide rise, and 4 ft of bow height. Effective depth is 20 + 4 + 4 = 28 ft. Under normal conditions a 5:1 scope is a common choice, so the base rode length becomes 28 &times; 5 = 140 ft. If the boat uses all-chain rode, the multiplier is 1.0 and the final result remains 140 ft. If instead you had mixed chain and rope, the estimate becomes 140 &times; 1.1 = 154 ft. With all rope it becomes 140 &times; 1.25 = 175 ft. Those larger values reflect the fact that lighter rode shapes itself differently under load and often needs more length to keep the pull angle low.</p>
+      <p>In practice, treat the result as a minimum target for the chosen scenario. After setting the anchor, verify your swing circle, confirm landmarks or electronic position, and re-check the rode if wind or tide change materially. Good anchoring is not only about hitting a number, but the number gives you a disciplined starting point that is far better than guessing.</p>
+
+      <h2>Beaufort Wind Scale &amp; Scope Reference Table</h2>
+      <p>The Beaufort scale is a useful shorthand when choosing anchor scope because it ties a practical wind range to expected sea state and boat motion. You are not really anchoring for the number alone; you are anchoring for the loads created by wind, waves, gusts, and snatch motion. As conditions build, the scope normally increases so the rode can absorb motion and keep the anchor loaded more horizontally. The table below offers a simple reference for matching a general wind band to a conservative scope starting point.</p>
+      <div class="table-wrapper">
+        <table class="reference-table">
+          <thead>
+            <tr>
+              <th>Beaufort</th>
+              <th>Wind Speed</th>
+              <th>Conditions</th>
+              <th>Recommended Scope</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>0-3</td><td>0-10 kn</td><td>Calm to gentle breeze</td><td>3:1</td></tr>
+            <tr><td>4-5</td><td>11-21 kn</td><td>Moderate breeze</td><td>5:1</td></tr>
+            <tr><td>6-7</td><td>22-33 kn</td><td>Fresh to strong breeze</td><td>7:1</td></tr>
+            <tr><td>8+</td><td>34+ kn</td><td>Gale and above</td><td>10:1</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>This reference is intentionally broad. A well-set modern anchor in good sand may outperform an undersized anchor in weeds or rock even with the same scope, and heavy current can change rode angles differently from wind alone. Use the table as a conservative starting point, then adapt to the anchorage, bottom, and forecast.</p>
+
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-section">
+        <details>
+          <summary>What is anchor scope ratio?</summary>
+          <div class="faq-answer">
+            <p>Anchor scope ratio compares the length of rode deployed with the effective depth from bow to bottom. A 5:1 scope means five feet or meters of rode for every one foot or meter of effective depth.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Why does scope matter for holding power?</summary>
+          <div class="faq-answer">
+            <p>Scope matters because anchors are designed to resist a mostly horizontal pull. More rode reduces the upward angle on the anchor, helping it stay buried and maintain better holding power as wind and waves load the boat.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Chain vs rope rode — does the ratio change?</summary>
+          <div class="faq-answer">
+            <p>Usually yes. All-chain rode can often work with the base ratio because the chain weight helps flatten the pull. Mixed or all-rope setups commonly benefit from extra rode, especially in gusty conditions or short chop.</p>
+          </div>
+        </details>
+        <details>
+          <summary>How much extra rode for tide and waves?</summary>
+          <div class="faq-answer">
+            <p>Always include the maximum expected tide rise and the bow height when calculating effective depth. If rough weather or wave action is expected, it is common to step up to the next higher scope ratio rather than relying on the calm-weather minimum.</p>
+          </div>
+        </details>
+        <details>
+          <summary>What is the minimum recommended scope?</summary>
+          <div class="faq-answer">
+            <p>In very calm, protected conditions, 3:1 may be workable with close attention and suitable ground tackle. For general use, 5:1 is a more common starting point, while stronger conditions often justify 7:1 to 10:1.</p>
+          </div>
+        </details>
+      </div>
+    </article>
+
+    <section class="related-calculators">
+      <h3>More Marine Calculators</h3>
+      <ul>
+        <li><a href="hull-speed-calculator.html">Hull Speed Calculator</a></li>
+        <li><a href="bilge-pump-calculator.html">Bilge Pump Calculator</a></li>
+        <li><a href="propeller-slip-calculator.html">Propeller Slip Calculator</a></li>
+        <li><a href="bollard-pull-calculator.html">Bollard Pull Calculator</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-apps">
+        <a href="https://apps.apple.com/app/id0000000000?utm_source=web&amp;utm_medium=calculator&amp;utm_campaign=marine-toolkit">Marine Toolkit on App Store</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const waterDepthInput = document.getElementById("water-depth");
+    const tideRiseInput = document.getElementById("tide-rise");
+    const bowHeightInput = document.getElementById("bow-height");
+    const conditionsInput = document.getElementById("conditions");
+    const rodeTypeInput = document.getElementById("rode-type");
+    const unitToggle = document.getElementById("unit-system");
+    const metricLabel = document.getElementById("metric-label");
+    const imperialLabel = document.getElementById("imperial-label");
+
+    const rodeResult = document.getElementById("rode-result");
+    const effectiveDepthResult = document.getElementById("effective-depth-result");
+    const scopeResult = document.getElementById("scope-result");
+    const beaufortResult = document.getElementById("beaufort-result");
+
+    const FEET_TO_METERS = 0.3048;
+
+    function feetToMeters(value) {
+      return value * FEET_TO_METERS;
+    }
+
+    function metersToFeet(value) {
+      return value / FEET_TO_METERS;
+    }
+
+    function formatValue(value) {
+      return Number(value).toFixed(2).replace(/\.00$/, "");
+    }
+
+    function setStoredImperialValue(input) {
+      const displayedValue = parseFloat(input.value);
+      input.dataset.imperialValue = Number.isFinite(displayedValue)
+        ? String(unitToggle.checked ? metersToFeet(displayedValue) : displayedValue)
+        : "";
+    }
+
+    function syncDisplayedLength(input) {
+      const imperialValue = parseFloat(input.dataset.imperialValue);
+      input.value = Number.isFinite(imperialValue)
+        ? formatValue(unitToggle.checked ? feetToMeters(imperialValue) : imperialValue)
+        : "";
+    }
+
+    function updateInputUnits() {
+      const isMetric = unitToggle.checked;
+      document.querySelectorAll(".length-unit").forEach((element) => {
+        element.textContent = isMetric ? "m" : "ft";
+      });
+      imperialLabel.classList.toggle("active", !isMetric);
+      metricLabel.classList.toggle("active", isMetric);
+    }
+
+    function getBeaufortRange(scope) {
+      if (scope === 3) {
+        return "0-3 (0-10 kn)";
+      }
+
+      if (scope === 5) {
+        return "4-5 (11-21 kn)";
+      }
+
+      if (scope === 7) {
+        return "6-7 (22-33 kn)";
+      }
+
+      return "8+ (34+ kn)";
+    }
+
+    function setLargeResult(value, unitSymbol) {
+      if (!Number.isFinite(value)) {
+        rodeResult.textContent = "—";
+        return;
+      }
+
+      rodeResult.innerHTML = formatValue(value) + '<span class="result-unit">' + unitSymbol + "</span>";
+    }
+
+    function calculate() {
+      const waterDepthFeet = parseFloat(waterDepthInput.dataset.imperialValue);
+      const tideRiseFeet = parseFloat(tideRiseInput.dataset.imperialValue);
+      const bowHeightFeet = parseFloat(bowHeightInput.dataset.imperialValue);
+      const scope = parseFloat(conditionsInput.value);
+      const rodeMultiplier = parseFloat(rodeTypeInput.value);
+
+      if (![waterDepthFeet, tideRiseFeet, bowHeightFeet, scope, rodeMultiplier].every(Number.isFinite) ||
+          waterDepthFeet < 0 || tideRiseFeet < 0 || bowHeightFeet < 0 || scope <= 0 || rodeMultiplier <= 0) {
+        [rodeResult, effectiveDepthResult, scopeResult, beaufortResult].forEach((element) => {
+          element.textContent = "—";
+        });
+        return;
+      }
+
+      const effectiveDepthFeet = waterDepthFeet + tideRiseFeet + bowHeightFeet;
+      const rodeFeet = effectiveDepthFeet * scope * rodeMultiplier;
+      const isMetric = unitToggle.checked;
+      const lengthUnit = isMetric ? "m" : "ft";
+      const displayedEffectiveDepth = isMetric ? feetToMeters(effectiveDepthFeet) : effectiveDepthFeet;
+      const displayedRode = isMetric ? feetToMeters(rodeFeet) : rodeFeet;
+
+      setLargeResult(displayedRode, lengthUnit);
+      effectiveDepthResult.textContent = formatValue(displayedEffectiveDepth) + " " + lengthUnit;
+      scopeResult.textContent = scope + ":1";
+      beaufortResult.textContent = getBeaufortRange(scope);
+    }
+
+    [waterDepthInput, tideRiseInput, bowHeightInput].forEach((input) => {
+      input.addEventListener("input", () => {
+        setStoredImperialValue(input);
+        calculate();
+      });
+    });
+
+    [conditionsInput, rodeTypeInput].forEach((input) => {
+      input.addEventListener("change", calculate);
+    });
+
+    unitToggle.addEventListener("change", () => {
+      updateInputUnits();
+      [waterDepthInput, tideRiseInput, bowHeightInput].forEach(syncDisplayedLength);
+      calculate();
+    });
+
+    [waterDepthInput, tideRiseInput, bowHeightInput].forEach((input) => {
+      input.dataset.imperialValue = input.value;
+    });
+
+    updateInputUnits();
+    [waterDepthInput, tideRiseInput, bowHeightInput].forEach(syncDisplayedLength);
+    calculate();
+  </script>
+</body>
+</html>

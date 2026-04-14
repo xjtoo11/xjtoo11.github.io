@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YB2TFN4NPN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-YB2TFN4NPN');
+  </script>
+  <title>Bilge Pump Calculator — Free Marine Pump Sizing Tool | EngineerCalc</title>
+  <meta name="description" content="Free bilge pump sizing calculator. Determine required GPH capacity based on boat length, water ingress rate, and ABYC recommendations.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="canonical" href="https://xjtoo11.github.io/marine/bilge-pump-calculator.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Bilge Pump Calculator",
+    "url": "https://xjtoo11.github.io/marine/bilge-pump-calculator.html",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": 0,
+      "priceCurrency": "USD"
+    },
+    "description": "Free online bilge pump sizing calculator for determining pump capacity from boat length, measured leak rate, safety factor, and installation redundancy."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "How to Size a Bilge Pump",
+    "author": {
+      "@type": "Organization",
+      "name": "EngineerCalc"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "EngineerCalc"
+    },
+    "datePublished": "2026-04-14",
+    "dateModified": "2026-04-14",
+    "mainEntityOfPage": "https://xjtoo11.github.io/marine/bilge-pump-calculator.html",
+    "description": "Step-by-step guidance for sizing a bilge pump using boat length, measured ingress rate, safety factor, and ABYC minimum pump-capacity recommendations."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is a bilge pump?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A bilge pump is a pump installed in the lowest part of a boat to remove unwanted water from the bilge before it accumulates to unsafe levels."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What capacity bilge pump do I need?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A practical starting point is the larger of the ABYC minimum for the boat length or the measured leak rate multiplied by a safety factor. Many owners also add redundancy with a second pump."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Should I install dual bilge pumps?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Dual pumps are often recommended when you want redundancy, higher total pumping capacity, or staged operation with one routine pump and one emergency high-water pump."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is ABYC standard for bilge pumps?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "ABYC guidance is commonly summarized by boat-length pump-capacity minimums, such as 500 GPH for very small boats up to 3000 GPH or more for larger boats."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much battery capacity does a bilge pump need?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Battery demand depends on pump size, voltage, wiring, head height, and duty cycle. A rough planning estimate for 12-volt systems is that larger pumps draw more current, so you should size battery reserve for worst-case continuous runtime."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <span class="logo">EngineerCalc</span>
+      <nav>
+        <a href="hull-speed-calculator.html">Hull Speed</a>
+        <a href="anchor-scope-calculator.html">Anchor Scope</a>
+        <a href="bilge-pump-calculator.html" class="active">Bilge Pump</a>
+        <a href="propeller-slip-calculator.html">Propeller Slip</a>
+        <a href="bollard-pull-calculator.html">Bollard Pull</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>Bilge Pump Calculator</h1>
+    <p class="subtitle">Free bilge pump sizing calculator for estimating required pump capacity from boat length, measured ingress rate, safety factor, and single versus dual-pump installation strategy. Use it to compare ABYC-style minimum capacity with your actual leak scenario and plan electrical demand.</p>
+
+    <section class="calculator" aria-labelledby="calculator-heading">
+      <div class="calc-section-title" id="calculator-heading">INPUTS</div>
+
+      <div class="calc-row">
+        <label for="boat-length">Boat Length LOA</label>
+        <input id="boat-length" name="boat-length" type="number" inputmode="decimal" value="25" step="1">
+        <span class="unit length-unit">ft</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="leak-rate">Measured Leak Rate (optional)</label>
+        <input id="leak-rate" name="leak-rate" type="number" inputmode="decimal" value="300" step="10">
+        <span class="unit flow-unit">GPH</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="safety-factor">Safety Factor</label>
+        <input id="safety-factor" name="safety-factor" type="number" inputmode="decimal" value="2.0" step="0.1">
+        <span class="unit">factor</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="pump-installation">Pump Installation</label>
+        <select id="pump-installation" name="pump-installation">
+          <option value="single" selected>Single pump</option>
+          <option value="dual">Dual pump redundancy</option>
+        </select>
+        <span class="unit">setup</span>
+      </div>
+
+      <div class="unit-toggle">
+        <span id="imperial-label" class="active">Imperial</span>
+        <label class="toggle-switch" for="unit-system">
+          <input id="unit-system" type="checkbox" aria-label="Toggle between Imperial and Metric units">
+          <span class="toggle-slider"></span>
+        </label>
+        <span id="metric-label">Metric</span>
+      </div>
+
+      <div class="calc-section-title">RESULTS</div>
+      <div class="calc-results" aria-live="polite">
+        <div class="result-row">
+          <span class="result-label">Required Pump Capacity</span>
+          <span class="result-value" id="required-capacity-result">1500<span class="result-unit">GPH</span></span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">ABYC Minimum (by boat length)</span>
+          <span class="result-value small" id="abyc-minimum-result">1500 GPH</span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Recommended Pump Count</span>
+          <span class="result-value small" id="pump-count-result">1 pump</span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Battery Current Draw</span>
+          <span class="result-value small" id="current-draw-result">6.0 A @ 12V</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="app-cta" aria-label="Mobile app promotion">
+      <p>Get marine calculators on your iPhone for fast on-board and dockside reference.</p>
+      <a href="https://apps.apple.com/app/id0000000000?utm_source=web&amp;utm_medium=calculator&amp;utm_campaign=marine-toolkit">
+        <img src="../assets/app-store-badge.svg" alt="Download Marine Toolkit on the App Store" width="120" height="40">
+      </a>
+    </section>
+
+    <article>
+      <h2>What is a Bilge Pump?</h2>
+      <p>A bilge pump is the pump that removes unwanted water from the lowest interior part of a boat, the bilge. Water can collect there from shaft seals, stuffing boxes, deck leaks, spray, rain, plumbing faults, air-conditioning condensate, or a damaged hull fitting. Even a small amount of standing water can create odor, corrosion, mold, and hidden maintenance problems, while a larger uncontrolled inflow can become a direct safety issue. The purpose of the bilge pump is therefore not only convenience, but also damage control.</p>
+      <p>Most recreational boats use 12-volt electric bilge pumps with automatic float switches or electronic water sensors so the pump can cycle on when the water level rises. Larger vessels may combine multiple pumps at different elevations, with one pump handling routine nuisance water and a larger emergency pump reserved for abnormal inflow. Pump ratings are usually given in gallons per hour or liters per hour, but published ratings are often measured under ideal conditions. Real installed performance is commonly lower because hose length, lift height, wiring losses, bends, and check valves add resistance. That is why pump sizing should not stop at the nameplate number. A practical sizing method compares a recognized minimum capacity with the actual water ingress you expect and then adds a safety margin.</p>
+
+      <h2>How to Size a Bilge Pump</h2>
+      <p>Bilge pump sizing starts with two separate questions. First, what is the minimum pump capacity that is reasonable for the boat size? Second, if you already know or can estimate the actual leak or ingress rate, how much pump capacity is required to stay ahead of that water in realistic service? A conservative answer uses both. The calculator first assigns an ABYC-style minimum capacity based on overall boat length. It then compares that value with the measured leak rate multiplied by the safety factor. The larger of those two numbers becomes the required single-pump capacity. If you choose a dual-pump installation, the calculator doubles the total installed capacity to represent two pumps providing redundancy and additional emergency pumping ability.</p>
+      <p>This approach is useful because a very small measured leak does not justify undersizing the pump below a recognized minimum, while a leak that is larger than the minimum clearly demands more pumping capacity. Safety factor matters because measured ingress is rarely constant. Pump output drops with discharge head and voltage loss, and real flooding events often worsen before corrective action is taken. For that reason, many owners select a safety factor of 1.5 to 2.0 or even higher when planning emergency capability. Dual-pump systems are also common because one pump can handle routine bilge water while the second activates later on a separate float switch, preserving redundancy if a fuse, switch, or pump fails.</p>
+      <div class="formula-block">
+        <span class="formula-label">Formulas</span>
+        <div>ABYC Minimum = capacity assigned by boat LOA bracket</div>
+        <div>Required Single-Pump Capacity = max(ABYC Minimum, Leak Rate &times; Safety Factor)</div>
+        <div>Total Installed Capacity (dual) = Required Single-Pump Capacity &times; 2</div>
+      </div>
+      <p>Worked example: consider a 25 ft boat with a measured leak rate of 300 GPH and a safety factor of 2.0. The 25 ft length places the boat in the 24 to 32 ft bracket, so the ABYC minimum is 1500 GPH. Next calculate leak demand with margin: 300 &times; 2.0 = 600 GPH. The required capacity is the larger of those two numbers, so the result is 1500 GPH. If the boat keeps a single primary pump, the required installed capacity stays at 1500 GPH. If the owner wants dual-pump redundancy, the calculator recommends a total installed capacity of 3000 GPH across two pumps. For planning the electrical system, the calculator also estimates current draw at 12 V using a simple nominal rule of about 1 amp per 250 GPH of installed capacity. That is only an estimate, but it helps translate pump size into battery planning.</p>
+
+      <h2>ABYC Bilge Pump Capacity Reference Table</h2>
+      <p>The table below gives a practical quick-reference view of minimum pump capacity by boat length and a more conservative heavy-use recommendation. The heavy-use column is not an official rule; it is a planning suggestion for boats that spend long periods offshore, operate in rough weather, have long bilge runs, or simply want more margin than the bare minimum. Installed capacity should still be checked against actual hose routing, discharge head, and electrical supply.</p>
+      <div class="table-wrapper">
+        <table class="reference-table">
+          <thead>
+            <tr>
+              <th>Boat LOA (ft)</th>
+              <th>ABYC Minimum (GPH)</th>
+              <th>Recommended for Heavy Use</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>&lt;16</td><td>500</td><td>800-1000</td></tr>
+            <tr><td>16-24</td><td>1000</td><td>1500</td></tr>
+            <tr><td>24-32</td><td>1500</td><td>2000</td></tr>
+            <tr><td>32-40</td><td>2000</td><td>3000</td></tr>
+            <tr><td>40-50</td><td>3000</td><td>4000</td></tr>
+            <tr><td>50+</td><td>3000+</td><td>5000+</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>These values should be treated as system-level targets rather than blind catalog selections. A pump advertised at 2000 GPH will not usually deliver that exact flow once it is installed several feet below the discharge outlet with bends, fittings, and normal battery-voltage variation. In practice, many experienced boat owners choose the next size up and pair it with proper wire sizing, separate fusing, accessible strainers, and high-water alarms. Capacity is only one part of bilge protection, but it is the first number that determines whether the rest of the system has enough margin to matter.</p>
+
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-section">
+        <details>
+          <summary>What is a bilge pump?</summary>
+          <div class="faq-answer">
+            <p>A bilge pump is a pump installed in the bilge to remove accumulated water before it damages equipment or rises to an unsafe level. On most small boats it is an electric 12-volt pump controlled automatically by a float switch or sensor.</p>
+          </div>
+        </details>
+        <details>
+          <summary>What capacity bilge pump do I need?</summary>
+          <div class="faq-answer">
+            <p>A practical answer is the larger of two values: the ABYC minimum associated with your boat length, or your measured leak rate multiplied by a safety factor. That prevents a minor observed leak from driving the pump selection below a reasonable baseline while still accounting for abnormal inflow when it matters.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Should I install dual bilge pumps?</summary>
+          <div class="faq-answer">
+            <p>Dual pumps are often worth it because they add redundancy as well as surge capacity. A common arrangement uses one smaller automatic pump for routine water and one larger higher-mounted pump that activates only when water rises unusually high.</p>
+          </div>
+        </details>
+        <details>
+          <summary>What is ABYC standard for bilge pumps?</summary>
+          <div class="faq-answer">
+            <p>ABYC guidance is commonly summarized by boat-length capacity bands such as 500 GPH for very small boats, 1000 GPH for 16 to 24 ft boats, 1500 GPH for 24 to 32 ft boats, 2000 GPH for 32 to 40 ft boats, and 3000 GPH for larger boats. Owners often exceed these minimums in demanding service.</p>
+          </div>
+        </details>
+        <details>
+          <summary>How much battery capacity does a bilge pump need?</summary>
+          <div class="faq-answer">
+            <p>Battery sizing depends on pump current draw and expected run time. This calculator gives a rough 12-volt current estimate based on installed capacity, but real demand depends on the pump model, discharge head, voltage drop, and duty cycle. Battery reserve should be sized for the worst credible pumping duration, not only for brief normal cycling.</p>
+          </div>
+        </details>
+      </div>
+    </article>
+
+    <section class="related-calculators">
+      <h3>More Marine Calculators</h3>
+      <ul>
+        <li><a href="hull-speed-calculator.html">Hull Speed Calculator</a></li>
+        <li><a href="anchor-scope-calculator.html">Anchor Scope Calculator</a></li>
+        <li><a href="propeller-slip-calculator.html">Propeller Slip Calculator</a></li>
+        <li><a href="bollard-pull-calculator.html">Bollard Pull Calculator</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-apps">
+        <a href="https://apps.apple.com/app/id0000000000?utm_source=web&amp;utm_medium=calculator&amp;utm_campaign=marine-toolkit">Marine Toolkit on App Store</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const boatLengthInput = document.getElementById("boat-length");
+    const leakRateInput = document.getElementById("leak-rate");
+    const safetyFactorInput = document.getElementById("safety-factor");
+    const pumpInstallationInput = document.getElementById("pump-installation");
+    const unitToggle = document.getElementById("unit-system");
+    const metricLabel = document.getElementById("metric-label");
+    const imperialLabel = document.getElementById("imperial-label");
+
+    const requiredCapacityResult = document.getElementById("required-capacity-result");
+    const abycMinimumResult = document.getElementById("abyc-minimum-result");
+    const pumpCountResult = document.getElementById("pump-count-result");
+    const currentDrawResult = document.getElementById("current-draw-result");
+
+    const FEET_TO_METERS = 0.3048;
+    const GPH_TO_LPH = 3.78541;
+    const AMPS_PER_GPH = 1 / 250;
+
+    function feetToMeters(value) {
+      return value * FEET_TO_METERS;
+    }
+
+    function metersToFeet(value) {
+      return value / FEET_TO_METERS;
+    }
+
+    function gphToLph(value) {
+      return value * GPH_TO_LPH;
+    }
+
+    function lphToGph(value) {
+      return value / GPH_TO_LPH;
+    }
+
+    function formatWhole(value) {
+      return Math.round(value).toString();
+    }
+
+    function formatDecimal(value) {
+      return Number(value).toFixed(1);
+    }
+
+    function getAbycMinimum(lengthFeet) {
+      if (lengthFeet < 16) {
+        return 500;
+      }
+
+      if (lengthFeet < 24) {
+        return 1000;
+      }
+
+      if (lengthFeet < 32) {
+        return 1500;
+      }
+
+      if (lengthFeet < 40) {
+        return 2000;
+      }
+
+      return 3000;
+    }
+
+    function updateInputUnits() {
+      const isMetric = unitToggle.checked;
+      document.querySelectorAll(".length-unit").forEach((el) => {
+        el.textContent = isMetric ? "m" : "ft";
+      });
+      document.querySelectorAll(".flow-unit").forEach((el) => {
+        el.textContent = isMetric ? "LPH" : "GPH";
+      });
+      imperialLabel.classList.toggle("active", !isMetric);
+      metricLabel.classList.toggle("active", isMetric);
+    }
+
+    function syncDisplayedInputs() {
+      const isMetric = unitToggle.checked;
+      const boatLengthFeet = parseFloat(boatLengthInput.dataset.imperialValue);
+      const leakRateGph = parseFloat(leakRateInput.dataset.imperialValue);
+
+      boatLengthInput.value = Number.isFinite(boatLengthFeet)
+        ? formatDecimal(isMetric ? feetToMeters(boatLengthFeet) : boatLengthFeet)
+        : "";
+
+      leakRateInput.value = Number.isFinite(leakRateGph)
+        ? formatWhole(isMetric ? gphToLph(leakRateGph) : leakRateGph)
+        : "";
+    }
+
+    function setRequiredCapacity(value, unitLabel) {
+      if (!Number.isFinite(value)) {
+        requiredCapacityResult.textContent = "—";
+        return;
+      }
+
+      requiredCapacityResult.innerHTML = formatWhole(value) + '<span class="result-unit">' + unitLabel + "</span>";
+    }
+
+    function calculate() {
+      const boatLengthFeet = parseFloat(boatLengthInput.dataset.imperialValue);
+      const leakRateGph = parseFloat(leakRateInput.dataset.imperialValue) || 0;
+      const safetyFactor = parseFloat(safetyFactorInput.value);
+      const isDual = pumpInstallationInput.value === "dual";
+
+      if (![boatLengthFeet, safetyFactor].every(Number.isFinite) || boatLengthFeet <= 0 || safetyFactor <= 0 || leakRateGph < 0) {
+        [requiredCapacityResult, abycMinimumResult, pumpCountResult, currentDrawResult].forEach((element) => {
+          element.textContent = "—";
+        });
+        return;
+      }
+
+      const abycMinimumGph = getAbycMinimum(boatLengthFeet);
+      const singleRequiredGph = Math.max(abycMinimumGph, leakRateGph * safetyFactor);
+      const totalRequiredGph = isDual ? singleRequiredGph * 2 : singleRequiredGph;
+      const estimatedAmps = totalRequiredGph * AMPS_PER_GPH;
+      const isMetric = unitToggle.checked;
+
+      setRequiredCapacity(isMetric ? gphToLph(totalRequiredGph) : totalRequiredGph, isMetric ? "LPH" : "GPH");
+      abycMinimumResult.textContent = formatWhole(isMetric ? gphToLph(abycMinimumGph) : abycMinimumGph) + " " + (isMetric ? "LPH" : "GPH");
+      pumpCountResult.textContent = isDual ? "2 pumps" : "1 pump";
+      currentDrawResult.textContent = formatDecimal(estimatedAmps) + " A @ 12V";
+    }
+
+    boatLengthInput.addEventListener("input", () => {
+      const displayedValue = parseFloat(boatLengthInput.value);
+      boatLengthInput.dataset.imperialValue = Number.isFinite(displayedValue)
+        ? String(unitToggle.checked ? metersToFeet(displayedValue) : displayedValue)
+        : "";
+      calculate();
+    });
+
+    leakRateInput.addEventListener("input", () => {
+      const displayedValue = parseFloat(leakRateInput.value);
+      leakRateInput.dataset.imperialValue = Number.isFinite(displayedValue)
+        ? String(unitToggle.checked ? lphToGph(displayedValue) : displayedValue)
+        : "";
+      calculate();
+    });
+
+    safetyFactorInput.addEventListener("input", calculate);
+    pumpInstallationInput.addEventListener("change", calculate);
+
+    unitToggle.addEventListener("change", () => {
+      updateInputUnits();
+      syncDisplayedInputs();
+      calculate();
+    });
+
+    boatLengthInput.dataset.imperialValue = boatLengthInput.value;
+    leakRateInput.dataset.imperialValue = leakRateInput.value;
+    updateInputUnits();
+    syncDisplayedInputs();
+    calculate();
+  </script>
+</body>
+</html>

@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YB2TFN4NPN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-YB2TFN4NPN');
+  </script>
+  <title>Bollard Pull Calculator — Free Tug Power Tool | EngineerCalc</title>
+  <meta name="description" content="Free bollard pull calculator. Estimate tug pulling force from engine power, propeller type, and K-rating for towing operations.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="canonical" href="https://xjtoo11.github.io/marine/bollard-pull-calculator.html">
+  <link rel="stylesheet" href="../styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Bollard Pull Calculator",
+    "url": "https://xjtoo11.github.io/marine/bollard-pull-calculator.html",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": 0,
+      "priceCurrency": "USD"
+    },
+    "description": "Free online bollard pull calculator for estimating tug pulling force from engine power, propulsion type, and empirical K-factor."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "How to Calculate Bollard Pull",
+    "author": {
+      "@type": "Organization",
+      "name": "EngineerCalc"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "EngineerCalc"
+    },
+    "datePublished": "2026-04-14",
+    "dateModified": "2026-04-14",
+    "mainEntityOfPage": "https://xjtoo11.github.io/marine/bollard-pull-calculator.html",
+    "description": "Step-by-step guidance for estimating tug bollard pull from installed power, propulsion arrangement, and practical K-factor assumptions."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is bollard pull?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Bollard pull is the static pulling force a tug can develop while secured to a fixed bollard, usually stated in tonnes or US tons. It is commonly used to compare towing and escort capability."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is bollard pull different from engine power?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Engine power is the mechanical energy available at the machinery, while bollard pull is the resulting static thrust delivered through the propulsion system. Two tugs with the same power can have different bollard pull because propeller diameter, nozzle design, gearbox arrangement, and hull interaction all change thrust efficiency."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What affects K-factor for a tug?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "K-factor depends on propulsion arrangement, propeller loading, nozzle use, hull form near the propulsor, machinery condition, and how closely the tug matches the assumptions behind the empirical formula."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is measured or theoretical bollard pull more accurate?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Measured bollard pull from a certified test is more accurate. A calculator provides an engineering estimate for planning, comparison, and early-stage sizing, but it cannot replace an instrumented bollard pull trial."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What bollard pull rating do I need for towing?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The required rating depends on tow size, environmental conditions, safety margin, and the specific operation such as harbor assist, coastal towing, or escort work. Operators normally select a tug using both bollard pull and operational criteria rather than power alone."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <span class="logo">EngineerCalc</span>
+      <nav>
+        <a href="hull-speed-calculator.html">Hull Speed</a>
+        <a href="anchor-scope-calculator.html">Anchor Scope</a>
+        <a href="bilge-pump-calculator.html">Bilge Pump</a>
+        <a href="propeller-slip-calculator.html">Propeller Slip</a>
+        <a href="bollard-pull-calculator.html" class="active">Bollard Pull</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>Bollard Pull Calculator</h1>
+    <p class="subtitle">Free online bollard pull calculator for tug operations. Estimate static pulling force from engine power, number of engines, propulsion type, and an empirical K-factor commonly used for preliminary towing and harbor-assist calculations.</p>
+
+    <section class="calculator" aria-labelledby="calculator-heading">
+      <div class="calc-section-title" id="calculator-heading">INPUTS</div>
+
+      <div class="calc-row">
+        <label for="engine-power">Engine Power</label>
+        <input id="engine-power" name="engine-power" type="number" inputmode="decimal" value="2000" step="10">
+        <span class="unit power-unit">HP</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="num-engines">Number of Engines</label>
+        <input id="num-engines" name="num-engines" type="number" inputmode="numeric" value="2" step="1">
+        <span class="unit">count</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="propulsion-type">Propulsion Type</label>
+        <select id="propulsion-type" name="propulsion-type">
+          <option value="0.0115">Open Propeller (K = 0.011-0.012)</option>
+          <option value="0.014">Ducted/Kort Nozzle (K = 0.013-0.015)</option>
+          <option value="0.013">Azimuth Thruster (K = 0.013)</option>
+        </select>
+        <span class="unit">preset</span>
+      </div>
+
+      <div class="calc-row">
+        <label for="k-factor">K-Factor Override</label>
+        <input id="k-factor" name="k-factor" type="number" inputmode="decimal" value="0.0115" step="0.0005">
+        <span class="unit">advanced</span>
+      </div>
+
+      <div class="unit-toggle">
+        <span id="imperial-label" class="active">Imperial</span>
+        <label class="toggle-switch" for="unit-system">
+          <input id="unit-system" type="checkbox" aria-label="Toggle between Imperial and Metric units">
+          <span class="toggle-slider"></span>
+        </label>
+        <span id="metric-label">Metric</span>
+      </div>
+
+      <div class="calc-section-title">RESULTS</div>
+      <div class="calc-results" aria-live="polite">
+        <div class="result-row">
+          <span class="result-label">Bollard Pull</span>
+          <span class="result-value" id="bollard-pull-result">37.8<span class="result-unit">tons</span></span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Total Engine Power</span>
+          <span class="result-value small" id="total-power-result">4000 HP</span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">K-Factor Used</span>
+          <span class="result-value small" id="k-factor-result">0.0115</span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Effective Thrust</span>
+          <span class="result-value small" id="thrust-result">336.4 kN</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="app-cta" aria-label="Mobile app promotion">
+      <p>Get marine calculators on your iPhone for fast on-board and dockside reference.</p>
+      <a href="https://apps.apple.com/app/id0000000000?utm_source=web&amp;utm_medium=calculator&amp;utm_campaign=marine-toolkit">
+        <img src="../assets/app-store-badge.svg" alt="Download Marine Toolkit on the App Store" width="120" height="40">
+      </a>
+    </section>
+
+    <article>
+      <h2>What is Bollard Pull?</h2>
+      <p>Bollard pull is the static pulling force a tug can generate when it is made fast to a fixed point, traditionally a bollard on the quay. Instead of measuring how fast a vessel moves, bollard pull measures how hard a tug can pull when forward motion is essentially prevented. That makes it a very practical rating for harbor assist, coastal towing, barge work, and offshore support because operators often need to compare towing capability rather than free-running speed. In specifications and charter discussions, bollard pull is usually shown in tonnes or US tons, with certified values coming from a controlled bollard pull test.</p>
+      <p>The number matters because engine horsepower by itself does not tell the whole story. A tug converts engine power into thrust through gears, shafts, propellers, nozzles, and the hull flow around the propulsor. The quality of that conversion determines how much of the installed power becomes useful static pull. Two tugs with similar power can therefore produce noticeably different bollard pull if one has a nozzle, larger propeller diameter, better low-speed propulsive efficiency, or a hull designed specifically for towage. A calculator like this is best used for preliminary estimation, concept comparison, and sanity checks before sea trial or certified test data are available.</p>
+
+      <h2>How to Calculate Bollard Pull</h2>
+      <p>A common preliminary estimate uses an empirical K-factor multiplied by the total installed power in kilowatts. The first step is to express engine power in kilowatts because the K-values in this calculator are based on kW input. If your engine rating is in horsepower, multiply by 0.7457 to convert from HP to kW. Next, multiply by the number of engines to find total installed power. Finally, multiply that total kW by the selected K-factor. The result is bollard pull in metric tonnes. If you are working in imperial units, you can convert the final answer to US tons by multiplying tonnes by 1.10231.</p>
+      <p>The K-factor is where engineering judgment enters the estimate. Open propeller tugs often fall around 0.011 to 0.012, while ducted or Kort-nozzle arrangements are usually higher because the nozzle improves static thrust. Azimuth thrusters can also perform well at low speed, but the exact value depends on the propulsor design, loading, and hull interaction. This is why the calculator includes both a propulsion preset and a manual override. The preset gives a sensible default for quick estimates, and the override lets you apply a yard standard, fleet average, or measured back-calculation from existing vessels.</p>
+      <div class="formula-block">
+        <span class="formula-label">Formulas</span>
+        <div>Total Power (kW) = Engine Power<sub>kW</sub> &times; Number of Engines</div>
+        <div>Engine Power<sub>kW</sub> = Engine Power<sub>HP</sub> &times; 0.7457</div>
+        <div>Bollard Pull (tonnes) = K &times; Total Power (kW)</div>
+        <div>Bollard Pull (US tons) = Bollard Pull (tonnes) &times; 1.10231</div>
+      </div>
+      <p>Worked example: assume a tug has two 2000 HP main engines driving open propellers and use K = 0.0115. First convert one engine to kilowatts: 2000 &times; 0.7457 = 1491.4 kW. Then multiply by two engines to get 2982.8 kW total installed power. Apply the K-factor: 0.0115 &times; 2982.8 = 34.3 tonnes of bollard pull. To express the same result in US tons, multiply 34.3 by 1.10231 to get about 37.8 US tons. If you want an equivalent thrust value, 34.3 tonnes-force corresponds to roughly 336.4 kN.</p>
+      <p>This method is intentionally simplified. Real tug performance depends on propeller diameter, rpm, gearbox ratio, wake fraction, hull clearances, fouling, machinery condition, ambient water conditions, and whether the published engine power is continuous or maximum intermittent rating. Still, the empirical formula is useful because it captures the broad relationship between installed power and static pull in a quick, transparent way. It is a screening tool for design studies and operational planning, not a substitute for measured bollard pull certification.</p>
+
+      <h2>Propulsion K-Factor Reference Table</h2>
+      <p>The table below summarizes common preliminary K-factor ranges used for tug bollard-pull estimates. These values are not universal constants. They vary with propeller efficiency, nozzle geometry, drivetrain losses, and how well the propulsion system is optimized for static thrust rather than transit speed. Use them as starting points and refine them against known vessels whenever you can.</p>
+      <div class="table-wrapper">
+        <table class="reference-table">
+          <thead>
+            <tr>
+              <th>Propulsion Type</th>
+              <th>K-Factor Range</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Open Propeller</td><td>0.011-0.012</td><td>Common baseline for conventional twin-screw tugs without nozzles; efficiency depends heavily on propeller diameter and low-speed loading.</td></tr>
+            <tr><td>Ducted/Kort Nozzle</td><td>0.013-0.015</td><td>Nozzle improves static thrust and often produces a higher bollard pull for the same installed power, especially in towing service.</td></tr>
+            <tr><td>Azimuth/Z-drive</td><td>0.013</td><td>Strong maneuverability and good thrust performance, but exact value varies with propulsor design and hull integration.</td></tr>
+            <tr><td>Tractor Tug</td><td>0.014-0.016</td><td>High-performance escort and harbor-assist designs may reach the upper end when optimized for static pull and steering force.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>When selecting a K-factor, try to match not only the propulsion category but also the operational role. A harbor tug optimized for maximum pull at very low speed should not be compared directly with a multi-purpose workboat that sacrifices some static thrust for transit efficiency or deck utility. If your organization has historical test data, calibrating K against actual vessels will produce better estimates than relying on generic ranges alone.</p>
+
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-section">
+        <details>
+          <summary>What is bollard pull?</summary>
+          <div class="faq-answer">
+            <p>Bollard pull is the static towing force a tug can produce while secured to a fixed point. It is commonly reported in metric tonnes or US tons and is one of the main performance ratings used when comparing tugs for towing or harbor-assist work.</p>
+          </div>
+        </details>
+        <details>
+          <summary>How is bollard pull different from engine power?</summary>
+          <div class="faq-answer">
+            <p>Engine power describes the energy available from the machinery, while bollard pull describes the thrust that actually reaches the towline in a static condition. Propeller type, nozzle use, drivetrain losses, and hull interaction determine how effectively installed power is converted into pull.</p>
+          </div>
+        </details>
+        <details>
+          <summary>What affects K-factor for a tug?</summary>
+          <div class="faq-answer">
+            <p>K-factor is influenced by propulsion arrangement, propeller diameter and pitch, gearbox ratio, nozzle geometry, hull-propeller interaction, and overall condition of the tug. It is an empirical shortcut, so its accuracy improves when you base it on similar vessels or measured trial data.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Is measured or theoretical bollard pull more accurate?</summary>
+          <div class="faq-answer">
+            <p>Measured bollard pull is more accurate because it comes from an actual test with calibrated instrumentation. Theoretical or empirical estimates are useful early in design, for tender screening, and for back-of-the-envelope checks, but they cannot capture every loss and operating detail.</p>
+          </div>
+        </details>
+        <details>
+          <summary>What bollard pull rating do I need for towing?</summary>
+          <div class="faq-answer">
+            <p>The correct rating depends on the tow size, required control margin, environmental loads, local regulations, and the specific mission. Harbor docking, coastal towing, escort work, and offshore towing all impose different demands, so bollard pull should be selected together with maneuverability, winch capacity, and safety factors.</p>
+          </div>
+        </details>
+      </div>
+    </article>
+
+    <section class="related-calculators">
+      <h3>More Marine Calculators</h3>
+      <ul>
+        <li><a href="hull-speed-calculator.html">Hull Speed Calculator</a></li>
+        <li><a href="anchor-scope-calculator.html">Anchor Scope Calculator</a></li>
+        <li><a href="bilge-pump-calculator.html">Bilge Pump Calculator</a></li>
+        <li><a href="propeller-slip-calculator.html">Propeller Slip Calculator</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-apps">
+        <a href="https://apps.apple.com/app/id0000000000?utm_source=web&amp;utm_medium=calculator&amp;utm_campaign=marine-toolkit">Marine Toolkit on App Store</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const enginePowerInput = document.getElementById("engine-power");
+    const numEnginesInput = document.getElementById("num-engines");
+    const propulsionTypeSelect = document.getElementById("propulsion-type");
+    const kFactorInput = document.getElementById("k-factor");
+    const unitToggle = document.getElementById("unit-system");
+    const metricLabel = document.getElementById("metric-label");
+    const imperialLabel = document.getElementById("imperial-label");
+
+    const bollardPullResult = document.getElementById("bollard-pull-result");
+    const totalPowerResult = document.getElementById("total-power-result");
+    const kFactorResult = document.getElementById("k-factor-result");
+    const thrustResult = document.getElementById("thrust-result");
+
+    const HP_TO_KW = 0.7457;
+    const TONNE_TO_US_TON = 1.10231;
+    const TONNE_FORCE_TO_KN = 9.80665;
+
+    function formatNumber(value, decimals) {
+      return Number(value).toFixed(decimals);
+    }
+
+    function hpToKw(value) {
+      return value * HP_TO_KW;
+    }
+
+    function kwToHp(value) {
+      return value / HP_TO_KW;
+    }
+
+    function updateInputUnits() {
+      const isMetric = unitToggle.checked;
+      document.querySelectorAll(".power-unit").forEach((el) => {
+        el.textContent = isMetric ? "kW" : "HP";
+      });
+      imperialLabel.classList.toggle("active", !isMetric);
+      metricLabel.classList.toggle("active", isMetric);
+    }
+
+    function syncDisplayedPower() {
+      const enginePowerHp = parseFloat(enginePowerInput.dataset.imperialValue);
+      const isMetric = unitToggle.checked;
+
+      enginePowerInput.value = Number.isFinite(enginePowerHp)
+        ? formatNumber(isMetric ? hpToKw(enginePowerHp) : enginePowerHp, 1)
+        : "";
+    }
+
+    function setPullResult(value, unitLabel) {
+      if (!Number.isFinite(value)) {
+        bollardPullResult.textContent = "—";
+        return;
+      }
+
+      bollardPullResult.innerHTML = formatNumber(value, 1) + '<span class="result-unit">' + unitLabel + "</span>";
+    }
+
+    function setSmallResult(element, text) {
+      element.textContent = text;
+    }
+
+    function calculate() {
+      const enginePowerHp = parseFloat(enginePowerInput.dataset.imperialValue);
+      const numEngines = parseFloat(numEnginesInput.value);
+      const kFactor = parseFloat(kFactorInput.value);
+
+      if (![enginePowerHp, numEngines, kFactor].every(Number.isFinite) || enginePowerHp <= 0 || numEngines <= 0 || kFactor <= 0) {
+        [bollardPullResult, totalPowerResult, kFactorResult, thrustResult].forEach((element) => {
+          element.textContent = "—";
+        });
+        return;
+      }
+
+      const enginePowerKw = hpToKw(enginePowerHp);
+      const totalPowerKw = enginePowerKw * numEngines;
+      const bollardPullTonnes = kFactor * totalPowerKw;
+      const bollardPullUsTons = bollardPullTonnes * TONNE_TO_US_TON;
+      const effectiveThrustKn = bollardPullTonnes * TONNE_FORCE_TO_KN;
+      const isMetric = unitToggle.checked;
+      const displayedTotalPower = isMetric ? totalPowerKw : kwToHp(totalPowerKw);
+      const displayedPowerUnit = isMetric ? "kW" : "HP";
+
+      setPullResult(isMetric ? bollardPullTonnes : bollardPullUsTons, isMetric ? "tonnes" : "tons");
+      setSmallResult(totalPowerResult, formatNumber(displayedTotalPower, 1) + " " + displayedPowerUnit);
+      setSmallResult(kFactorResult, formatNumber(kFactor, 4));
+      setSmallResult(thrustResult, formatNumber(effectiveThrustKn, 1) + " kN");
+    }
+
+    propulsionTypeSelect.addEventListener("change", () => {
+      kFactorInput.value = propulsionTypeSelect.value;
+      calculate();
+    });
+
+    enginePowerInput.addEventListener("input", () => {
+      const displayedValue = parseFloat(enginePowerInput.value);
+      enginePowerInput.dataset.imperialValue = Number.isFinite(displayedValue)
+        ? String(unitToggle.checked ? kwToHp(displayedValue) : displayedValue)
+        : "";
+      calculate();
+    });
+
+    numEnginesInput.addEventListener("input", calculate);
+    kFactorInput.addEventListener("input", calculate);
+
+    unitToggle.addEventListener("change", () => {
+      updateInputUnits();
+      syncDisplayedPower();
+      calculate();
+    });
+
+    enginePowerInput.dataset.imperialValue = enginePowerInput.value;
+    updateInputUnits();
+    syncDisplayedPower();
+    calculate();
+  </script>
+</body>
+</html>
